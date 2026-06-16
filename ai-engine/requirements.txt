@@ -16,4 +16,4 @@ prometheus_fastapi_instrumentator==7.0.0
 transformers==4.40.1
 torch==2.3.0
 langgraph==0.0.39
-langchain-core==0.1.45
+langchain-core==0.1.46
