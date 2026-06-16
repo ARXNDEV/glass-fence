@@ -31,8 +31,8 @@ import (
 */
 
 const (
-	videoSrc = "ximagesrc display-name=%s show-pointer=true use-damage=false ! video/x-raw,framerate=%d/1 ! videoconvert ! queue ! "
-	audioSrc = "pulsesrc device=%s ! audio/x-raw,channels=2 ! audioconvert ! "
+	videoSrc = "ximagesrc display-name=%s show-pointer=true use-damage=false ! video/x-raw,framerate=%d/1 ! videoconvert ! queue max-size-time=10000000 max-size-buffers=3 leaky=downstream ! "
+	audioSrc = "pulsesrc device=%s buffer-time=20000 latency-time=10000 ! audio/x-raw,channels=2 ! audioconvert ! queue max-size-time=20000000 max-size-buffers=10 leaky=downstream ! "
 )
 
 func NewBroadcastPipeline(device string, display string, pipelineSrc string, url string) string {
@@ -95,7 +95,7 @@ func NewVideoPipeline(rtpCodec codec.RTPCodec, display string, pipelineSrc strin
 				fmt.Sprintf(videoSrc, display, fps),
 				"vp8enc",
 				fmt.Sprintf("target-bitrate=%d", bitrate*650),
-				"cpu-used=4",
+				"cpu-used=8",
 				"end-usage=cbr",
 				"threads=4",
 				"deadline=1",
@@ -179,7 +179,7 @@ func NewVideoPipeline(rtpCodec codec.RTPCodec, display string, pipelineSrc strin
 				return "", err
 			}
 
-			pipelineStr = fmt.Sprintf(videoSrc+"video/x-raw,format=NV12 ! x264enc threads=4 bitrate=%d key-int-max=60 vbv-buf-capacity=%d byte-stream=true tune=zerolatency speed-preset=veryfast ! video/x-h264,stream-format=byte-stream,profile=constrained-baseline"+pipelineStr, display, fps, bitrate, vbvbuf)
+			pipelineStr = fmt.Sprintf(videoSrc+"video/x-raw,format=NV12 ! x264enc threads=4 bitrate=%d key-int-max=60 vbv-buf-capacity=%d byte-stream=true tune=zerolatency speed-preset=ultrafast ! video/x-h264,stream-format=byte-stream,profile=constrained-baseline"+pipelineStr, display, fps, bitrate, vbvbuf)
 		}
 	default:
 		return "", fmt.Errorf("unknown codec %s", rtpCodec.Name)
@@ -206,7 +206,7 @@ func NewAudioPipeline(rtpCodec codec.RTPCodec, device string, pipelineSrc string
 			return "", err
 		}
 
-		pipelineStr = fmt.Sprintf(audioSrc+"opusenc inband-fec=true bitrate=%d"+pipelineStr, device, bitrate*1000)
+		pipelineStr = fmt.Sprintf(audioSrc+"opusenc audio-type=restricted-lowdelay frame-size=10 inband-fec=true bitrate=%d"+pipelineStr, device, bitrate*1000)
 	case codec.G722().Name:
 		// https://gstreamer.freedesktop.org/documentation/libav/avenc_g722.html?gi-language=c
 		// gstreamer1.0-libav

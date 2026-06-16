@@ -451,6 +451,11 @@ export abstract class BaseClient extends EventEmitter<BaseEvents> {
       this.emit('warn', `no stream provided for track ${event.track.id}(${event.track.label})`)
       return
     }
+    if ('playoutDelayHint' in event.receiver) {
+      // @ts-ignore
+      event.receiver.playoutDelayHint = 0
+    }
+
     this[EVENT.TRACK](event)
   }
 
