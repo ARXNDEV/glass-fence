@@ -1,5 +1,7 @@
 services:
   firefox:
+    cap_add:
+      - SYS_ADMIN
     image: "arxndevv/glass-fence-firefox:latest"
     restart: "unless-stopped"
     shm_size: "2gb"
@@ -25,6 +27,8 @@ services:
       NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
 
   chromium:
+    cap_add:
+      - SYS_ADMIN
     image: "arxndevv/glass-fence-chromium:latest"
     restart: "unless-stopped"
     shm_size: "2gb"
@@ -50,6 +54,8 @@ services:
       NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
 
   linux:
+    cap_add:
+      - SYS_ADMIN
     image: "arxndevv/glass-fence-xfce:latest"
     restart: "unless-stopped"
     shm_size: "2gb"
@@ -73,3 +79,19 @@ services:
       NEKO_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
       NEKO_CAPTURE_VIDEO_IDS: main
       NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
+
+  ai-engine:
+    build: ./ai-engine
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ai-model-cache:/tmp
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  ai-model-cache:

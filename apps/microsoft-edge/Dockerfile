@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=arxndevv/glass-fence/base:latest
+ARG BASE_IMAGE=arxndevv/glass-fence-base:latest
 FROM $BASE_IMAGE
 
 ARG API_URL="https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/"

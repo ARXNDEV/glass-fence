@@ -8,9 +8,18 @@ export const state = () => ({
   tab: get<string>('tab', 'chat'),
   about: false,
   about_page: '',
+  // AI Threat State
+  threatLevel: 'OFFLINE' as 'OFFLINE' | 'CLEAR' | 'CAUTION' | 'CRITICAL',
+  threatScore: 0 as number,
+  currentURL: '' as string,
+  aiConnected: false as boolean,
+  threatsBlocked: 0 as number,
+  lastThreatReasons: [] as string[],
 })
 
-export const getters = getterTree(state, {})
+export const getters = getterTree(state, {
+  isThreatActive: (state) => state.threatLevel === 'CAUTION' || state.threatLevel === 'CRITICAL',
+})
 
 export const mutations = mutationTree(state, {
   setTab(state, tab: string) {
@@ -30,6 +39,31 @@ export const mutations = mutationTree(state, {
   setSide(state, side: boolean) {
     state.side = side
     set('side', side)
+  },
+  // AI mutations
+  setThreatLevel(state, level: 'OFFLINE' | 'CLEAR' | 'CAUTION' | 'CRITICAL') {
+    state.threatLevel = level
+  },
+  setThreatScore(state, score: number) {
+    state.threatScore = score
+  },
+  setCurrentURL(state, url: string) {
+    state.currentURL = url
+  },
+  setAIConnected(state, connected: boolean) {
+    state.aiConnected = connected
+    if (connected && state.threatLevel === 'OFFLINE') {
+      state.threatLevel = 'CLEAR'
+    }
+    if (!connected) {
+      state.threatLevel = 'OFFLINE'
+    }
+  },
+  incrementThreatsBlocked(state) {
+    state.threatsBlocked++
+  },
+  setLastThreatReasons(state, reasons: string[]) {
+    state.lastThreatReasons = reasons
   },
 })
 

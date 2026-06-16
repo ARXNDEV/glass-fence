@@ -45,7 +45,7 @@ func (Member) Init(cmd *cobra.Command) error {
 	}
 
 	// multiuser provider
-	cmd.PersistentFlags().String("member.multiuser.user_password", "neko", "member multiuser provider: password for regular users")
+	cmd.PersistentFlags().String("member.multiuser.user_password", "", "member multiuser provider: password for regular users")
 	if err := viper.BindPFlag("member.multiuser.user_password", cmd.PersistentFlags().Lookup("member.multiuser.user_password")); err != nil {
 		return err
 	}
@@ -149,7 +149,7 @@ func (s *Member) SetV2() {
 		if userPassword := viper.GetString("password"); userPassword != "" {
 			s.Multiuser.UserPassword = userPassword
 		} else {
-			s.Multiuser.UserPassword = "neko"
+			s.Multiuser.UserPassword = ""
 		}
 		if adminPassword := viper.GetString("password_admin"); adminPassword != "" {
 			s.Multiuser.AdminPassword = adminPassword

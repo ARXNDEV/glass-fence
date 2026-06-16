@@ -143,7 +143,7 @@
     name: 'gf-context',
     components: {
       'vue-context': VueContext,
-      'neko-avatar': Avatar,
+      'gf-avatar': Avatar,
     },
   })
   export default class extends Vue {

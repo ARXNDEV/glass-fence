@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=arxndevv/glass-fence/base:latest
+ARG BASE_IMAGE=arxndevv/glass-fence-base:latest
 FROM $BASE_IMAGE
 
 ARG API_URL="https://api.github.com/repos/macchrome/linchrome/releases/latest"

@@ -32,6 +32,98 @@ export class NekoClient extends BaseClient implements EventEmitter<NekoEvents> {
   private $accessor!: typeof accessor
   private url!: string
 
+  private aiWS: WebSocket | null = null
+  private aiEngineURL: string = process.env.VUE_APP_AI_ENGINE_URL || 'http://localhost:8000'
+
+  connectAIEngine() {
+    const wsURL = this.aiEngineURL.replace('http://', 'ws://').replace('https://', 'wss://')
+    const sessionId = this.id || 'default'
+    
+    try {
+      this.aiWS = new WebSocket(`${wsURL}/ws/${sessionId}`)
+
+      this.aiWS.onopen = () => {
+        this.$accessor.client.setAIConnected(true)
+        console.log('[GF-AI] AI Engine connected')
+      }
+
+      this.aiWS.onmessage = (event) => {
+        const data = JSON.parse(event.data)
+        
+        if (data.type === 'threat_update') {
+          this.$accessor.client.setThreatLevel(data.threat_level)
+          this.$accessor.client.setThreatScore(data.risk_score)
+          this.$accessor.client.setCurrentURL(data.url)
+          this.$accessor.client.setLastThreatReasons(data.reasons || [])
+          if (data.action === 'BLOCK') {
+            this.$accessor.client.incrementThreatsBlocked()
+            this.$vue.$notify({
+              group: 'glass-fence',
+              type: 'error',
+              title: '🚫 THREAT BLOCKED',
+              text: data.url,
+              duration: 8000,
+            })
+          } else if (data.action === 'WARN') {
+            this.$vue.$notify({
+              group: 'glass-fence',
+              type: 'warning',
+              title: '⚠ CAUTION',
+              text: data.url,
+              duration: 5000,
+            })
+          }
+        }
+
+        if (data.type === 'pixel_threat' && data.phishing_detected) {
+          this.$vue.$notify({
+            group: 'glass-fence',
+            type: 'error',
+            title: '🎯 VISUAL PHISHING DETECTED',
+            text: data.indicators?.[0] || 'Suspicious page layout',
+            duration: 10000,
+          })
+        }
+      }
+
+      this.aiWS.onclose = () => {
+        this.$accessor.client.setAIConnected(false)
+        // Auto-reconnect after 5 seconds
+        setTimeout(() => this.connectAIEngine(), 5000)
+      }
+
+      this.aiWS.onerror = () => {
+        console.warn('[GF-AI] AI Engine not reachable — running in isolation-only mode')
+        this.$accessor.client.setAIConnected(false)
+      }
+
+    } catch (e) {
+      console.warn('[GF-AI] Could not connect to AI engine', e)
+    }
+  }
+
+  async analyzeURL(url: string) {
+    if (!url || url.startsWith('about:') || url.startsWith('chrome:')) return
+    
+    this.$accessor.client.setCurrentURL(url)
+    
+    try {
+      const response = await fetch(`${this.aiEngineURL}/analyze/url`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, session_id: this.id || 'default' })
+      })
+      if (response.ok) {
+        const data = await response.json()
+        this.$accessor.client.setThreatLevel(data.threat_level)
+        this.$accessor.client.setThreatScore(data.risk_score)
+        this.$accessor.client.setLastThreatReasons(data.reasons || [])
+      }
+    } catch (e) {
+      // AI engine offline — silent fail, isolation still works
+    }
+  }
+
   init(vue: Vue) {
     const url =
       process.env.NODE_ENV === 'development'
@@ -76,7 +168,7 @@ export class NekoClient extends BaseClient implements EventEmitter<NekoEvents> {
   /////////////////////////////
   protected [EVENT.RECONNECTING]() {
     this.$vue.$notify({
-      group: 'neko',
+      group: 'glass-fence',
       type: 'warning',
       title: this.$vue.$t('connection.reconnecting') as string,
       duration: 5000,
@@ -93,24 +185,26 @@ export class NekoClient extends BaseClient implements EventEmitter<NekoEvents> {
     this.$accessor.setConnected(true)
 
     this.$vue.$notify({
-      group: 'neko',
+      group: 'glass-fence',
       clean: true,
     })
 
     this.$vue.$notify({
-      group: 'neko',
+      group: 'glass-fence',
       type: 'success',
       title: this.$vue.$t('connection.connected') as string,
       duration: 5000,
       speed: 1000,
     })
+
+    this.connectAIEngine()
   }
 
   protected [EVENT.DISCONNECTED](reason?: Error) {
     this.cleanup()
 
     this.$vue.$notify({
-      group: 'neko',
+      group: 'glass-fence',
       type: 'error',
       title: this.$vue.$t('connection.disconnected') as string,
       text: reason ? reason.message : undefined,
@@ -233,7 +327,7 @@ export class NekoClient extends BaseClient implements EventEmitter<NekoEvents> {
 
     if (this.id === id) {
       this.$vue.$notify({
-        group: 'neko',
+        group: 'glass-fence',
         type: 'info',
         title: this.$vue.$t('notifications.controls_taken', {
           name: member.id == this.id && this.$vue.$te('you') ? this.$vue.$t('you') : member.displayname,
@@ -260,7 +354,7 @@ export class NekoClient extends BaseClient implements EventEmitter<NekoEvents> {
 
     if (this.id === id) {
       this.$vue.$notify({
-        group: 'neko',
+        group: 'glass-fence',
         type: 'info',
         title: this.$vue.$t('notifications.controls_released', {
           name: member.id == this.id && this.$vue.$te('you') ? this.$vue.$t('you') : member.displayname,
@@ -285,7 +379,7 @@ export class NekoClient extends BaseClient implements EventEmitter<NekoEvents> {
     }
 
     this.$vue.$notify({
-      group: 'neko',
+      group: 'glass-fence',
       type: 'info',
       title: this.$vue.$t('notifications.controls_has', { name: member.displayname }) as string,
       text: this.$vue.$t('notifications.controls_has_alt') as string,
@@ -301,7 +395,7 @@ export class NekoClient extends BaseClient implements EventEmitter<NekoEvents> {
     }
 
     this.$vue.$notify({
-      group: 'neko',
+      group: 'glass-fence',
       type: 'info',
       title: this.$vue.$t('notifications.controls_requesting', { name: member.displayname }) as string,
       duration: 5000,

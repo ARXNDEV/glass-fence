@@ -357,10 +357,10 @@
   @Component({
     name: 'gf-chat',
     components: {
-      'neko-markdown': Markdown,
-      'neko-context': Content,
-      'neko-emoji': Emoji,
-      'neko-avatar': Avatar,
+      'gf-markdown': Markdown,
+      'gf-context': Content,
+      'gf-emoji': Emoji,
+      'gf-avatar': Avatar,
     },
   })
   export default class extends Vue {

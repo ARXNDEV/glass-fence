@@ -5,10 +5,19 @@
     </div>
 
     <div class="sidebar-section">
-      <div class="section-title">URL Analysis</div>
+      <div class="section-title">URL ANALYSIS</div>
       <div class="url-info">
-        <span class="mono">> stream.isolated</span>
-        <div class="status-clean">STATUS: CLEAN</div>
+        <span class="mono">> {{ currentURL || 'waiting...' }}</span>
+        <div class="status-badge" :class="threatLevelClass">
+          STATUS: {{ threatLevel }}
+        </div>
+        <div class="risk-bar" v-if="threatScore > 0">
+          <div class="risk-fill" :style="{ width: (threatScore * 100) + '%' }"></div>
+          <span class="risk-label">RISK: {{ (threatScore * 100).toFixed(0) }}%</span>
+        </div>
+        <div class="threat-reasons" v-if="threatReasons.length > 0">
+          <div class="reason" v-for="(r, i) in threatReasons" :key="i">⚠ {{ r }}</div>
+        </div>
       </div>
     </div>
 
@@ -81,14 +90,57 @@
         color: var(--text-primary);
       }
 
-      .status-clean {
-        font-size: 12px;
+      .status-badge {
+        font-size: 11px;
         font-weight: bold;
-        color: var(--text-primary);
-        padding: 4px 8px;
+        padding: 3px 8px;
         border: 1px solid var(--border-default);
         display: inline-block;
-        width: fit-content;
+        letter-spacing: 1px;
+
+        &.status-clear { color: var(--text-primary); border-color: var(--border-default); }
+        &.status-caution { color: #aaaaaa; border-color: #aaaaaa; }
+        &.status-critical {
+          background: var(--text-primary);
+          color: var(--bg-primary);
+          animation: threat-flash 1s infinite;
+        }
+        &.status-offline { color: var(--text-muted); }
+      }
+
+      .risk-bar {
+        width: 100%;
+        height: 2px;
+        background: var(--border-default);
+        position: relative;
+        margin-top: 8px;
+
+        .risk-fill {
+          height: 100%;
+          background: var(--text-primary);
+          transition: width 0.5s ease;
+        }
+        .risk-label {
+          font-family: var(--text-mono);
+          font-size: 10px;
+          color: var(--text-muted);
+          margin-top: 4px;
+          display: block;
+        }
+      }
+
+      .threat-reasons {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .reason {
+          font-family: var(--text-mono);
+          font-size: 10px;
+          color: var(--text-secondary);
+          line-height: 1.4;
+        }
       }
     }
 
@@ -159,6 +211,30 @@ interface LogEntry {
 export default class extends Vue {
   private logs: LogEntry[] = []
   private maxLogs = 50
+
+  get currentURL() {
+    return this.$accessor.client.currentURL
+  }
+  get threatLevel() {
+    return this.$accessor.client.threatLevel
+  }
+  get threatScore() {
+    return this.$accessor.client.threatScore
+  }
+  get threatReasons() {
+    return this.$accessor.client.lastThreatReasons
+  }
+  get threatLevelClass() {
+    return {
+      'status-clear': this.threatLevel === 'CLEAR',
+      'status-caution': this.threatLevel === 'CAUTION',
+      'status-critical': this.threatLevel === 'CRITICAL',
+      'status-offline': this.threatLevel === 'OFFLINE',
+    }
+  }
+  get threatsBlocked() {
+    return this.$accessor.client.threatsBlocked
+  }
 
   @Watch('$accessor.connected', { immediate: true })
   onConnectionChange(connected: boolean) {

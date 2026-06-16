@@ -1,5 +1,5 @@
 <template>
-  <div class="neko-emoji" v-on-clickaway="onClickAway">
+  <div class="gf-emoji" v-on-clickaway="onClickAway">
     <div class="search">
       <div class="search-contianer">
         <input type="text" ref="search" v-model="search" />
@@ -59,7 +59,7 @@
 <style lang="scss" scoped>
   $emoji-width: 300px;
 
-  .neko-emoji {
+  .gf-emoji {
     position: absolute;
     z-index: 10000;
     width: $emoji-width;
@@ -249,7 +249,7 @@
             &.group-recent::before {
               content: '\f017';
             }
-            &.group-neko::before {
+            &.group-gf::before {
               content: '\f6be';
             }
             &.group-emotion::before {

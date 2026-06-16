@@ -121,10 +121,10 @@
   @Component({
     name: 'glass-fence',
     components: {
-      'neko-connect': Connect,
-      'neko-video': Video,
-      'neko-about': About,
-      'neko-unsupported': Unsupported,
+      'gf-connect': Connect,
+      'gf-video': Video,
+      'gf-about': About,
+      'gf-unsupported': Unsupported,
       TopNav,
       Sidebar,
       BottomBar

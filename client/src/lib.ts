@@ -1,4 +1,4 @@
-import { accessor as neko } from './store'
+import { accessor as glassfence } from './store'
 import { PluginObject } from 'vue'
 
 // Plugins
@@ -36,7 +36,7 @@ Vue.use(ToolTip)
 const exportMixin = {
   computed: {
     $accessor() {
-      return neko
+      return glassfence
     },
     $client() {
       return window.$client
@@ -73,5 +73,5 @@ export const NekoMarkdown = extend(Markdown)
 export const NekoContext = extend(Context)
 export const NekoAvatar = extend(Avatar)
 
-neko.initialise()
-export default neko
+glassfence.initialise()
+export default glassfence

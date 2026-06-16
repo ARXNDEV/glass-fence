@@ -9,6 +9,12 @@
     <div class="item">
       <span>ISOLATION: <span class="highlight">{{ isolationStatus }}</span></span>
     </div>
+    <div class="item">
+      <span>AI ENGINE: <span class="highlight">{{ aiStatus }}</span></span>
+    </div>
+    <div class="item">
+      <span>BLOCKED: <span class="highlight">{{ threatsBlocked }}</span></span>
+    </div>
     <div class="item right">
       <span>ARXNDEV © 2025</span>
     </div>
@@ -57,6 +63,13 @@ export default class extends Vue {
 
   get isolationStatus() {
     return this.$accessor.connected ? 'ACTIVE' : 'INACTIVE'
+  }
+
+  get aiStatus() {
+    return this.$accessor.client.aiConnected ? 'ONLINE' : 'OFFLINE'
+  }
+  get threatsBlocked() {
+    return this.$accessor.client.threatsBlocked
   }
 }
 </script>

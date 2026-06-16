@@ -165,8 +165,8 @@
   @Component({
     name: 'gf-members',
     components: {
-      'neko-context': Content,
-      'neko-avatar': Avatar,
+      'gf-context': Content,
+      'gf-avatar': Avatar,
     },
   })
   export default class extends Vue {

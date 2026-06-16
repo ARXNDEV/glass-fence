@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=arxndevv/glass-fence/base:latest
+ARG BASE_IMAGE=arxndevv/glass-fence-base:latest
 FROM $BASE_IMAGE
 
 ARG API_URL="https://download5.operacdn.com/pub/opera/desktop/"

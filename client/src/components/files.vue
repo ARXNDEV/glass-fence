@@ -274,8 +274,8 @@
   @Component({
     name: 'gf-files',
     components: {
-      'neko-markdown': Markdown,
-      'neko-context': Content,
+      'gf-markdown': Markdown,
+      'gf-context': Content,
     },
   })
   export default class extends Vue {

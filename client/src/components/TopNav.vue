@@ -143,8 +143,15 @@ export default class extends Vue {
   }
 
   get threatLevel(): string {
-    // Default CLEAR; will upgrade once AI engine is integrated
-    return this.$accessor.connected ? 'CLEAR' : 'OFFLINE'
+    return this.$accessor.client.threatLevel
+  }
+
+  get threatScore(): number {
+    return this.$accessor.client.threatScore
+  }
+
+  get aiConnected(): boolean {
+    return this.$accessor.client.aiConnected
   }
 
   get threatClass() {

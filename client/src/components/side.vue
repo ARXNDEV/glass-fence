@@ -1,5 +1,5 @@
 <template>
-  <aside class="neko-menu">
+  <aside class="gf-menu">
     <div class="tabs-container">
       <ul>
         <li :class="{ active: tab === 'chat' }" @click.stop.prevent="change('chat')">
@@ -88,9 +88,9 @@
   @Component({
     name: 'glass-fence-side',
     components: {
-      'neko-settings': Settings,
-      'neko-chat': Chat,
-      'neko-files': Files,
+      'gf-settings': Settings,
+      'gf-chat': Chat,
+      'gf-files': Files,
     },
   })
   export default class extends Vue {

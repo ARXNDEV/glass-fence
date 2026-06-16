@@ -23,7 +23,7 @@ func init() {
 }
 
 func pluginsCmd(cmd *cobra.Command, args []string) {
-	pluginDir := "/etc/neko/plugins"
+	pluginDir := "/etc/glass-fence/plugins"
 	if len(args) > 0 {
 		pluginDir = args[0]
 	}

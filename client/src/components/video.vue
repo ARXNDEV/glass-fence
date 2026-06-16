@@ -261,9 +261,9 @@
   @Component({
     name: 'gf-video',
     components: {
-      'neko-emote': Emote,
-      'neko-resolution': Resolution,
-      'neko-clipboard': Clipboard,
+      'gf-emote': Emote,
+      'gf-resolution': Resolution,
+      'gf-clipboard': Clipboard,
     },
   })
   export default class extends Vue {
