@@ -1,0 +1,54 @@
+<template>
+  <div class="bottom-bar">
+    <div class="item">
+      <span>GLASS FENCE v1.0.0</span>
+    </div>
+    <div class="item">
+      <span>WebRTC: <span class="highlight">CONNECTED</span></span>
+    </div>
+    <div class="item">
+      <span>ISOLATION: <span class="highlight">ACTIVE</span></span>
+    </div>
+    <div class="item right">
+      <span>ARXNDEV © 2025</span>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+@import '~/assets/styles/_variables.scss';
+
+.bottom-bar {
+  height: 30px;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 30px;
+
+  .item {
+    font-family: var(--text-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    .highlight {
+      color: var(--text-secondary);
+      font-weight: bold;
+    }
+
+    &.right {
+      margin-left: auto;
+    }
+  }
+}
+</style>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({ name: 'BottomBar' })
+export default class extends Vue {}
+</script>

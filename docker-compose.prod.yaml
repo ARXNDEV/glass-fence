@@ -1,0 +1,112 @@
+version: "3.8"
+
+services:
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      - "--api.insecure=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL:-admin@yourdomain.com}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "traefik_certs:/letsencrypt"
+    networks:
+      - web
+
+  firefox:
+    image: "arxndevv/glass-fence/firefox:latest"
+    restart: "unless-stopped"
+    shm_size: "2gb"
+    environment:
+      NEKO_DESKTOP_SCREEN: ${SCREEN_RESOLUTION:-1920x1080@60}
+      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: ${USER_PASSWORD:-neko}
+      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
+      NEKO_WEBRTC_UDPMUX: ${UDP_MUX_PORT:-53000}
+      NEKO_WEBRTC_ICELITE: 1
+      NEKO_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
+      NEKO_CAPTURE_VIDEO_IDS: main
+      NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp8}
+    ports:
+      - "${UDP_MUX_PORT:-53000}:${UDP_MUX_PORT:-53000}/udp"
+    volumes:
+      - "firefox_profile:/home/neko/.mozilla/firefox"
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.firefox.rule=Host(`firefox.${DOMAIN:-glassfence.local}`)"
+      - "traefik.http.routers.firefox.entrypoints=websecure"
+      - "traefik.http.routers.firefox.tls.certresolver=myresolver"
+      - "traefik.http.services.firefox.loadbalancer.server.port=8080"
+
+  chromium:
+    image: "arxndevv/glass-fence/chromium:latest"
+    restart: "unless-stopped"
+    shm_size: "2gb"
+    environment:
+      NEKO_DESKTOP_SCREEN: ${SCREEN_RESOLUTION:-1920x1080@60}
+      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: ${USER_PASSWORD:-neko}
+      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
+      NEKO_WEBRTC_UDPMUX: ${UDP_MUX_PORT:-53001}
+      NEKO_WEBRTC_ICELITE: 1
+      NEKO_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
+      NEKO_CAPTURE_VIDEO_IDS: main
+      NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp8}
+    ports:
+      - "${UDP_MUX_PORT:-53001}:${UDP_MUX_PORT:-53001}/udp"
+    volumes:
+      - "chromium_profile:/home/neko/.config/chromium"
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chromium.rule=Host(`chromium.${DOMAIN:-glassfence.local}`)"
+      - "traefik.http.routers.chromium.entrypoints=websecure"
+      - "traefik.http.routers.chromium.tls.certresolver=myresolver"
+      - "traefik.http.services.chromium.loadbalancer.server.port=8080"
+
+  linux:
+    image: "arxndevv/glass-fence/xfce:latest"
+    restart: "unless-stopped"
+    shm_size: "2gb"
+    environment:
+      NEKO_DESKTOP_SCREEN: ${SCREEN_RESOLUTION:-1920x1080@60}
+      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: ${USER_PASSWORD:-neko}
+      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
+      NEKO_WEBRTC_UDPMUX: ${UDP_MUX_PORT:-53002}
+      NEKO_WEBRTC_ICELITE: 1
+      NEKO_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
+      NEKO_CAPTURE_VIDEO_IDS: main
+      NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp8}
+    ports:
+      - "${UDP_MUX_PORT:-53002}:${UDP_MUX_PORT:-53002}/udp"
+    volumes:
+      - "linux_home:/home/neko"
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.linux.rule=Host(`linux.${DOMAIN:-glassfence.local}`)"
+      - "traefik.http.routers.linux.entrypoints=websecure"
+      - "traefik.http.routers.linux.tls.certresolver=myresolver"
+      - "traefik.http.services.linux.loadbalancer.server.port=8080"
+
+networks:
+  web:
+    driver: bridge
+
+volumes:
+  traefik_certs:
+  firefox_profile:
+  chromium_profile:
+  linux_home:

@@ -1,0 +1,92 @@
+// Fonts
+$text-family: 'Inter', sans-serif;
+$font-display: 'Space Grotesk', sans-serif;
+$font-mono: 'JetBrains Mono', monospace;
+
+// Brutalist Monochrome Variables
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0d0d0d;
+  --bg-card: #111111;
+  --bg-elevated: #1a1a1a;
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.24);
+
+  --text-primary: #ffffff;
+  --text-secondary: #888888;
+  --text-muted: #444444;
+  --text-mono: 'JetBrains Mono', monospace;
+
+  --status-safe: #ffffff;
+  --status-warn: #888888;
+  --status-danger-bg: #ffffff;
+  --status-danger-text: #000000;
+
+  --font-main: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+
+  --radius: 2px;
+  --transition: 150ms ease;
+}
+
+// Map old Neko variables to the new root variables to prevent SCSS compilation errors
+$text-size: 14px;
+$text-normal: var(--text-primary);
+$text-muted: var(--text-secondary);
+$text-link: var(--text-primary);
+
+$interactive-normal: var(--text-secondary);
+$interactive-hover: var(--text-primary);
+$interactive-muted: var(--text-muted);
+
+$background-primary: var(--bg-primary);
+$background-secondary: var(--bg-secondary);
+$background-tertiary: var(--bg-card);
+$background-accent: var(--text-primary);
+$background-floating: var(--bg-elevated);
+$background-modifier-hover: rgba(255, 255, 255, 0.03);
+$background-modifier-active: rgba(255, 255, 255, 0.06);
+$background-modifier-selected: rgba(255, 255, 255, 0.09);
+$background-modifier-accent: rgba(255, 255, 255, 0.03);
+
+// No shadows in brutalist design except the subtle 1px
+$elevation-low: 0 0 0 1px rgba(255, 255, 255, 0.1);
+$elevation-high: 0 0 0 1px rgba(255, 255, 255, 0.1);
+
+$style-primary: var(--text-primary);
+$style-error: var(--status-danger-text);
+
+$menu-height: 50px;
+$controls-height: 40px;
+$side-width: 30%;
+
+// Animations
+@keyframes pulse-white {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes threat-flash {
+  0%, 100% { background: #000; color: #fff; }
+  50% { background: #fff; color: #000; }
+}
+
+@keyframes log-entry {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// Global Resets for Brutalist Feel
+* {
+  font-family: var(--font-main);
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+}
