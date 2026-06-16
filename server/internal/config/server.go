@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 )
 
 type Server struct {

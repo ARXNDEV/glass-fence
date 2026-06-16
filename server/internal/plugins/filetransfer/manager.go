@@ -11,9 +11,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/auth"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/pkg/auth"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/rs/zerolog"

@@ -1,4 +1,4 @@
-module github.com/ARXNDEV/glass-fence/server
+module github.com/arxndev/glass-fence/server
 
 go 1.25.0
 

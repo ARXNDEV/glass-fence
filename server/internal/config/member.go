@@ -5,11 +5,11 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/member/file"
-	"github.com/ARXNDEV/glass-fence/server/internal/member/multiuser"
-	"github.com/ARXNDEV/glass-fence/server/internal/member/object"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/internal/member/file"
+	"github.com/arxndev/glass-fence/server/internal/member/multiuser"
+	"github.com/arxndev/glass-fence/server/internal/member/object"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 )
 
 type Member struct {
@@ -50,7 +50,7 @@ func (Member) Init(cmd *cobra.Command) error {
 		return err
 	}
 
-	cmd.PersistentFlags().String("member.multiuser.admin_password", "admin", "member multiuser provider: password for admin users")
+	cmd.PersistentFlags().String("member.multiuser.admin_password", "", "member multiuser provider: password for admin users (required, set via GF_MEMBER_MULTIUSER_ADMIN_PASSWORD)")
 	if err := viper.BindPFlag("member.multiuser.admin_password", cmd.PersistentFlags().Lookup("member.multiuser.admin_password")); err != nil {
 		return err
 	}
@@ -154,7 +154,7 @@ func (s *Member) SetV2() {
 		if adminPassword := viper.GetString("password_admin"); adminPassword != "" {
 			s.Multiuser.AdminPassword = adminPassword
 		} else {
-			s.Multiuser.AdminPassword = "admin"
+			s.Multiuser.AdminPassword = ""
 		}
 		log.Warn().Msg("you are using v2 configuration 'GF_PASSWORD' and 'GF_PASSWORD_ADMIN' which are deprecated, please use 'GF_MEMBER_MULTIUSER_USER_PASSWORD' and 'GF_MEMBER_MULTIUSER_ADMIN_PASSWORD' with 'GF_MEMBER_PROVIDER=multiuser' instead")
 		enableLegacy = true

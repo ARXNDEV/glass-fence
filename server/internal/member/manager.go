@@ -7,12 +7,12 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/config"
-	"github.com/ARXNDEV/glass-fence/server/internal/member/file"
-	"github.com/ARXNDEV/glass-fence/server/internal/member/multiuser"
-	"github.com/ARXNDEV/glass-fence/server/internal/member/noauth"
-	"github.com/ARXNDEV/glass-fence/server/internal/member/object"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/internal/config"
+	"github.com/arxndev/glass-fence/server/internal/member/file"
+	"github.com/arxndev/glass-fence/server/internal/member/multiuser"
+	"github.com/arxndev/glass-fence/server/internal/member/noauth"
+	"github.com/arxndev/glass-fence/server/internal/member/object"
+	"github.com/arxndev/glass-fence/server/pkg/types"
 )
 
 func New(sessions types.SessionManager, config *config.Member) *MemberManagerCtx {

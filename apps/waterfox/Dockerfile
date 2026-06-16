@@ -17,7 +17,7 @@ RUN set -eux; apt-get update; \
     #
     # create a profile directory
     mkdir -p /home/glassfence/.waterfox/profile.default/extensions; \
-    chown -R glass-fence:glass-fence /home/glassfence/.waterfox/profile.default; \
+    chown -R glassfence:glassfence /home/glassfence/.waterfox/profile.default; \
     #
     # clean up
     apt-get --purge autoremove -y xz-utils bzip2; \
@@ -30,5 +30,5 @@ COPY supervisord.conf /etc/glass-fence/supervisord/waterfox.conf
 COPY glass-fence.js /usr/lib/waterfox/mozilla.cfg
 COPY autoconfig.js /usr/lib/waterfox/defaults/pref/autoconfig.js
 COPY policies.json /usr/lib/waterfox/distribution/policies.json
-COPY --chown=glass-fence profiles.ini /home/glassfence/.waterfox/profiles.ini
+COPY --chown=glassfence profiles.ini /home/glassfence/.waterfox/profiles.ini
 COPY openbox.xml /etc/glass-fence/openbox.xml

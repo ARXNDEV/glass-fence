@@ -8,9 +8,9 @@ import (
 	"github.com/go-chi/cors"
 	"github.com/rs/zerolog"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/auth"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/pkg/auth"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 )
 
 type RouterOption func(*router)

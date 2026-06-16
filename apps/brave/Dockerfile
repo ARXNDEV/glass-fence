@@ -19,6 +19,6 @@ RUN set -eux; apt-get update; \
 #
 # copy configuation files
 COPY supervisord.conf /etc/glass-fence/supervisord/brave.conf
-COPY --chown=glass-fence preferences.json /home/glassfence/.config/brave/Default/Preferences
+COPY --chown=glassfence preferences.json /home/glassfence/.config/brave/Default/Preferences
 COPY policies.json /etc/brave/policies/managed/policies.json
 COPY openbox.xml /etc/glass-fence/openbox.xml

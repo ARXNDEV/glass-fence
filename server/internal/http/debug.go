@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types"
 )
 
 func pprofHandler(r types.Router) {

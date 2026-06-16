@@ -4,7 +4,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	gfmetrics "github.com/arxndev/glass-fence/server/internal/metrics"
 
 	"github.com/pion/rtcp"
 	"github.com/pion/webrtc/v4"
@@ -357,6 +358,7 @@ func (met *metrics) SetVideoID(videoId string) {
 
 func (met *metrics) SetReceiverEstimatedMaximumBitrate(bitrate float32) {
 	met.receiverEstimatedMaximumBitrate.Set(float64(bitrate))
+	gfmetrics.StreamBitrate.WithLabelValues("unknown").Observe(float64(bitrate) / 1000.0)
 }
 
 func (met *metrics) SetReceiverEstimatedTargetBitrate(bitrate float64) {

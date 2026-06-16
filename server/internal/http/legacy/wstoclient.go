@@ -8,15 +8,15 @@ import (
 	"github.com/pion/webrtc/v4"
 	"github.com/spf13/viper"
 
-	oldEvent "github.com/ARXNDEV/glass-fence/server/internal/http/legacy/event"
-	oldMessage "github.com/ARXNDEV/glass-fence/server/internal/http/legacy/message"
-	oldTypes "github.com/ARXNDEV/glass-fence/server/internal/http/legacy/types"
+	oldEvent "github.com/arxndev/glass-fence/server/internal/http/legacy/event"
+	oldMessage "github.com/arxndev/glass-fence/server/internal/http/legacy/message"
+	oldTypes "github.com/arxndev/glass-fence/server/internal/http/legacy/types"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/plugins/chat"
-	"github.com/ARXNDEV/glass-fence/server/internal/plugins/filetransfer"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/event"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/message"
+	"github.com/arxndev/glass-fence/server/internal/plugins/chat"
+	"github.com/arxndev/glass-fence/server/internal/plugins/filetransfer"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types/event"
+	"github.com/arxndev/glass-fence/server/pkg/types/message"
 )
 
 func profileToMember(id string, profile types.MemberProfile) (*oldTypes.Member, error) {

@@ -3,7 +3,7 @@ package message
 import (
 	"github.com/pion/webrtc/v4"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types"
 )
 
 /////////////////////////////

@@ -5,9 +5,9 @@ import (
 
 	"github.com/rs/zerolog/log"
 
-	glass-fence "github.com/ARXNDEV/glass-fence/server"
-	"github.com/ARXNDEV/glass-fence/server/cmd"
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	glass-fence "github.com/arxndev/glass-fence/server"
+	"github.com/arxndev/glass-fence/server/cmd"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 )
 
 func main() {

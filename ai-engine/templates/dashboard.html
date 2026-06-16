@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glass Fence — Threat Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #0d0d0d;
+      color: #e8e8e8;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 10px;
+    }
+    .stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: #161616;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 20px;
+      flex: 1;
+      text-align: center;
+    }
+    .stat-card .value {
+      font-size: 36px;
+      font-weight: 900;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .stat-card .label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+      margin-top: 5px;
+    }
+    .stat-card.danger .value { color: #f87171; }
+    .stat-card.warning .value { color: #fbbf24; }
+    .stat-card.success .value { color: #4ade80; }
+    .breakdown {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .breakdown .bar {
+      height: 8px;
+      border-radius: 4px;
+    }
+    .bar-safe { background: #4ade80; }
+    .bar-suspicious { background: #fbbf24; }
+    .bar-phishing { background: #f87171; }
+    .bar-malware { background: #ef4444; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    th {
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+    }
+    td {
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    tr:hover { background: rgba(255,255,255,0.03); }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-safe { background: rgba(74,222,128,0.15); color: #4ade80; }
+    .badge-suspicious { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .badge-phishing { background: rgba(248,113,113,0.15); color: #f87171; }
+    .badge-malware { background: rgba(239,68,68,0.2); color: #ef4444; }
+    .badge-blocked { background: rgba(239,68,68,0.3); color: #fff; }
+    .score-bar {
+      width: 60px;
+      height: 4px;
+      background: #1f1f1f;
+      display: inline-block;
+      border-radius: 2px;
+      overflow: hidden;
+      vertical-align: middle;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+    }
+    .url-cell {
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .refresh-note {
+      text-align: center;
+      color: #555;
+      font-size: 11px;
+      margin-top: 20px;
+    }
+  </style>
+  <meta http-equiv="refresh" content="30">
+</head>
+<body>
+  <h1>🛡 Glass Fence — Threat Intelligence</h1>
+
+  <div class="stats">
+    <div class="stat-card danger">
+      <div class="value">{{ threats_today }}</div>
+      <div class="label">Threats Today</div>
+    </div>
+    <div class="stat-card warning">
+      <div class="value">{{ threats_week }}</div>
+      <div class="label">Threats This Week</div>
+    </div>
+    <div class="stat-card success">
+      <div class="value">{{ total_scanned }}</div>
+      <div class="label">URLs Scanned</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">{{ blocked_count }}</div>
+      <div class="label">Blocked</div>
+    </div>
+  </div>
+
+  <h1>Category Breakdown</h1>
+  <div class="breakdown">
+    {% for cat, count in categories.items() %}
+    <div style="flex: {{ count }};">
+      <div class="bar bar-{{ cat }}" style="width: 100%;"></div>
+      <div style="font-size:11px; color:#888; margin-top:4px;">{{ cat }}: {{ count }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <h1>Recent Events (Last 50)</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Timestamp</th>
+        <th>URL</th>
+        <th>Score</th>
+        <th>Category</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in events %}
+      <tr>
+        <td>{{ event.ts }}</td>
+        <td class="url-cell" title="{{ event.url }}">{{ event.url[:40] }}{% if event.url|length > 40 %}…{% endif %}</td>
+        <td>
+          <div class="score-bar">
+            <div class="score-bar-fill" style="width: {{ (event.score * 100)|int }}%; background: {% if event.score > 0.75 %}#f87171{% elif event.score > 0.4 %}#fbbf24{% else %}#4ade80{% endif %};"></div>
+          </div>
+          {{ "%.2f"|format(event.score) }}
+        </td>
+        <td><span class="badge badge-{{ event.category }}">{{ event.category }}</span></td>
+        <td>{% if event.blocked %}<span class="badge badge-blocked">BLOCKED</span>{% else %}—{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <p class="refresh-note">Auto-refreshes every 30 seconds</p>
+</body>
+</html>

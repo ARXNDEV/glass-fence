@@ -1,6 +1,6 @@
 package desktop
 
-import "github.com/ARXNDEV/glass-fence/server/pkg/xinput"
+import "github.com/arxndev/glass-fence/server/pkg/xinput"
 
 func (manager *DesktopManagerCtx) inputRelToAbs(x, y int) (int, int) {
 	return (x * xinput.AbsX) / manager.screenSize.Width, (y * xinput.AbsY) / manager.screenSize.Height

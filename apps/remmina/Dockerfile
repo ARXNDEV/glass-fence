@@ -12,8 +12,8 @@ RUN set -eux; apt-get update; \
 
 # copy configuation files
 COPY supervisord.conf /etc/glass-fence/supervisord/remmina.conf
-COPY --chown=glass-fence remmina.pref /home/glassfence/.config/remmina/remmina.pref
-COPY --chown=glass-fence rdp.remmina spice.remmina vnc.remmina /home/glassfence/.local/share/remmina/
+COPY --chown=glassfence remmina.pref /home/glassfence/.config/remmina/remmina.pref
+COPY --chown=glassfence rdp.remmina spice.remmina vnc.remmina /home/glassfence/.local/share/remmina/
 COPY run-remmina.sh /usr/bin/run-remmina.sh
 ENV REMMINA_URL=
 ENV REMMINA_PROFILE=

@@ -1,7 +1,7 @@
 package message
 
 import (
-	"github.com/ARXNDEV/glass-fence/server/internal/http/legacy/types"
+	"github.com/arxndev/glass-fence/server/internal/http/legacy/types"
 
 	"github.com/pion/webrtc/v4"
 )

@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types"
 )
 
 func Test_deps_addPlugin(t *testing.T) {

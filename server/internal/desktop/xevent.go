@@ -1,7 +1,7 @@
 package desktop
 
 import (
-	"github.com/ARXNDEV/glass-fence/server/pkg/xevent"
+	"github.com/arxndev/glass-fence/server/pkg/xevent"
 )
 
 func (manager *DesktopManagerCtx) OnCursorChanged(listener func(serial uint64)) {

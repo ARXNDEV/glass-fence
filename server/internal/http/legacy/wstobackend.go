@@ -7,15 +7,15 @@ import (
 
 	"github.com/pion/webrtc/v4"
 
-	oldEvent "github.com/ARXNDEV/glass-fence/server/internal/http/legacy/event"
-	oldMessage "github.com/ARXNDEV/glass-fence/server/internal/http/legacy/message"
+	oldEvent "github.com/arxndev/glass-fence/server/internal/http/legacy/event"
+	oldMessage "github.com/arxndev/glass-fence/server/internal/http/legacy/message"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/api/room"
-	"github.com/ARXNDEV/glass-fence/server/internal/plugins/chat"
-	"github.com/ARXNDEV/glass-fence/server/internal/plugins/filetransfer"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/event"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/message"
+	"github.com/arxndev/glass-fence/server/internal/api/room"
+	"github.com/arxndev/glass-fence/server/internal/plugins/chat"
+	"github.com/arxndev/glass-fence/server/internal/plugins/filetransfer"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types/event"
+	"github.com/arxndev/glass-fence/server/pkg/types/message"
 )
 
 func (s *session) wsToBackend(msg []byte) error {

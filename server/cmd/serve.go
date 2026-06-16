@@ -9,16 +9,16 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/api"
-	"github.com/ARXNDEV/glass-fence/server/internal/capture"
-	"github.com/ARXNDEV/glass-fence/server/internal/config"
-	"github.com/ARXNDEV/glass-fence/server/internal/desktop"
-	"github.com/ARXNDEV/glass-fence/server/internal/http"
-	"github.com/ARXNDEV/glass-fence/server/internal/member"
-	"github.com/ARXNDEV/glass-fence/server/internal/plugins"
-	"github.com/ARXNDEV/glass-fence/server/internal/session"
-	"github.com/ARXNDEV/glass-fence/server/internal/webrtc"
-	"github.com/ARXNDEV/glass-fence/server/internal/websocket"
+	"github.com/arxndev/glass-fence/server/internal/api"
+	"github.com/arxndev/glass-fence/server/internal/capture"
+	"github.com/arxndev/glass-fence/server/internal/config"
+	"github.com/arxndev/glass-fence/server/internal/desktop"
+	"github.com/arxndev/glass-fence/server/internal/http"
+	"github.com/arxndev/glass-fence/server/internal/member"
+	"github.com/arxndev/glass-fence/server/internal/plugins"
+	"github.com/arxndev/glass-fence/server/internal/session"
+	"github.com/arxndev/glass-fence/server/internal/webrtc"
+	"github.com/arxndev/glass-fence/server/internal/websocket"
 )
 
 func init() {

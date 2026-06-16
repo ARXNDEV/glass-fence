@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 )
 
 // Ensure that hashes are the same after encoding and decoding using json

@@ -11,11 +11,11 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/websocket/handler"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/event"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/message"
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/internal/websocket/handler"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types/event"
+	"github.com/arxndev/glass-fence/server/pkg/types/message"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 )
 
 const (

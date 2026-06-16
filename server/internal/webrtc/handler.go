@@ -6,8 +6,8 @@ import (
 	"math"
 	"time"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/webrtc/payload"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/internal/webrtc/payload"
+	"github.com/arxndev/glass-fence/server/pkg/types"
 
 	"github.com/pion/webrtc/v4"
 	"github.com/rs/zerolog"

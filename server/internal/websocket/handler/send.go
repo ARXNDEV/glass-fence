@@ -3,9 +3,9 @@ package handler
 import (
 	"errors"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/event"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/message"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types/event"
+	"github.com/arxndev/glass-fence/server/pkg/types/message"
 )
 
 func (h *MessageHandlerCtx) sendUnicast(session types.Session, payload *message.SendUnicast) error {

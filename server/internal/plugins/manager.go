@@ -10,10 +10,10 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/config"
-	"github.com/ARXNDEV/glass-fence/server/internal/plugins/chat"
-	"github.com/ARXNDEV/glass-fence/server/internal/plugins/filetransfer"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/internal/config"
+	"github.com/arxndev/glass-fence/server/internal/plugins/chat"
+	"github.com/arxndev/glass-fence/server/internal/plugins/filetransfer"
+	"github.com/arxndev/glass-fence/server/pkg/types"
 )
 
 type ManagerCtx struct {

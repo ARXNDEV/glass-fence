@@ -45,7 +45,7 @@ member:
   # object:
   #   users:
   #     - username: "admin"
-  #       password: "admin"
+  #       password: set via env var
   #       profile:
   #         name: "Administrator"
   #         is_admin: true
@@ -58,7 +58,7 @@ member:
   #         sends_inactive_cursor: true
   #         can_see_inactive_cursors: true
   #     - username: "user"
-  #       password: "glass-fence"
+  #       password: set via env var
   #       profile:
   #         name: "User"
   #         is_admin: false
@@ -75,8 +75,8 @@ member:
   #   path: "/home/glassfence/members.json"
   provider: "multiuser"
   multiuser:
-   admin_password: "admin"
-   user_password: "glass-fence"
+   # admin_password: set via GF_MEMBER_MULTIUSER_ADMIN_PASSWORD env var
+   # user_password: set via GF_MEMBER_MULTIUSER_USER_PASSWORD env var
   #  admin_profile: # optional
   #  user_profile: # optional
   # provider: "noauth"

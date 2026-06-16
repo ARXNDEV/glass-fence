@@ -11,11 +11,11 @@ import (
 	"github.com/pion/webrtc/v4"
 	"github.com/rs/zerolog"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/config"
-	"github.com/ARXNDEV/glass-fence/server/internal/webrtc/payload"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/event"
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/internal/config"
+	"github.com/arxndev/glass-fence/server/internal/webrtc/payload"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types/event"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 )
 
 type WebRTCPeerCtx struct {

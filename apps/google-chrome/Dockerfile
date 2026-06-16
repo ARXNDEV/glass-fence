@@ -16,6 +16,6 @@ RUN set -eux; apt-get update; \
 #
 # copy configuation files
 COPY supervisord.conf /etc/glass-fence/supervisord/google-chrome.conf
-COPY --chown=glass-fence preferences.json /home/glassfence/.config/google-chrome/Default/Preferences
+COPY --chown=glassfence preferences.json /home/glassfence/.config/google-chrome/Default/Preferences
 COPY policies.json /etc/opt/chrome/policies/managed/policies.json
 COPY openbox.xml /etc/glass-fence/openbox.xml

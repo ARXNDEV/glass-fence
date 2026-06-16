@@ -34,6 +34,6 @@ RUN set -eux; apt-get update; \
 #
 # copy configuation files
 COPY supervisord.conf /etc/glass-fence/supervisord/vivaldi-browser.conf
-COPY --chown=glass-fence preferences.json /home/glassfence/.config/vivaldi/Default/Preferences
+COPY --chown=glassfence preferences.json /home/glassfence/.config/vivaldi/Default/Preferences
 COPY policies.json /etc/opt/vivaldi/policies/managed/policies.json
 COPY openbox.xml /etc/glass-fence/openbox.xml

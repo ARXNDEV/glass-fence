@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/config"
-	"github.com/ARXNDEV/glass-fence/server/internal/plugins"
+	"github.com/arxndev/glass-fence/server/internal/config"
+	"github.com/arxndev/glass-fence/server/internal/plugins"
 
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"

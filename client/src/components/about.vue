@@ -145,7 +145,7 @@
       this.loading = true
 
       try {
-        const res = await this.$http.get<string>('https://raw.githubusercontent.com/ARXNDEV/glass-fence/master/README.md')
+        const res = await this.$http.get<string>('https://raw.githubusercontent.com/arxndev/glass-fence/master/README.md')
         const res2 = await this.$http.post('https://api.github.com/markdown', {
           text: res.data,
           mode: 'gfm',

@@ -28,6 +28,6 @@ RUN set -eux; \
 #
 # copy configuation files
 COPY supervisord.conf /etc/glass-fence/supervisord/chromium.conf
-COPY --chown=glass-fence preferences.json /home/glassfence/.config/chromium/Default/Preferences
+COPY --chown=glassfence preferences.json /home/glassfence/.config/chromium/Default/Preferences
 COPY policies.json /etc/chromium/policies/managed/policies.json
 COPY openbox.xml /etc/glass-fence/openbox.xml

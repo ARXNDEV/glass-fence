@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/gst"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/codec"
+	"github.com/arxndev/glass-fence/server/pkg/gst"
+	"github.com/arxndev/glass-fence/server/pkg/types/codec"
 )
 
 /*

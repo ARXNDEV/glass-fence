@@ -12,15 +12,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/api"
-	oldEvent "github.com/ARXNDEV/glass-fence/server/internal/http/legacy/event"
-	oldMessage "github.com/ARXNDEV/glass-fence/server/internal/http/legacy/message"
-	oldTypes "github.com/ARXNDEV/glass-fence/server/internal/http/legacy/types"
+	"github.com/arxndev/glass-fence/server/internal/api"
+	oldEvent "github.com/arxndev/glass-fence/server/internal/http/legacy/event"
+	oldMessage "github.com/arxndev/glass-fence/server/internal/http/legacy/message"
+	oldTypes "github.com/arxndev/glass-fence/server/internal/http/legacy/types"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/event"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/message"
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types/event"
+	"github.com/arxndev/glass-fence/server/pkg/types/message"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 
 	"github.com/gorilla/websocket"
 	"github.com/rs/zerolog"

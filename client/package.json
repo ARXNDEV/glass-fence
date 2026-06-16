@@ -3,14 +3,14 @@
   "version": "2.5.0",
   "description": "Glass Fence — AI-Powered Remote Browser Isolation client",
   "license": "Apache License 2.0",
-  "author": "ARXNDEV <https://github.com/ARXNDEV>",
-  "homepage": "https://github.com/ARXNDEV/glass-fence/client#readme",
+  "author": "arxndev <https://github.com/arxndev>",
+  "homepage": "https://github.com/arxndev/glass-fence/client#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ARXNDEV/glass-fence.git"
+    "url": "git+https://github.com/arxndev/glass-fence.git"
   },
   "bugs": {
-    "url": "https://github.com/ARXNDEV/glass-fence/issues"
+    "url": "https://github.com/arxndev/glass-fence/issues"
   },
   "scripts": {
     "serve": "vue-cli-service serve --mode development",

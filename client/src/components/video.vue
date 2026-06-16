@@ -629,6 +629,48 @@
       return /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)
     }
 
+    async updateStats() {
+      const pc = this.$client.peerConnection
+      if (!pc) return
+      try {
+        const stats = await pc.getStats()
+        let jitter = 0
+        let packetsLost = 0
+        let packetsReceived = 0
+        stats.forEach((report: RTCStatsReport) => {
+          if ((report as any).type === 'inbound-rtp' && (report as any).kind === 'video') {
+            jitter = (report as any).jitter || 0
+            packetsLost = (report as any).packetsLost || 0
+            packetsReceived = (report as any).packetsReceived || 1
+          }
+        })
+        const latency = Math.round(jitter * 1000)
+        const packetLoss = packetsReceived > 0
+          ? Math.round((packetsLost / (packetsReceived + packetsLost)) * 100)
+          : 0
+        const level = latency < 50 ? 'green' : latency < 150 ? 'amber' : 'red'
+        this.connQuality = { latency, packetLoss, level }
+      } catch (_) {
+        // stats not available yet
+      }
+    }
+
+    async checkAI() {
+      const baseUrl = process.env.VUE_APP_AI_ENGINE_URL || 'http://localhost:8000'
+      try {
+        const controller = new AbortController()
+        const timeout = setTimeout(() => controller.abort(), 3000)
+        const r = await fetch(`${baseUrl}/health`, { signal: controller.signal })
+        clearTimeout(timeout)
+        const data = await r.json()
+        this.aiStatus = data.models_loaded ? 'online' : 'loading'
+      } catch {
+        this.aiStatus = 'offline'
+      }
+    }
+
+
+
     KeyTable = {
       XK_ISO_Level3_Shift: 0xfe03, // AltGr
       XK_Mode_switch: 0xff7e, // Character set switch

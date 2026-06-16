@@ -15,8 +15,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	glass-fence "github.com/ARXNDEV/glass-fence/server"
-	"github.com/ARXNDEV/glass-fence/server/internal/config"
+	glass-fence "github.com/arxndev/glass-fence/server"
+	"github.com/arxndev/glass-fence/server/internal/config"
 )
 
 func Execute() error {

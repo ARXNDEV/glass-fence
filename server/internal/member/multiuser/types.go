@@ -1,6 +1,6 @@
 package multiuser
 
-import "github.com/ARXNDEV/glass-fence/server/pkg/types"
+import "github.com/arxndev/glass-fence/server/pkg/types"
 
 type Config struct {
 	AdminPassword string

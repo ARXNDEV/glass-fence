@@ -10,10 +10,10 @@ import (
 	"strings"
 	"sync"
 
-	oldTypes "github.com/ARXNDEV/glass-fence/server/internal/http/legacy/types"
+	oldTypes "github.com/arxndev/glass-fence/server/internal/http/legacy/types"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/api"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/internal/api"
+	"github.com/arxndev/glass-fence/server/pkg/types"
 
 	"github.com/gorilla/websocket"
 	"github.com/rs/zerolog"

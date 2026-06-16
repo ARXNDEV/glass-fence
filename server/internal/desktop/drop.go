@@ -3,7 +3,7 @@ package desktop
 import (
 	"time"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/drop"
+	"github.com/arxndev/glass-fence/server/pkg/drop"
 )
 
 const (

@@ -18,7 +18,7 @@ RUN set -eux; apt-get update; \
     #
     # create a profile directory
     mkdir -p /home/glassfence/.mozilla/firefox/profile.default/extensions; \
-    chown -R glass-fence:glass-fence /home/glassfence/.mozilla/firefox/profile.default; \
+    chown -R glassfence:glassfence /home/glassfence/.mozilla/firefox/profile.default; \
     #
     # clean up
     apt-get --purge autoremove -y xz-utils; \
@@ -31,5 +31,5 @@ COPY supervisord.nvidia.conf /etc/glass-fence/supervisord/firefox.conf
 COPY glass-fence.js /usr/lib/firefox/mozilla.cfg
 COPY autoconfig.js /usr/lib/firefox/defaults/pref/autoconfig.js
 COPY policies.json /usr/lib/firefox/distribution/policies.json
-COPY --chown=glass-fence profiles.ini /home/glassfence/.mozilla/firefox/profiles.ini
+COPY --chown=glassfence profiles.ini /home/glassfence/.mozilla/firefox/profiles.ini
 COPY openbox.xml /etc/glass-fence/openbox.xml

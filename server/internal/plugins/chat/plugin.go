@@ -1,7 +1,7 @@
 package chat
 
 import (
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types"
 )
 
 type Plugin struct {

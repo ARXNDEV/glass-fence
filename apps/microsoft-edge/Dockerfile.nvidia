@@ -19,6 +19,6 @@ RUN set -eux; apt-get update; \
 #
 # copy configuation files
 COPY supervisord.nvidia.conf /etc/glass-fence/supervisord/microsoft-edge.conf
-COPY --chown=glass-fence preferences.json /home/glassfence/.config/microsoft-edge/Default/Preferences
+COPY --chown=glassfence preferences.json /home/glassfence/.config/microsoft-edge/Default/Preferences
 COPY policies.json /etc/opt/edge/policies/managed/policies.json
 COPY openbox.xml /etc/glass-fence/openbox.xml

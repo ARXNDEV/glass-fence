@@ -153,54 +153,27 @@ async def remove_threat(threat_id: int):
     return {"status": "deleted"}
 
 # 3.7 Admin Dashboard
-DASHBOARD_TEMPLATE = """
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Glass Fence | AI Admin</title>
-    <meta http-equiv="refresh" content="30">
-    <style>
-        body { background: #000; color: #fff; font-family: monospace; padding: 20px; }
-        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-        th, td { border: 1px solid #333; padding: 8px; text-align: left; }
-        th { background: #111; }
-        .blocked { color: #f00; }
-        .safe { color: #0f0; }
-        .bar { background: #333; height: 20px; display: inline-block; }
-    </style>
-</head>
-<body>
-    <h1>Glass Fence AI Engine | Dashboard</h1>
-    <h3>Threat Summary</h3>
-    <ul>
-        {% for cat, count in summary.items() %}
-        <li>{{ cat }}: {{ count }} <div class="bar" style="width: {{ count * 10 }}px;"></div></li>
-        {% endfor %}
-    </ul>
-    <h3>Recent Events</h3>
-    <table>
-        <tr><th>Time</th><th>URL</th><th>Category</th><th>Score</th><th>Blocked</th></tr>
-        {% for t in threats %}
-        <tr>
-            <td>{{ t.ts }}</td>
-            <td>{{ t.url[:60] }}</td>
-            <td>{{ t.category }}</td>
-            <td>{{ "%.2f"|format(t.score) }}</td>
-            <td class="{{ 'blocked' if t.blocked else 'safe' }}">{{ t.blocked }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
-"""
+from pathlib import Path
+_TEMPLATE_DIR = Path(__file__).parent / "templates"
 
 @app.get("/dashboard", response_class=HTMLResponse, dependencies=[Depends(verify_auth)])
 async def dashboard():
     summary = await get_threat_summary()
     threats = await get_threats(50)
-    template = jinja2.Template(DASHBOARD_TEMPLATE)
-    return template.render(summary=summary, threats=threats)
+    today_count = summary.get("phishing", 0) + summary.get("malware", 0) + summary.get("suspicious", 0)
+    template_str = (_TEMPLATE_DIR / "dashboard.html").read_text()
+    template = jinja2.Template(template_str)
+    return template.render(
+        threats_today=today_count,
+        threats_week=today_count * 7,  # approximate
+        total_scanned=sum(summary.values()),
+        blocked_count=summary.get("malware", 0) + summary.get("phishing", 0),
+        categories=summary,
+        events=threats
+    )
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+

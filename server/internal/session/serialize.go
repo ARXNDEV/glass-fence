@@ -5,7 +5,7 @@ import (
 	"errors"
 	"os"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types"
 )
 
 func (manager *SessionManagerCtx) save() {

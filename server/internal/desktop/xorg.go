@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/xorg"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/xorg"
 )
 
 func (manager *DesktopManagerCtx) Move(x, y int) {

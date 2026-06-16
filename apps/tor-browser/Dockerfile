@@ -12,7 +12,7 @@ RUN set -eux; apt-get update; \
 	curl -sSL -o /tmp/tor.tar.xz "https://www.torproject.org/$DOWNLOAD_URI"; \
     tar -xvJf /tmp/tor.tar.xz -C /opt; \
     mv /opt/tor-browser* /opt/tor-browser_en-US; \
-    chown -R glass-fence:glass-fence /opt/tor-browser_en-US/; \
+    chown -R glassfence:glassfence /opt/tor-browser_en-US/; \
     rm -f /tmp/tor.tar.xz; \
     #
     # clean up

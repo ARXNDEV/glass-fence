@@ -2,18 +2,17 @@
 
 ## Reporting a Vulnerability
 
-If there are any vulnerabilities in **ARXNDEV/glass-fence**, don't hesitate to _report them_.
+If there are any vulnerabilities in **Glass Fence**, don't hesitate to report them.
 
-1. Send an email to `security@ARXNDEV.net`.
+1. Send an email to `security@glassfence.dev`.
+2. Describe the vulnerability, steps to reproduce, and potential impact.
+3. Do NOT open a public issue for security vulnerabilities.
 
-2. Describe the vulnerability.
+We will acknowledge receipt within 48 hours and provide a timeline for a fix.
 
-   If you have a fix, that is most welcome -- please attach or summarize it in your message!
+## Supported Versions
 
-3. We will evaluate the vulnerability and, if necessary, release a fix or mitigating steps to address it. We will contact you to let you know the outcome, and will credit you in the report.
-
-   Please **do not disclose the vulnerability publicly** until a fix is released!
-
-4. Once we have either a) published a fix, or b) declined to address the vulnerability for whatever reason, you are free to publicly disclose it.
-
-We appreciate your help in keeping Glass Fence secure.
+| Version | Supported |
+|---------|-----------|
+| Latest  | ✅        |
+| Older   | ❌        |

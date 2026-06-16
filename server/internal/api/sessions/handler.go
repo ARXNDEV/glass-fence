@@ -1,8 +1,8 @@
 package sessions
 
 import (
-	"github.com/ARXNDEV/glass-fence/server/pkg/auth"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/auth"
+	"github.com/arxndev/glass-fence/server/pkg/types"
 )
 
 type SessionsHandler struct {

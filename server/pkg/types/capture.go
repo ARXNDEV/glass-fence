@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/codec"
+	"github.com/arxndev/glass-fence/server/pkg/types/codec"
 
 	"github.com/PaesslerAG/gval"
 )

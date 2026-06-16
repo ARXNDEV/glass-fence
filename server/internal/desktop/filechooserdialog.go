@@ -4,7 +4,7 @@ import (
 	"errors"
 	"os/exec"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/xorg"
+	"github.com/arxndev/glass-fence/server/pkg/xorg"
 )
 
 const (

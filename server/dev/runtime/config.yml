@@ -116,8 +116,8 @@ member:
   #   path: "/home/glassfence/members.json"
   provider: "multiuser"
   multiuser:
-   admin_password: "admin"
-   user_password: "glass-fence"
+   # admin_password: set via GF_MEMBER_MULTIUSER_ADMIN_PASSWORD env var
+   # user_password: set via GF_MEMBER_MULTIUSER_USER_PASSWORD env var
   #  admin_profile: # optional
   #  user_profile: # optional
   # provider: "noauth"

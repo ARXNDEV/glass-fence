@@ -9,9 +9,9 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/gst"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/codec"
+	"github.com/arxndev/glass-fence/server/pkg/gst"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types/codec"
 )
 
 type StreamSrcManagerCtx struct {

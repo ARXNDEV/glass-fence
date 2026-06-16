@@ -107,10 +107,10 @@
     private lastMsgLength = 0
     get unreadCount() {
       if (this.tab === 'chat') {
-        this.lastMsgLength = this.$accessor.chat.messages.length
+        this.lastMsgLength = this.$accessor.chat.history.length
         return 0
       }
-      return Math.max(0, this.$accessor.chat.messages.length - this.lastMsgLength)
+      return Math.max(0, this.$accessor.chat.history.length - this.lastMsgLength)
     }
 
     get tab() {

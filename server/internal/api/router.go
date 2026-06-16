@@ -5,12 +5,12 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/api/members"
-	"github.com/ARXNDEV/glass-fence/server/internal/api/room"
-	"github.com/ARXNDEV/glass-fence/server/internal/api/sessions"
-	"github.com/ARXNDEV/glass-fence/server/pkg/auth"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/internal/api/members"
+	"github.com/arxndev/glass-fence/server/internal/api/room"
+	"github.com/arxndev/glass-fence/server/internal/api/sessions"
+	"github.com/arxndev/glass-fence/server/pkg/auth"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 )
 
 type ApiManagerCtx struct {

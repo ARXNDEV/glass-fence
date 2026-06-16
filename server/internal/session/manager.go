@@ -1,9 +1,6 @@
 package session
 
 import (
-	"time"
-	"github.com/ARXNDEV/glass-fence/server/internal/metrics"
-
 	"errors"
 	"sync"
 	"sync/atomic"
@@ -13,9 +10,10 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/config"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/internal/config"
+	"github.com/arxndev/glass-fence/server/internal/metrics"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 )
 
 func New(config *config.Session) *SessionManagerCtx {
@@ -92,9 +90,6 @@ type SessionManagerCtx struct {
 }
 
 func (manager *SessionManagerCtx) Create(id string, profile types.MemberProfile) (types.Session, string, error) {
-	metrics.ActiveSessions.Inc()
-	session.Set("connectedAt", time.Now())
-
 	token, err := utils.NewUID(64)
 	if err != nil {
 		return nil, "", err
@@ -122,6 +117,9 @@ func (manager *SessionManagerCtx) Create(id string, profile types.MemberProfile)
 	manager.tokens[token] = id
 	manager.sessions[id] = session
 	manager.sessionsMu.Unlock()
+
+	metrics.ActiveSessions.Inc()
+	session.connectedAt = time.Now()
 
 	manager.emmiter.Emit("created", session)
 	manager.save()
@@ -160,6 +158,11 @@ func (manager *SessionManagerCtx) Delete(id string) error {
 	delete(manager.tokens, session.token)
 	delete(manager.sessions, id)
 	manager.sessionsMu.Unlock()
+
+	metrics.ActiveSessions.Dec()
+	if !session.connectedAt.IsZero() {
+		metrics.SessionDuration.Observe(time.Since(session.connectedAt).Seconds())
+	}
 
 	if session.State().IsConnected {
 		session.DestroyWebSocketPeer("session deleted")

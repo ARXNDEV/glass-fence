@@ -10,8 +10,8 @@ import (
 	"github.com/pion/webrtc/v4/pkg/media"
 	"github.com/rs/zerolog"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/codec"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types/codec"
 )
 
 type Track struct {

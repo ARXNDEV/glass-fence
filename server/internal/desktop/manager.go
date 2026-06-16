@@ -10,11 +10,11 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/config"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/xevent"
-	"github.com/ARXNDEV/glass-fence/server/pkg/xinput"
-	"github.com/ARXNDEV/glass-fence/server/pkg/xorg"
+	"github.com/arxndev/glass-fence/server/internal/config"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/xevent"
+	"github.com/arxndev/glass-fence/server/pkg/xinput"
+	"github.com/arxndev/glass-fence/server/pkg/xorg"
 )
 
 const (

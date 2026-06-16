@@ -7,7 +7,7 @@ import (
 	"path"
 	"strconv"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 )
 
 // TODO: Extract file uploading to custom utility.

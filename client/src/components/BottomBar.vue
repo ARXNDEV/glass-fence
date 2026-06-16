@@ -16,7 +16,7 @@
       <span>BLOCKED: <span class="highlight">{{ threatsBlocked }}</span></span>
     </div>
     <div class="item right">
-      <span>ARXNDEV © 2025</span>
+      <span>arxndev © 2025</span>
     </div>
   </div>
 </template>

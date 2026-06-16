@@ -80,7 +80,7 @@ RUN set -eux; \
 
 #
 # copy runtime configs
-COPY --chown=glass-fence:glass-fence .Xresources /home/$USERNAME/.Xresources
+COPY --chown=glassfence:glassfence .Xresources /home/$USERNAME/.Xresources
 COPY dbus /usr/bin/dbus
 COPY default.pa /etc/pulse/default.pa
 COPY supervisord.conf /etc/glass-fence/supervisord.conf
@@ -91,7 +91,7 @@ COPY intel/supervisord.rendergroup.conf /etc/glass-fence/supervisord/supervisord
 
 #
 # copy runtime folders
-COPY --chown=glass-fence:glass-fence icon-theme /home/$USERNAME/.icons/default
+COPY --chown=glassfence:glassfence icon-theme /home/$USERNAME/.icons/default
 COPY fontconfig/* /etc/fonts/conf.d/
 COPY fonts /usr/local/share/fonts
 

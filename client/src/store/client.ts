@@ -62,6 +62,9 @@ export const mutations = mutationTree(state, {
   incrementThreatsBlocked(state) {
     state.threatsBlocked++
   },
+  setThreatsBlocked(state, count: number) {
+    state.threatsBlocked = count
+  },
   setLastThreatReasons(state, reasons: string[]) {
     state.lastThreatReasons = reasons
   },

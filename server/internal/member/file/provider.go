@@ -7,7 +7,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types"
 )
 
 func New(config Config) types.MemberProvider {

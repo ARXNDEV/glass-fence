@@ -1,7 +1,7 @@
 package webrtc
 
 import (
-	"github.com/ARXNDEV/glass-fence/server/internal/metrics"
+	"github.com/arxndev/glass-fence/server/internal/metrics"
 
 	"errors"
 	"fmt"
@@ -22,14 +22,14 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/viper"
 
-	"github.com/ARXNDEV/glass-fence/server/internal/config"
-	"github.com/ARXNDEV/glass-fence/server/internal/webrtc/cursor"
-	"github.com/ARXNDEV/glass-fence/server/internal/webrtc/pionlog"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/codec"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/event"
-	"github.com/ARXNDEV/glass-fence/server/pkg/types/message"
-	"github.com/ARXNDEV/glass-fence/server/pkg/utils"
+	"github.com/arxndev/glass-fence/server/internal/config"
+	"github.com/arxndev/glass-fence/server/internal/webrtc/cursor"
+	"github.com/arxndev/glass-fence/server/internal/webrtc/pionlog"
+	"github.com/arxndev/glass-fence/server/pkg/types"
+	"github.com/arxndev/glass-fence/server/pkg/types/codec"
+	"github.com/arxndev/glass-fence/server/pkg/types/event"
+	"github.com/arxndev/glass-fence/server/pkg/types/message"
+	"github.com/arxndev/glass-fence/server/pkg/utils"
 )
 
 const (
@@ -504,6 +504,9 @@ func (manager *WebRTCManagerCtx) CreatePeer(session types.Session) (*webrtc.Sess
 			session.SetWebRTCConnected(peer, true)
 		case webrtc.PeerConnectionStateDisconnected,
 			webrtc.PeerConnectionStateFailed:
+			if state == webrtc.PeerConnectionStateFailed {
+				metrics.WebRTCErrors.WithLabelValues("connection_failed").Inc()
+			}
 			peer.Destroy()
 		case webrtc.PeerConnectionStateClosed:
 			// ensure we only run this once

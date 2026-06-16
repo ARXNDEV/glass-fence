@@ -18,7 +18,7 @@ RUN set -eux; apt-get update; \
 #
 # disable autolock
 RUN kwriteconfig5 --file /home/glassfence/.config/kscreenlockerrc --group Daemon --key Autolock false; \
-    chown glass-fence:glass-fence /home/glassfence/.config/kscreenlockerrc
+    chown glassfence:glassfence /home/glassfence/.config/kscreenlockerrc
 
 #
 # copy configuation files
