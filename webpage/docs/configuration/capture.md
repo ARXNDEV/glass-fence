@@ -1,5 +1,5 @@
 ---
-description: Configuration related to Gstreamer capture in Neko.
+description: Configuration related to Gstreamer capture in Glass Fence.
 ---
 
 import { Def, Opt } from '@site/src/components/Anchor';
@@ -8,9 +8,9 @@ import configOptions from './help.json';
 
 # Audio & Video Capture
 
-This guide will show you how to configure the audio and video capture settings in neko.
+This guide will show you how to configure the audio and video capture settings in glass-fence.
 
-Neko uses [Gstreamer](https://gstreamer.freedesktop.org/) to capture and encode audio and video in the following scenarios:
+Glass Fence uses [Gstreamer](https://gstreamer.freedesktop.org/) to capture and encode audio and video in the following scenarios:
 
 - WebRTC clients use the [Video](#video) and [Audio](#audio) pipelines to receive the audio and video streams from the server.
 - The [Broadcast](#broadcast) feature allows you to broadcast the audio and video to a third-party service using RTMP.
@@ -19,9 +19,9 @@ Neko uses [Gstreamer](https://gstreamer.freedesktop.org/) to capture and encode 
 
 ## WebRTC Video {#video}
 
-Neko allows you to capture the display and encode it in real-time using Gstreamer. The encoded video is then sent to the client using WebRTC. This allows you to share the display with the client in real-time.
+Glass Fence allows you to capture the display and encode it in real-time using Gstreamer. The encoded video is then sent to the client using WebRTC. This allows you to share the display with the client in real-time.
 
-There can exist multiple video pipelines in neko that are referenced by their unique pipeline id. Each video pipeline can have its own configuration settings and clients can either choose which pipeline they want to use or let neko choose the best pipeline for them.
+There can exist multiple video pipelines in glass-fence that are referenced by their unique pipeline id. Each video pipeline can have its own configuration settings and clients can either choose which pipeline they want to use or let glass-fence choose the best pipeline for them.
 
 :::info Limitation
 All video pipelines must use the same video codec (defined in the <Opt id="video.codec" /> setting).
@@ -163,7 +163,7 @@ capture:
         gst_pipeline: "<gstreamer_pipeline>"
 ```
 
-Since now you have to define the whole pipeline, you need to specify the src element to get the video frames and the sink element to send the encoded video frames to neko. In your pipeline, you can use `{display}` as a placeholder for the display name that will be replaced by the actual display name at runtime. You need to set the `name` property of the sink element to `appsink` so that neko can capture the video frames.
+Since now you have to define the whole pipeline, you need to specify the src element to get the video frames and the sink element to send the encoded video frames to glass-fence. In your pipeline, you can use `{display}` as a placeholder for the display name that will be replaced by the actual display name at runtime. You need to set the `name` property of the sink element to `appsink` so that glass-fence can capture the video frames.
 
 Your typical pipeline string would look like this:
 
@@ -324,7 +324,7 @@ Overview of available encoders for each codec is shown in the table below. The e
 
 ## WebRTC Audio {#audio}
 
-Only one audio pipeline can be defined in neko. The audio pipeline is used to capture and encode audio, similar to the video pipeline. The encoded audio is then sent to the client using WebRTC.
+Only one audio pipeline can be defined in glass-fence. The audio pipeline is used to capture and encode audio, similar to the video pipeline. The encoded audio is then sent to the client using WebRTC.
 
 The Gstreamer pipeline is started when the first client requests the video stream and is stopped after the last client disconnects.
 
@@ -357,7 +357,7 @@ capture:
 
 ## Broadcast {#broadcast}
 
-Neko allows you to broadcast out-of-the-box the display and audio capture to a third-party service. This can be used to broadcast the display and audio to a streaming service like [Twitch](https://www.twitch.tv/) or [YouTube](https://www.youtube.com/), or to a custom RTMP server like [OBS](https://obsproject.com/), [Nginx RTMP module](https://github.com/arut/nginx-rtmp-module), or [MediaMTX](https://github.com/bluenviron/mediamtx).
+Glass Fence allows you to broadcast out-of-the-box the display and audio capture to a third-party service. This can be used to broadcast the display and audio to a streaming service like [Twitch](https://www.twitch.tv/) or [YouTube](https://www.youtube.com/), or to a custom RTMP server like [OBS](https://obsproject.com/), [Nginx RTMP module](https://github.com/arut/nginx-rtmp-module), or [MediaMTX](https://github.com/bluenviron/mediamtx).
 
 The Gstreamer pipeline is started when the broadcast is started and is stopped when the broadcast is stopped regardless of the clients connected.
 
@@ -376,7 +376,7 @@ The default encoder uses `h264` for video and `aac` for audio, muxed in the `flv
 - <Def id="broadcast.preset" /> is the encoding speed preset for the default video encoder. See available presets [here](https://gstreamer.freedesktop.org/documentation/x264/index.html?gi-language=c#GstX264EncPreset).
 - <Def id="broadcast.pipeline" /> when set, encoder settings above are ignored and the custom Gstreamer pipeline description is used. In the pipeline, you can use `{hostname}`, `{display}`, `{device}` and `{url}` as placeholders for the X display name, pulseaudio audio device name, and broadcast URL respectively.
 - <Def id="broadcast.url" /> is the URL of the RTMP server where the broadcast will be sent e.g. `rtmp://<server>/<application>/<stream_key>`. This can be set later using the API if the URL is not known at the time of configuration or is expected to change.
-- <Def id="broadcast.autostart" /> is a boolean value that determines whether the broadcast should start automatically when neko starts, works only if the URL is set.
+- <Def id="broadcast.autostart" /> is a boolean value that determines whether the broadcast should start automatically when glass-fence starts, works only if the URL is set.
 
 <details>
   <summary>Example pipeline configuration</summary>
@@ -429,7 +429,7 @@ The default encoder uses `h264` for video and `aac` for audio, muxed in the `flv
             ! mux.
     ```
 
-    This configuration requires [Nvidia GPU](https://developer.nvidia.com/cuda-gpus) with [NVENC](https://developer.nvidia.com/nvidia-video-codec-sdk) support and [Nvidia docker image](/docs/v3/installation/docker-images#nvidia) of neko.
+    This configuration requires [Nvidia GPU](https://developer.nvidia.com/cuda-gpus) with [NVENC](https://developer.nvidia.com/nvidia-video-codec-sdk) support and [Nvidia docker image](/docs/v3/installation/docker-images#nvidia) of glass-fence.
 
   </TabItem>
 </Tabs>
@@ -438,7 +438,7 @@ The default encoder uses `h264` for video and `aac` for audio, muxed in the `flv
 
 ## Screencast {#screencast}
 
-As a fallback mechanism, neko can capture the display in the form of JPEG images and the client can request these images over HTTP. This is useful when the client does not support WebRTC or when the client is not able to establish a WebRTC connection, or there is a temporary issue with the WebRTC connection and the client should not miss the content being shared.
+As a fallback mechanism, glass-fence can capture the display in the form of JPEG images and the client can request these images over HTTP. This is useful when the client does not support WebRTC or when the client is not able to establish a WebRTC connection, or there is a temporary issue with the WebRTC connection and the client should not miss the content being shared.
 
 :::note
 This is a fallback mechanism and should not be used as a primary video stream because of the high latency, low quality, and high bandwidth requirements.
@@ -482,7 +482,7 @@ capture:
 This feature is experimental and may not work on all platforms.
 :::
 
-Neko allows you to capture the webcam on the client machine and send it to the server using WebRTC. This can be used to share the webcam feed with the server.
+Glass Fence allows you to capture the webcam on the client machine and send it to the server using WebRTC. This can be used to share the webcam feed with the server.
 
 The Gstreamer pipeline is started when the client shares their webcam and is stopped when the client stops sharing the webcam. Maximum one webcam pipeline can be active at a time.
 
@@ -506,11 +506,11 @@ sudo apt install v4l2loopback-dkms v4l2loopback-utils linux-headers-`uname -r` l
 sudo modprobe v4l2loopback exclusive_caps=1
 ```
 
-This is needed even if neko is running inside a Docker container. In that case, the `v4l2loopback` module must be loaded on the host machine and the device must be mounted inside the container.
+This is needed even if glass-fence is running inside a Docker container. In that case, the `v4l2loopback` module must be loaded on the host machine and the device must be mounted inside the container.
 
 ```yaml title="docker-compose.yaml"
 services:
-  neko:
+  glass-fence:
     ...
     # highlight-start
     devices:
@@ -521,7 +521,7 @@ services:
 
 ## Microphone {#microphone}
 
-Neko allows you to capture the microphone on the client machine and send it to the server using WebRTC. This can be used to share the microphone feed with the server.
+Glass Fence allows you to capture the microphone on the client machine and send it to the server using WebRTC. This can be used to share the microphone feed with the server.
 
 The Gstreamer pipeline is started when the client shares their microphone and is stopped when the client stops sharing the microphone. Maximum one microphone pipeline can be active at a time.
 

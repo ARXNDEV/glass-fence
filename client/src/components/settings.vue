@@ -177,7 +177,7 @@
               height: 12px;
               width: 12px;
               border-radius: 12px;
-              background: #fff;
+              background: var(--gf-bg);
               cursor: pointer;
             }
 
@@ -194,7 +194,7 @@
               height: 12px;
               width: 12px;
               border-radius: 12px;
-              background: #fff;
+              background: var(--gf-bg);
               cursor: pointer;
               margin-top: -4px;
             }
@@ -287,7 +287,7 @@
               padding: 0 10px;
 
               &.btn-red {
-                background: #a62626;
+                background: var(--gf-danger);
               }
             }
           }

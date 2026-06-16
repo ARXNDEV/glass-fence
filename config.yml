@@ -5,8 +5,6 @@ member:
   # needed for legacy API ad there is no user management
   provider: "multiuser"
   multiuser:
-   admin_password: "admin"
-   user_password: "neko"
 
 session:
   merciful_reconnect: true

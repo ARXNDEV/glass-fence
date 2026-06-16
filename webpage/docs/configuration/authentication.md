@@ -1,5 +1,5 @@
 ---
-description: Configuration related to the Authentication and Sessions in Neko.
+description: Configuration related to the Authentication and Sessions in Glass Fence.
 ---
 
 import { Def, Opt } from '@site/src/components/Anchor';
@@ -86,12 +86,12 @@ import TabItem from '@theme/TabItem';
 Member providers are responsible for deciding whether given credentials are valid or not. This validation can either be done against a local database or an external system.
 
 :::info
-Currently, Neko supports configuring only one authentication provider at a time. This means you must choose a single provider that best fits your deployment needs.
+Currently, Glass Fence supports configuring only one authentication provider at a time. This means you must choose a single provider that best fits your deployment needs.
 :::
 
 ### Multi-User Provider {#member.multiuser}
 
-This is the **default provider** that works exactly like the authentication used to work in v2 of neko.
+This is the **default provider** that works exactly like the authentication used to work in v2 of glass-fence.
 
 This provider allows you to define two types of users: **regular** users and **admins**. Which user is an admin is determined by the password they provide when logging in. If the password is correct, the user is an admin; otherwise, they are a regular user. Based on those profiles, the users are generated on demand when they log in and they are removed when they log out. Their username is prefixed with 5 random characters to avoid conflicts when multiple users share the same username.
 
@@ -108,7 +108,7 @@ Profiles for regular users and admins are optional, if not provided, the default
     description: "Profile fields as described above",
   },
   "member.multiuser.user_password": {
-    defaultValue: "neko",
+    defaultValue: "glass-fence",
     description: "Password for regular users, in plain text.",
   },
   "member.multiuser.user_profile": {
@@ -142,7 +142,7 @@ Profiles for regular users and admins are optional, if not provided, the default
         # highlight-start
         can_see_inactive_cursors: true
         # highlight-end
-      user_password: "neko"
+      user_password: "glass-fence"
       user_profile:
         name: "" # if empty, the login username is used
         # highlight-start
@@ -167,8 +167,8 @@ For easier configuration, you can specify only passwords using environment varia
 
 ```yaml title="docker-compose.yaml"
 environment:
-  NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: "admin"
-  NEKO_MEMBER_MULTIUSER_USER_PASSWORD: "neko"
+  GF_MEMBER_MULTIUSER_ADMIN_PASSWORD: "admin"
+  GF_MEMBER_MULTIUSER_USER_PASSWORD: "glass-fence"
 ```
 :::
 
@@ -179,7 +179,7 @@ This provider reads the user's credentials from a file. It is useful for small d
 <ConfigurationTab options={{
   "member.provider": 'file',
   "member.file.path": {
-    defaultValue: "/opt/neko/members.json",
+    defaultValue: "/opt/glass-fence/members.json",
     description: "Absolute path to the file containing the users and their passwords.",
   },
   "member.file.hash": {
@@ -227,7 +227,7 @@ You can leave the file empty and add users later using the HTTP API.
       }
     },
     "user": {
-      "password": "neko",
+      "password": "glass-fence",
       "profile": {
         "name": "User",
         "is_admin": false,
@@ -288,7 +288,7 @@ This provider is the same as the file provider, but it saves the users only in m
           sends_inactive_cursor: true
           can_see_inactive_cursors: true
       - username: "user"
-        password: "neko"
+        password: "glass-fence"
         profile:
           name: "User"
           is_admin: false
@@ -313,7 +313,7 @@ This provider allows any user to log in without any authentication. It is useful
 }} comments={false} />
 
 :::danger
-Do not use this provider in production environments unless you know exactly what you are doing. It allows anyone to log in and control neko as an admin.
+Do not use this provider in production environments unless you know exactly what you are doing. It allows anyone to log in and control glass-fence as an admin.
 :::
 
 ## Session Provider {#session}
@@ -323,7 +323,7 @@ Currently, there are only two providers available for sessions: **memory** and *
 Simply by specifying the `session.file` to a file path, the session provider will store the sessions in a file. Otherwise, the sessions are stored in memory and are lost when the server is restarted.
 
 <ConfigurationTab options={configOptions} filter={{
-  "session.file": '/opt/neko/sessions.json',
+  "session.file": '/opt/glass-fence/sessions.json',
 }} comments={false} />
 
 :::info

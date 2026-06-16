@@ -35,6 +35,6 @@ RUN set -eux; apt-get update; \
 
 #
 # copy configuation files
-COPY supervisord.conf /etc/neko/supervisord/opera.conf
-COPY openbox.xml /etc/neko/openbox.xml
+COPY supervisord.conf /etc/glass-fence/supervisord/opera.conf
+COPY openbox.xml /etc/glass-fence/openbox.xml
 

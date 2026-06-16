@@ -43,7 +43,7 @@ func (h *RoomHandler) uploadDrop(w http.ResponseWriter, r *http.Request) error {
 		return utils.HttpBadRequest("no files received")
 	}
 
-	dir, err := os.MkdirTemp("", "neko-drop-*")
+	dir, err := os.MkdirTemp("", "glass-fence-drop-*")
 	if err != nil {
 		return utils.HttpInternalServerError().
 			WithInternalErr(err).
@@ -112,7 +112,7 @@ func (h *RoomHandler) uploadDialogPost(w http.ResponseWriter, r *http.Request) e
 		return utils.HttpUnprocessableEntity("file chooser dialog is not open")
 	}
 
-	dir, err := os.MkdirTemp("", "neko-dialog-*")
+	dir, err := os.MkdirTemp("", "glass-fence-dialog-*")
 	if err != nil {
 		return utils.HttpInternalServerError().
 			WithInternalErr(err).

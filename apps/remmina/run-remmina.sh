@@ -5,7 +5,7 @@ err() {
   exit 1
 }
 
-profile_dir="/home/neko/.local/share/remmina"
+profile_dir="/home/glassfence/.local/share/remmina"
 if [[ -n "$REMMINA_PROFILE" ]]; then
   profile=${REMMINA_PROFILE%.remmina}.remmina
   file=${profile##/*/}

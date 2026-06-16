@@ -1,33 +1,33 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
-if [ -z "$(docker images -q neko_server:app 2> /dev/null)" ]; then
-    echo "Image 'neko_server:app' not found. Running ./build first."
+if [ -z "$(docker images -q glass-fence_server:app 2> /dev/null)" ]; then
+    echo "Image 'glass-fence_server:app' not found. Running ./build first."
     ./build
 fi
 
-if [ -z $NEKO_PORT ]; then
-    NEKO_PORT="3000"
+if [ -z $GF_PORT ]; then
+    GF_PORT="3000"
 fi
 
-if [ -z $NEKO_MUX ]; then
-    NEKO_MUX="52100"
+if [ -z $GF_MUX ]; then
+    GF_MUX="52100"
 fi
 
-if [ -z $NEKO_NAT1TO1 ]; then
+if [ -z $GF_NAT1TO1 ]; then
     for i in $(ifconfig -l 2>/dev/null); do
-        NEKO_NAT1TO1=$(ipconfig getifaddr $i)
-        if [ ! -z $NEKO_NAT1TO1 ]; then
+        GF_NAT1TO1=$(ipconfig getifaddr $i)
+        if [ ! -z $GF_NAT1TO1 ]; then
             break
         fi
     done
 
-    if [ -z $NEKO_NAT1TO1 ]; then
-        NEKO_NAT1TO1=$(hostname -I 2>/dev/null | awk '{print $1}')
+    if [ -z $GF_NAT1TO1 ]; then
+        GF_NAT1TO1=$(hostname -I 2>/dev/null | awk '{print $1}')
     fi
 
-    if [ -z $NEKO_NAT1TO1 ]; then
-        NEKO_NAT1TO1=$(hostname -i 2>/dev/null)
+    if [ -z $GF_NAT1TO1 ]; then
+        GF_NAT1TO1=$(hostname -i 2>/dev/null)
     fi
 fi
 
@@ -47,23 +47,23 @@ else
     CONFIG="config.yml"
 fi
 
-echo "Using app port: ${NEKO_PORT}"
-echo "Using mux port: ${NEKO_MUX}"
-echo "Using IP address: ${NEKO_NAT1TO1}"
+echo "Using app port: ${GF_PORT}"
+echo "Using mux port: ${GF_MUX}"
+echo "Using IP address: ${GF_NAT1TO1}"
 
 # start server
 docker run --rm -it \
-    --name "neko_server_dev" \
-    -p "${NEKO_PORT}:8080" \
-    -p "${NEKO_MUX}:${NEKO_MUX}/tcp" \
-    -p "${NEKO_MUX}:${NEKO_MUX}/udp" \
-    -e "NEKO_WEBRTC_UDPMUX=${NEKO_MUX}" \
-    -e "NEKO_WEBRTC_TCPMUX=${NEKO_MUX}" \
-    -e "NEKO_WEBRTC_NAT1TO1=${NEKO_NAT1TO1}" \
-    -e "NEKO_SESSION_FILE=/home/neko/sessions.txt" \
-    -v "${PWD}/runtime/$CONFIG:/etc/neko/neko.yml" \
-    -e "NEKO_DEBUG=1" \
+    --name "glass-fence_server_dev" \
+    -p "${GF_PORT}:8080" \
+    -p "${GF_MUX}:${GF_MUX}/tcp" \
+    -p "${GF_MUX}:${GF_MUX}/udp" \
+    -e "GF_WEBRTC_UDPMUX=${GF_MUX}" \
+    -e "GF_WEBRTC_TCPMUX=${GF_MUX}" \
+    -e "GF_WEBRTC_NAT1TO1=${GF_NAT1TO1}" \
+    -e "GF_SESSION_FILE=/home/glassfence/sessions.txt" \
+    -v "${PWD}/runtime/$CONFIG:/etc/glass-fence/glass-fence.yml" \
+    -e "GF_DEBUG=1" \
     --shm-size=2G \
     --security-opt seccomp=unconfined \
     $EXTRAOPTS \
-    neko_server:app;
+    glass-fence_server:app;

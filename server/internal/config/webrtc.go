@@ -322,22 +322,22 @@ func (s *WebRTC) SetV2() {
 
 	if viper.IsSet("nat1to1") {
 		s.NAT1To1IPs = viper.GetStringSlice("nat1to1")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_NAT1TO1' which is deprecated, please use 'NEKO_WEBRTC_NAT1TO1' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_NAT1TO1' which is deprecated, please use 'GF_WEBRTC_NAT1TO1' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("tcpmux") {
 		s.TCPMux = viper.GetInt("tcpmux")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_TCPMUX' which is deprecated, please use 'NEKO_WEBRTC_TCPMUX' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_TCPMUX' which is deprecated, please use 'GF_WEBRTC_TCPMUX' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("udpmux") {
 		s.UDPMux = viper.GetInt("udpmux")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_UDPMUX' which is deprecated, please use 'NEKO_WEBRTC_UDPMUX' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_UDPMUX' which is deprecated, please use 'GF_WEBRTC_UDPMUX' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("icelite") {
 		s.ICELite = viper.GetBool("icelite")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_ICELITE' which is deprecated, please use 'NEKO_WEBRTC_ICELITE' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_ICELITE' which is deprecated, please use 'GF_WEBRTC_ICELITE' instead")
 		enableLegacy = true
 	}
 
@@ -352,7 +352,7 @@ func (s *WebRTC) SetV2() {
 		}
 		s.ICEServersFrontend = iceServers
 		s.ICEServersBackend = iceServers
-		log.Warn().Msg("you are using v2 configuration 'NEKO_ICESERVERS' which is deprecated, please use 'NEKO_WEBRTC_ICESERVERS_FRONTEND' and/or 'NEKO_WEBRTC_ICESERVERS_BACKEND' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_ICESERVERS' which is deprecated, please use 'GF_WEBRTC_ICESERVERS_FRONTEND' and/or 'GF_WEBRTC_ICESERVERS_BACKEND' instead")
 		enableLegacy = true
 	}
 
@@ -362,7 +362,7 @@ func (s *WebRTC) SetV2() {
 			s.ICEServersFrontend = append(s.ICEServersFrontend, types.ICEServer{URLs: iceServerSlice})
 			s.ICEServersBackend = append(s.ICEServersBackend, types.ICEServer{URLs: iceServerSlice})
 		}
-		log.Warn().Msg("you are using v2 configuration 'NEKO_ICESERVER' which is deprecated, please use 'NEKO_WEBRTC_ICESERVERS_FRONTEND' and/or 'NEKO_WEBRTC_ICESERVERS_BACKEND' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_ICESERVER' which is deprecated, please use 'GF_WEBRTC_ICESERVERS_FRONTEND' and/or 'GF_WEBRTC_ICESERVERS_BACKEND' instead")
 		enableLegacy = true
 	}
 
@@ -375,7 +375,7 @@ func (s *WebRTC) SetV2() {
 			}
 			s.NAT1To1IPs = append(s.NAT1To1IPs, ip)
 		}
-		log.Warn().Msg("you are using v2 configuration 'NEKO_IPFETCH' which is deprecated, please use 'NEKO_WEBRTC_IP_RETRIEVAL_URL' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_IPFETCH' which is deprecated, please use 'GF_WEBRTC_IP_RETRIEVAL_URL' instead")
 		enableLegacy = true
 	}
 
@@ -403,13 +403,13 @@ func (s *WebRTC) SetV2() {
 			s.EphemeralMin = min
 			s.EphemeralMax = max
 		}
-		log.Warn().Msg("you are using v2 configuration 'NEKO_EPR' which is deprecated, please use 'NEKO_WEBRTC_EPR' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_EPR' which is deprecated, please use 'GF_WEBRTC_EPR' instead")
 		enableLegacy = true
 	}
 
 	// set legacy flag if any V2 configuration was used
 	if !viper.IsSet("legacy") && enableLegacy {
-		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://neko.m1k1o.net/docs/v3/migration-from-v2 for more details")
+		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://glass-fence.arxndev.net/docs/v3/migration-from-v2 for more details")
 		viper.Set("legacy", true)
 	}
 }

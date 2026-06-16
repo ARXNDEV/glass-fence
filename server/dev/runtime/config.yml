@@ -99,7 +99,7 @@ member:
   #         sends_inactive_cursor: true
   #         can_see_inactive_cursors: true
   #     - username: "user"
-  #       password: "neko"
+  #       password: "glass-fence"
   #       profile:
   #         name: "User"
   #         is_admin: false
@@ -113,11 +113,11 @@ member:
   #         can_see_inactive_cursors: false
   # provider: "file"
   # file:
-  #   path: "/home/neko/members.json"
+  #   path: "/home/glassfence/members.json"
   provider: "multiuser"
   multiuser:
    admin_password: "admin"
-   user_password: "neko"
+   user_password: "glass-fence"
   #  admin_profile: # optional
   #  user_profile: # optional
   # provider: "noauth"
@@ -131,7 +131,7 @@ session:
   # the clients.
   implicit_hosting: false
   inactive_cursors: true
-  api_token: "neko123"
+  api_token: "glass-fence123"
   cookie:
     # Disabling cookies will result to use Bearer Authentication.
     # This is less secure, because access token will be sent to

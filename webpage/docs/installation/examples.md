@@ -1,16 +1,16 @@
 ---
-description: Example Docker Compose configurations for Neko.
+description: Example Docker Compose configurations for Glass Fence.
 ---
 
 # Examples
 
-Here are some examples to get you started with Neko. You can use these examples as a reference to create your own configurations.
+Here are some examples to get you started with Glass Fence. You can use these examples as a reference to create your own configurations.
 
 ## Firefox {#firefox}
 
 ```yaml title="docker-compose.yaml"
 services:
-  neko:
+  glass-fence:
     image: "arxndevv/glass-fence/firefox:latest"
     restart: "unless-stopped"
     shm_size: "2gb"
@@ -18,21 +18,21 @@ services:
       - "8080:8080"
       - "52000-52100:52000-52100/udp"
     volumes:
-      - <your-host-path>:/home/neko/.mozilla/firefox # persist firexfox settings
+      - <your-host-path>:/home/glassfence/.mozilla/firefox # persist firexfox settings
     environment:
-      NEKO_DESKTOP_SCREEN: '1920x1080@30'
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
-      NEKO_WEBRTC_EPR: 52000-52100
-      NEKO_WEBRTC_ICELITE: 1
-      NEKO_WEBRTC_NAT1TO1: <your-IP>
+      GF_DESKTOP_SCREEN: '1920x1080@30'
+      GF_MEMBER_MULTIUSER_USER_PASSWORD: glass-fence
+      GF_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
+      GF_WEBRTC_EPR: 52000-52100
+      GF_WEBRTC_ICELITE: 1
+      GF_WEBRTC_NAT1TO1: <your-IP>
 ```
 
 ## Chromium {#chromium}
 
 ```yaml title="docker-compose.yaml"
 services:
-  neko:
+  glass-fence:
     image: "arxndevv/glass-fence/chromium:latest"
     restart: "unless-stopped"
     shm_size: "2gb"
@@ -40,21 +40,21 @@ services:
       - "8080:8080"
       - "52000-52100:52000-52100/udp"
     volumes:
-      - <your-host-path>:/home/neko/.config/chromium # persist chromium settings
+      - <your-host-path>:/home/glassfence/.config/chromium # persist chromium settings
     environment:
-      NEKO_DESKTOP_SCREEN: '1920x1080@30'
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
-      NEKO_WEBRTC_EPR: 52000-52100
-      NEKO_WEBRTC_ICELITE: 1
-      NEKO_WEBRTC_NAT1TO1: <your-IP>
+      GF_DESKTOP_SCREEN: '1920x1080@30'
+      GF_MEMBER_MULTIUSER_USER_PASSWORD: glass-fence
+      GF_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
+      GF_WEBRTC_EPR: 52000-52100
+      GF_WEBRTC_ICELITE: 1
+      GF_WEBRTC_NAT1TO1: <your-IP>
 ```
 
 ## VLC {#vlc}
 
 ```yaml title="docker-compose.yaml"
 services:
-  neko:
+  glass-fence:
     image: "arxndevv/glass-fence/vlc:latest"
     restart: "unless-stopped"
     shm_size: "2gb"
@@ -64,19 +64,19 @@ services:
       - "8080:8080"
       - "52000-52100:52000-52100/udp"
     environment:
-      NEKO_DESKTOP_SCREEN: '1920x1080@30'
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
-      NEKO_WEBRTC_EPR: 52000-52100
-      NEKO_WEBRTC_ICELITE: 1
-      NEKO_WEBRTC_NAT1TO1: <your-IP>
+      GF_DESKTOP_SCREEN: '1920x1080@30'
+      GF_MEMBER_MULTIUSER_USER_PASSWORD: glass-fence
+      GF_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
+      GF_WEBRTC_EPR: 52000-52100
+      GF_WEBRTC_ICELITE: 1
+      GF_WEBRTC_NAT1TO1: <your-IP>
 ```
 
 ## Raspberry Pi GPU Acceleration {#raspberry-pi}
 
 ```yaml title="docker-compose.yaml"
 services:
-  neko:
+  glass-fence:
     image: "arxndevv/glass-fence/chromium:latest"
     restart: "unless-stopped"
     # increase on rpi's with more then 1gb ram.
@@ -88,7 +88,7 @@ services:
     #       mount the devices into the docker.
     privileged: true
     environment:
-      NEKO_CAPTURE_VIDEO_PIPELINE: |
+      GF_CAPTURE_VIDEO_PIPELINE: |
         ximagesrc display-name={display} show-pointer=true use-damage=false
           ! video/x-raw,framerate=25/1
           ! videoconvert ! queue
@@ -99,23 +99,23 @@ services:
           ! h264parse config-interval=-1
           ! video/x-h264,stream-format=byte-stream
           ! appsink name=appsink
-      NEKO_CAPTURE_VIDEO_CODEC: "h264"
-      NEKO_DESKTOP_SCREEN: '1280x720@30'
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
-      NEKO_WEBRTC_EPR: 52000-52100
-      NEKO_WEBRTC_ICELITE: 1
+      GF_CAPTURE_VIDEO_CODEC: "h264"
+      GF_DESKTOP_SCREEN: '1280x720@30'
+      GF_MEMBER_MULTIUSER_USER_PASSWORD: glass-fence
+      GF_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
+      GF_WEBRTC_EPR: 52000-52100
+      GF_WEBRTC_ICELITE: 1
 ```
 
 ## Nvidia GPU Acceleration {#nvidia}
 
-Neko supports hardware acceleration using Nvidia GPUs. To use this feature, you need to have the Nvidia Container Toolkit installed on your system. You can find the installation instructions [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html). Check if your GPU supports hardware encoding with [this list](https://developer.nvidia.com/video-encode-decode-gpu-support-matrix).
+Glass Fence supports hardware acceleration using Nvidia GPUs. To use this feature, you need to have the Nvidia Container Toolkit installed on your system. You can find the installation instructions [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html). Check if your GPU supports hardware encoding with [this list](https://developer.nvidia.com/video-encode-decode-gpu-support-matrix).
 
-This example shows how to accelerate video encoding and as well the browser rendering using the GPU. You can test if the GPU is used by running `nvtop` or `nvidia-smi`, which should show the GPU usage of both the browser and neko. In the browser, you can run the [WebGL Aquarium Demo](https://webglsamples.org/aquarium/aquarium.html) to test the GPU usage.
+This example shows how to accelerate video encoding and as well the browser rendering using the GPU. You can test if the GPU is used by running `nvtop` or `nvidia-smi`, which should show the GPU usage of both the browser and glass-fence. In the browser, you can run the [WebGL Aquarium Demo](https://webglsamples.org/aquarium/aquarium.html) to test the GPU usage.
 
 ```yaml title="docker-compose.yaml"
 services:
-  neko:
+  glass-fence:
     image: "arxndevv/glass-fence/nvidia-firefox:latest"
     restart: "unless-stopped"
     shm_size: "2gb"
@@ -123,7 +123,7 @@ services:
       - "8080:8080"
       - "52000-52100:52000-52100/udp"
     environment:
-      NEKO_CAPTURE_VIDEO_PIPELINE: |
+      GF_CAPTURE_VIDEO_PIPELINE: |
         ximagesrc display-name={display} show-pointer=true use-damage=false
           ! video/x-raw,framerate=25/1
           ! cudaupload ! cudaconvert ! queue
@@ -140,12 +140,12 @@ services:
           ! h264parse config-interval=-1
           ! video/x-h264,stream-format=byte-stream
           ! appsink name=appsink
-      NEKO_CAPTURE_VIDEO_CODEC: "h264"
-      NEKO_DESKTOP_SCREEN: 1920x1080@30
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
-      NEKO_WEBRTC_EPR: 52000-52100
-      NEKO_WEBRTC_ICELITE: 1
+      GF_CAPTURE_VIDEO_CODEC: "h264"
+      GF_DESKTOP_SCREEN: 1920x1080@30
+      GF_MEMBER_MULTIUSER_USER_PASSWORD: glass-fence
+      GF_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
+      GF_WEBRTC_EPR: 52000-52100
+      GF_WEBRTC_ICELITE: 1
     deploy:
       resources:
         reservations:
@@ -165,7 +165,7 @@ If you only want to accelerate the encoding, **not the browser rendering**, and 
 
 ```yaml title="docker-compose.yaml"
 services:
-  neko:
+  glass-fence:
     # highlight-next-line
     image: "arxndevv/glass-fence/firefox:latest"
     restart: "unless-stopped"
@@ -178,7 +178,7 @@ services:
       NVIDIA_VISIBLE_DEVICES: all
       NVIDIA_DRIVER_CAPABILITIES: all
       # highlight-end
-      NEKO_CAPTURE_VIDEO_PIPELINE: |
+      GF_CAPTURE_VIDEO_PIPELINE: |
         ximagesrc display-name={display} show-pointer=true use-damage=false
           ! video/x-raw,framerate=25/1
       # highlight-start
@@ -197,12 +197,12 @@ services:
           ! h264parse config-interval=-1
           ! video/x-h264,stream-format=byte-stream
           ! appsink name=appsink
-      NEKO_CAPTURE_VIDEO_CODEC: "h264"
-      NEKO_DESKTOP_SCREEN: 1920x1080@30
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
-      NEKO_WEBRTC_EPR: 52000-52100
-      NEKO_WEBRTC_ICELITE: 1
+      GF_CAPTURE_VIDEO_CODEC: "h264"
+      GF_DESKTOP_SCREEN: 1920x1080@30
+      GF_MEMBER_MULTIUSER_USER_PASSWORD: glass-fence
+      GF_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
+      GF_WEBRTC_EPR: 52000-52100
+      GF_WEBRTC_ICELITE: 1
     deploy:
       resources:
         reservations:

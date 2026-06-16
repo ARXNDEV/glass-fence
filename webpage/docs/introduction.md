@@ -1,6 +1,6 @@
 # Introduction
 
-Neko is an open-source self-hosted virtual browser solution that allows multiple users to share a single web browser instance remotely. It is designed for use cases such as collaborative browsing, remote access to web-based applications, and private cloud-based browsing.
+Glass Fence is an open-source self-hosted virtual browser solution that allows multiple users to share a single web browser instance remotely. It is designed for use cases such as collaborative browsing, remote access to web-based applications, and private cloud-based browsing.
 
 ## Key Features {#features}
 
@@ -19,13 +19,13 @@ Neko is an open-source self-hosted virtual browser solution that allows multiple
 
 ## Supported Platforms {#platforms}
 
-Neko runs on various platforms, including:
+Glass Fence runs on various platforms, including:
 
 - **Linux & Docker** – Easy deployment using Docker containers.
 - **Cloud Services** – Deployable on AWS, Azure, Google Cloud, and other providers.
 - **Raspberry Pi & ARM Devices** – Optimized versions for embedded and low-power hardware.
 
-Explore the documentation to learn how to deploy, configure, and optimize Neko for your use case.
+Explore the documentation to learn how to deploy, configure, and optimize Glass Fence for your use case.
 
 ## Next Steps {#next}
 

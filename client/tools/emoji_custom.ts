@@ -1,7 +1,7 @@
 export const custom = [
   {
-    name: 'neko',
-    file: 'neko.png',
-    keywords: ['neko', 'cat', 'cat butt', 'butt'],
+    name: 'glass-fence',
+    file: 'glass-fence.png',
+    keywords: ['glass-fence', 'cat', 'cat butt', 'butt'],
   },
 ]

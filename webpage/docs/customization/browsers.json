@@ -2,7 +2,7 @@
     {
         "tag": "firefox",
         "flavor": "firefox-based",
-        "profileDir": "/home/neko/.mozilla/firefox/profile.default",
+        "profileDir": "/home/glassfence/.mozilla/firefox/profile.default",
         "policiesFile": "/usr/lib/firefox/distribution/policies.json"
     },
     {
@@ -14,48 +14,48 @@
     {
         "tag": "waterfox",
         "flavor": "firefox-based",
-        "profileDir": "/home/neko/.waterfox/profile.default",
+        "profileDir": "/home/glassfence/.waterfox/profile.default",
         "policiesFile": "/usr/lib/waterfox/distribution/policies.json"
     },
     {
         "tag": "chromium",
         "flavor": "chromium-based",
-        "profileDir": "/home/neko/.config/chromium",
+        "profileDir": "/home/glassfence/.config/chromium",
         "policiesFile": "/etc/chromium/policies/managed/policies.json"
     },
     {
         "tag": "google-chrome",
         "flavor": "chromium-based",
-        "profileDir": "/home/neko/.config/google-chrome",
+        "profileDir": "/home/glassfence/.config/google-chrome",
         "policiesFile": "/etc/opt/chrome/policies/managed/policies.json"
     },
     {
         "tag": "ungoogled-chromium",
         "flavor": "chromium-based",
-        "profileDir": "/home/neko/.config/chromium",
+        "profileDir": "/home/glassfence/.config/chromium",
         "policiesFile": "/etc/chromium/policies/managed/policies.json"
     },
     {
         "tag": "microsoft-edge",
         "flavor": "chromium-based",
-        "profileDir": "/home/neko/.config/microsoft-edge",
+        "profileDir": "/home/glassfence/.config/microsoft-edge",
         "policiesFile": "/etc/opt/edge/policies/managed/policies.json"
     },
     {
         "tag": "brave",
         "flavor": "chromium-based",
-        "profileDir": "/home/neko/.config/brave",
+        "profileDir": "/home/glassfence/.config/brave",
         "policiesFile": "/etc/brave/policies/managed/policies.json"
     },
     {
         "tag": "vivaldi",
         "flavor": "chromium-based",
-        "profileDir": "/home/neko/.config/vivaldi",
+        "profileDir": "/home/glassfence/.config/vivaldi",
         "policiesFile": "/etc/opt/vivaldi/policies/managed/policies.json"
     },
     {
         "tag": "opera",
         "flavor": "chromium-based",
-        "profileDir": "/home/neko/.config/opera"
+        "profileDir": "/home/glassfence/.config/opera"
     }
 ]

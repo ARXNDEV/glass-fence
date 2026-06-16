@@ -15,7 +15,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	neko "github.com/ARXNDEV/glass-fence/server"
+	glass-fence "github.com/ARXNDEV/glass-fence/server"
 	"github.com/ARXNDEV/glass-fence/server/internal/config"
 )
 
@@ -35,7 +35,7 @@ var root = &cobra.Command{
 	Use:     "glass-fence",
 	Short:   "Glass Fence RBI server",
 	Long:    `Glass Fence — AI-Powered Remote Browser Isolation server`,
-	Version: neko.Version.String(),
+	Version: glass-fence.Version.String(),
 }
 
 func init() {
@@ -48,7 +48,7 @@ func init() {
 
 		config := viper.GetString("config") // Use config file from the flag.
 		if config == "" {
-			config = os.Getenv("NEKO_CONFIG") // Use config file from the environment variable.
+			config = os.Getenv("GF_CONFIG") // Use config file from the environment variable.
 		}
 
 		if config != "" {
@@ -62,7 +62,7 @@ func init() {
 			viper.SetConfigName("glass-fence")
 		}
 
-		viper.SetEnvPrefix("NEKO")
+		viper.SetEnvPrefix("GLASS_FENCE")
 		viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 		viper.AutomaticEnv() // read in environment variables that match
 
@@ -173,5 +173,5 @@ func init() {
 		}
 	}
 
-	root.SetVersionTemplate(neko.Version.Details())
+	root.SetVersionTemplate(glass-fence.Version.Details())
 }

@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Quick Start
 
-Neko is easy to use and requires no technical expertise to get started. All you need to do is download the Docker image and you're ready to go:
+Glass Fence is easy to use and requires no technical expertise to get started. All you need to do is download the Docker image and you're ready to go:
 
 1. Deploy a server or VPS.
 
@@ -41,11 +41,11 @@ Neko is easy to use and requires no technical expertise to get started. All you 
 
 5. Download docker compose file and start it:
     ```shell
-    wget https://raw.githubusercontent.com/m1k1o/neko/master/docker-compose.yaml
+    wget https://raw.githubusercontent.com/arxndev/glass-fence/master/docker-compose.yaml
     sudo docker-compose up -d
     ```
 
-6. Visit the IP address server in your browser and login, the default password is `neko`.
+6. Visit the IP address server in your browser and login, the default password is `glass-fence`.
 
 :::tip
 Run `nano docker-compose.yaml` to edit the settings, then press `ctrl+x` to exit and save the file.

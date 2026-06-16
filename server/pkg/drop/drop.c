@@ -43,7 +43,7 @@ void dragWindowOpen(char **uris) {
   GtkWindow *window = GTK_WINDOW(widget);
 
   gtk_window_move(window, 0, 0);
-  gtk_window_set_title(window, "Neko Drag & Drop Window");
+  gtk_window_set_title(window, "Glass Fence Drag & Drop Window");
   gtk_window_set_decorated(window, FALSE);
   gtk_window_set_keep_above(window, TRUE);
   gtk_window_set_default_size(window, 100, 100);

@@ -16,7 +16,7 @@
 ## [Glass Fence v3.0.0](https://github.com/ARXNDEV/glass-fence/releases/tag/v3.0.0) {#v3.0.0}
 
 ### Repository Changes {#v3.0.0-repo}
-- The default registry is now `arxndevv/glass-fence` instead of `docker.io/m1k1o/neko`.
+- The default registry is now `arxndevv/glass-fence` instead of `docker.io/arxndev/glass-fence`.
 - Multiarch builds for `linux/amd64`, `linux/arm64`, and `linux/arm/v7` are now available instead of `arm-`based images.
 - App folders from `.docker/` have been moved to `apps/`.
 - Dev scripts from `.docker/` are now available in `client/dev/` and `server/dev/`.
@@ -48,7 +48,7 @@
 - **Desktop**: Added a function to send events when the cursor changes, along with the cursor image.
 - **HTTP**: Added batch mode to allow multiple requests in a single connection.
 - **HTTP**: Added `pprof` support to enable server profiling.
-- **HTTP**: Created a legacy driver to support the current neko client.
+- **HTTP**: Created a legacy driver to support the current glass-fence client.
 - **HTTP**: Refactored HTTP logging.
 - **Plugins**: Added support for Go plugins to enable custom features to be added to the server.
 - **Plugins**: Chat has been implemented as a plugin that can be disabled globally or per user (mute feature).
@@ -59,7 +59,7 @@
 - **WebRTC**: Forwarded desktop cursor changes to the client.
 - **WebRTC**: Forwarded cursor position to other clients that have enabled the inactive cursors option.
 - **WebRTC**: Switched from LittleEndian to BigEndian for the video stream to improve browser compatibility.
-- **WebRTC**: Created a legacy driver to support the current neko client.
+- **WebRTC**: Created a legacy driver to support the current glass-fence client.
 - **WebRTC**: Added WebRTC ping to check if the connection is still alive and to determine latency.
 - **WebRTC**: Added the ability to switch video pipelines on the fly.
 - **WebRTC**: Implemented bandwidth estimation and adaptive quality (experimental).
@@ -74,7 +74,7 @@ Please note that in this version, only the server has been updated. The client i
 - Added nvidia support for firefox.
 - Added `?lang=<lang>` parameter to the URL, which will set the language of the interface (by @mbattista).
 - Added `?show_side=1` and `?mute_chat=1` parameter to the URL, for chat mute and show side (by @mbattista).
-- Added `NEKO_BROADCAST_AUTOSTART` to automatically start or do not start broadcasting when the room is created. By default, it is set to `true` because it was the previous behavior.
+- Added `GF_BROADCAST_AUTOSTART` to automatically start or do not start broadcasting when the room is created. By default, it is set to `true` because it was the previous behavior.
 - Added new translations (🇹🇼,🇯🇵) by various people.
 
 ### Bugs {#v2.9.0-bugs}
@@ -83,7 +83,7 @@ Please note that in this version, only the server has been updated. The client i
 
 ### Misc {#v2.9.0-misc}
 - Added RTMP broadcast support to nvidia docker image [#274](https://github.com/ARXNDEV/glass-fence/issues/274).
-- Ensured that paths are writable by neko user [#277](https://github.com/ARXNDEV/glass-fence/issues/277).
+- Ensured that paths are writable by glass-fence user [#277](https://github.com/ARXNDEV/glass-fence/issues/277).
 - Git commit and tag are now included in the build when creating a docker image.
 - Remove any temporary files associated with a Form after file upload, that would be otherwise never removed.
 - Add check for volume parameter in URL before setting volume (by @FapFapDragon).
@@ -94,7 +94,7 @@ Please note that in this version, only the server has been updated. The client i
 
 ### New Features {#v2.8.0-feats}
 - Added AV1 tag, metadata and pipeline. Unfortunately does not work yet, since the encoding is way too slow (by @mbattista).
-- Added `m1k1o/neko:kde` tag as an alternative to `m1k1o/neko:xfce`.
+- Added `arxndev/glass-fence:kde` tag as an alternative to `arxndev/glass-fence:xfce`.
 - New VirtualGL version 3.1 was released, adding support for Chromium browsers to use Nvidia GPU acceleration!
 - Added `?embed=1` parameter to the URL, which will hide the sidebar and the top bar, so that it can be embedded in other websites.
 - Added `?volume=<0-1>` parameter to the URL, which will set the inital volume of the player (by @urbanekpj).
@@ -107,7 +107,7 @@ Please note that in this version, only the server has been updated. The client i
 - Fixed stereo problem in chromium-based browsers, where it was only as mono by adding `stereo=1` to opus SDP to clients answer.
 - Fixed keysym mapping for unknown keycodes, which was causing some key combinations to not work on some keyboards.
 - Fixed a bug where `max_fps=0` would lead to an invalid pipeline.
-- Fixed client side webrtc ICE gathering, so that neko can be used without exposed ports, only with STUN and TURN servers.
+- Fixed client side webrtc ICE gathering, so that glass-fence can be used without exposed ports, only with STUN and TURN servers.
 - Fixed play state synchronization, when autoplay is disabled.
 
 ### Misc {#v2.8.0-misc}
@@ -117,14 +117,14 @@ Please note that in this version, only the server has been updated. The client i
 - Disabled autolock for kde, so that it does not lock the screen when you are not using it.
 - Refactored autoplay, so that it will start playing audio, if it's allowed by the browser (by @urbanekpj).
 - Renamed pulseaudio sink from `auto_null` to `audio_output`, because it was ignored by KDE.
-- Pulseaudio is now configured using environment variables, so that users can mount `/home/neko` without losing audio configuration.
+- Pulseaudio is now configured using environment variables, so that users can mount `/home/glassfence` without losing audio configuration.
 
 ## [Glass Fence v2.7](https://github.com/ARXNDEV/glass-fence/releases/tag/v2.7) {#v2.7}
 
 ### New Features {#v2.7-feats}
-- Added `m1k1o/neko:vivaldi` tag (thanks @Xeddius).
-- Added `m1k1o/neko:opera` tag (thanks @prophetofxenu).
-- Added `NEKO_PATH_PREFIX`.
+- Added `arxndev/glass-fence:vivaldi` tag (thanks @Xeddius).
+- Added `arxndev/glass-fence:opera` tag (thanks @prophetofxenu).
+- Added `GF_PATH_PREFIX`.
 - Added screenshot function `/screenshot.jpg?pwd=<admin>`, works only for unlocked rooms.
 - Added emoji support (by @yesBad).
 - Added file transfer (by @prophetofxenu).
@@ -132,7 +132,7 @@ Please note that in this version, only the server has been updated. The client i
 ### Misc {#v2.7-misc}
 - Server: Split `remote` to `desktop` and `capture`.
 - Server: Refactored `xorg` - added `xevent` and clipboard is handled as event (no looped polling anymore).
-- Introduced `NEKO_AUDIO_CODEC=` and `NEKO_VIDEO_CODEC=` as a new way of setting codecs.
+- Introduced `GF_AUDIO_CODEC=` and `GF_VIDEO_CODEC=` as a new way of setting codecs.
 - Added CORS.
 - Opera versions are not hardcoded in Dockerfile anymore but automatically are fetch latest.
 
@@ -143,11 +143,11 @@ Please note that in this version, only the server has been updated. The client i
 - Fixed bad emoji matching for e.g. `:+1:` and `:100:` with new regex `/^:([^:\s]+):/`.
 
 ### New Features {#v2.6-feats}
-- Added `m1k1o/neko:microsoft-edge` tag.
+- Added `arxndev/glass-fence:microsoft-edge` tag.
 - Fixed clipboard sync in chromium based browsers.
-- Added support for implicit control (using `NEKO_IMPLICITCONTROL=1`). That means, users do not need to request control prior usage.
-- Automatically start broadcasting using `NEKO_BROADCAST_URL=rtmp://your-rtmp-endpoint/live` (thanks @konsti).
-- Added `m1k1o/neko:remmina` tag (by @lowne).
+- Added support for implicit control (using `GF_IMPLICITCONTROL=1`). That means, users do not need to request control prior usage.
+- Automatically start broadcasting using `GF_BROADCAST_URL=rtmp://your-rtmp-endpoint/live` (thanks @konsti).
+- Added `arxndev/glass-fence:remmina` tag (by @lowne).
 
 ### Misc {#v2.6-misc}
 - Automatic WebRTC SDP negotiation using onnegotiationneeded handlers. This allows adding/removing track on demand in a session.
@@ -167,15 +167,15 @@ Please note that in this version, only the server has been updated. The client i
 
 ### New Features {#v2.5-feats}
 - Lock controls for users, globally.
-- Ability to set locks from config `NEKO_LOCKS=control login`.
-- Added control protection - users can gain control only if at least one admin is in the room `NEKO_CONTROL_PROTECTION=true`.
+- Ability to set locks from config `GF_LOCKS=control login`.
+- Added control protection - users can gain control only if at least one admin is in the room `GF_CONTROL_PROTECTION=true`.
 - Emotes sending on mouse down holding.
 - Include `banned`, `locked`, `server_started_at`, `last_admin_left_at`, `last_user_left_at`, `control_protection` data in stats.
 
 ### Misc {#v2.5-misc}
 - ARM-based images not bound to Raspberry Pi only.
-- Repository cleanup, renamed `.m1k1o` to `.docker`.
-- Updated docs, now available at https://neko.m1k1o.net.
+- Repository cleanup, renamed `.arxndev` to `.docker`.
+- Updated docs, now available at https://glass-fence.arxndev.net.
 - Add japanese characters support.
 - Sanitize display name and markdown codeblock input to prevent xss.
 - Display unmute overlay when joined.
@@ -186,11 +186,11 @@ Please note that in this version, only the server has been updated. The client i
 
 ### New Features {#v2.4-feats}
 - Show red dot badge on sidebar toggle if there are new messages, and user can't see them.
-- Added `m1k1o/neko:brave` tag.
+- Added `arxndev/glass-fence:brave` tag.
 
 ### Bugs {#v2.4-bugs}
 - Fixed keyboard mapping on macOS, when CMD could not be used for copy & paste.
-- Fixed stop signal sent by supervisor to gracefully shut down neko server.
+- Fixed stop signal sent by supervisor to gracefully shut down glass-fence server.
 
 ### Misc {#v2.4-misc}
 - Switched to the latest Firefox version instead of esr.
@@ -213,14 +213,14 @@ Please note that in this version, only the server has been updated. The client i
 - Added `?usr=<display-name>` that will prefill username. This allows creating auto-join links.
 - Added `?cast=1` that will hide all control and show only video.
 - Shake keyboard icon if someone attempted to control when is nobody hosting.
-- Support for password protected `NEKO_ICESERVERS` (by @mbattista).
+- Support for password protected `GF_ICESERVERS` (by @mbattista).
 - Added bunch of translations (🇸🇰, 🇪🇸, 🇸🇪, 🇳🇴, 🇫🇷) by various people.
-- Added `m1k1o/neko:google-chrome` tag.
+- Added `arxndev/glass-fence:google-chrome` tag.
 
 ### Bugs {#v2.3-bugs}
 - Upgraded and fixed emojis to a new major version.
 - Fixed bad `keymap -> keysym` translation to respect active modifiers (#45, with @mbattista).
-- Respecting `NEKO_DEBUG` env variable.
+- Respecting `GF_DEBUG` env variable.
 - Fullscreen support for iOS devices.
 - Added `chrome-sandbox` to fix weird bug when chromium didn't start.
 
@@ -238,8 +238,8 @@ Please note that in this version, only the server has been updated. The client i
 - Added `MAX_FPS`, where you can specify max WebRTC frame rate. When set to `0`, frame rate won't be capped and you can enjoy your real `60fps` experience. Originally, it was constant at `25fps`.
 - Invite links. You can invite people and they don't need to enter passwords by themselves (and get confused about user accounts that do not exits). You can put your password in URL using `?pwd=<your-password>` and it will be automatically used when logging in.
 - Added `/stats?pwd=<admin>` endpoint to get total active connections, host and members.
-- Added `m1k1o/neko:vlc` tag, use VLC to watch local files together (by @mbattista).
-- Added `m1k1o/neko:xfce` tag, as an non video related showcase (by @mbattista).
+- Added `arxndev/glass-fence:vlc` tag, use VLC to watch local files together (by @mbattista).
+- Added `arxndev/glass-fence:xfce` tag, as an non video related showcase (by @mbattista).
 - Added ARM-based images, for Raspberry Pi support (by @mbattista).
 
 ### Bugs {#v2.2-bugs}
@@ -255,8 +255,8 @@ Please note that in this version, only the server has been updated. The client i
 - Upgraded `pion/webrtc` to v3 (by @mbattista).
 - Added `requestFullscreen` compatibility for older browsers.
 - Fixed small lags in video and improved video UX (by @mbattista).
-- Added `m1k1o/neko:vncviewer` tag, use `NEKO_VNC_URL` to specify VNC target and use Glass Fence as a bridge.
-- Abiltiy to include neko as a component in another Vue.Js project (by @gbrian).
+- Added `arxndev/glass-fence:vncviewer` tag, use `GF_VNC_URL` to specify VNC target and use Glass Fence as a bridge.
+- Abiltiy to include glass-fence as a component in another Vue.Js project (by @gbrian).
 - Added HEALTHCHECK to Dockerfile.
 
 ## [Glass Fence v2.1](https://github.com/ARXNDEV/glass-fence/releases/tag/v2.1) {#v2.1}
@@ -266,7 +266,7 @@ Please note that in this version, only the server has been updated. The client i
 - Keyboard modifier state synchronization (Num Lock, Caps Lock, Scroll Lock) for each hosting.
 - Added chromium ungoogled (with h265 support) an kept up to date by @whalehub.
 - Added Picture in Picture button (only for watching screen, controlling not possible).
-- Added RTMP broadcast. Enables broadcasting neko screen to local RTMP server, YouTube or Twitch.
+- Added RTMP broadcast. Enables broadcasting glass-fence screen to local RTMP server, YouTube or Twitch.
 - Stereo sound (works properly only in Firefox host).
 
 ### Bugs {#v2.1-bugs}
@@ -281,8 +281,8 @@ Please note that in this version, only the server has been updated. The client i
 - No pointer events for notify bars.
 - Disable debug mode by default.
 
-## [Glass Fence v2.0](https://github.com/nurdism/neko/releases/tag/2.0.0) {#v2.0.0}
+## [Glass Fence v2.0](https://github.com/nurdism/glass-fence/releases/tag/2.0.0) {#v2.0.0}
 
-## [Glass Fence v1.1](https://github.com/nurdism/neko/releases/tag/1.1.0) {#v1.1.0}
+## [Glass Fence v1.1](https://github.com/nurdism/glass-fence/releases/tag/1.1.0) {#v1.1.0}
 
-## [Glass Fence v1.0](https://github.com/nurdism/neko/releases/tag/1.0.0) {#v1.0.0}
+## [Glass Fence v1.0](https://github.com/nurdism/glass-fence/releases/tag/1.0.0) {#v1.0.0}

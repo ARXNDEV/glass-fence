@@ -3,6 +3,15 @@
     <div class="video-top-bar">
       <span class="mono-url">https://stream.isolated/session/current</span>
       <div class="isolated-badge">ISOLATED</div>
+      <div class="badges">
+        <div class="quality-badge" :class="connQuality.level" :title="'Latency: ' + connQuality.latency + 'ms | Loss: ' + connQuality.packetLoss + '%'">
+          QoS: {{ connQuality.latency }}ms
+        </div>
+        <div class="ai-badge" :class="aiStatus">
+          AI Engine: {{ aiStatus.toUpperCase() }}
+        </div>
+      </div>
+
     </div>
     <div ref="player" class="player">
       <div ref="container" class="player-container">
@@ -98,6 +107,36 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 15px;
+    .video-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      .badges {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        
+        .quality-badge, .ai-badge {
+          font-family: var(--font-mono);
+          font-size: 10px;
+          padding: 2px 6px;
+          border-radius: 12px;
+          color: #000;
+          font-weight: 700;
+        }
+        
+        .quality-badge.green { background: var(--gf-success); }
+        .quality-badge.amber { background: var(--gf-warning); }
+        .quality-badge.red { background: var(--gf-danger); color: #fff; }
+        
+        .ai-badge.online { background: var(--gf-success); }
+        .ai-badge.loading { background: var(--gf-warning); }
+        .ai-badge.offline { background: var(--gf-danger); color: #fff; }
+        .ai-badge.checking { background: var(--gf-muted); color: #fff; }
+      }
+    }
+
 
       .mono-url {
         font-family: var(--text-mono);
@@ -122,7 +161,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #000;
+      background: var(--gf-text);
 
       .video-menu {
         position: absolute;
@@ -142,12 +181,12 @@
           i {
             width: 30px;
             height: 30px;
-            background: rgba($color: #fff, $alpha: 0.2);
+            background: rgba($color: var(--gf-bg), $alpha: 0.2);
             border-radius: 5px;
             line-height: 30px;
             font-size: 16px;
             text-align: center;
-            color: rgba($color: #fff, $alpha: 0.6);
+            color: rgba($color: var(--gf-bg), $alpha: 0.6);
             cursor: pointer;
 
             &.faded {
@@ -187,7 +226,7 @@
           width: 100%;
           height: 100%;
           display: flex;
-          background: #000;
+          background: var(--gf-text);
 
           &::-webkit-media-controls {
             display: none !important;
@@ -205,7 +244,7 @@
         }
 
         .player-overlay {
-          background: rgba($color: #000, $alpha: 0.2);
+          background: rgba($color: var(--gf-text), $alpha: 0.2);
           display: flex;
           justify-content: center;
           align-items: center;
@@ -284,6 +323,11 @@
     private keyboard = GuacamoleKeyboard()
     private observer = new ResizeObserver(this.onResize.bind(this))
     private focused = false
+    private aiStatus = 'checking'
+    private connQuality = { latency: 0, packetLoss: 0, level: 'green' }
+    private statsInterval = 0
+    private aiInterval = 0
+
     private fullscreen = false
     private mutedOverlay = true
     private lastTextAreaValue = ''
@@ -504,6 +548,10 @@
     }
 
     mounted() {
+      this.checkAI()
+      this.aiInterval = window.setInterval(this.checkAI.bind(this), 15000)
+      this.statsInterval = window.setInterval(this.updateStats.bind(this), 2000)
+
       this._container.addEventListener('resize', this.onResize)
       this.onVolumeChanged(this.volume)
       this.onMutedChanged(this.muted)
@@ -569,6 +617,9 @@
     }
 
     beforeDestroy() {
+      window.clearInterval(this.aiInterval)
+      window.clearInterval(this.statsInterval)
+
       this.observer.disconnect()
       this.$accessor.video.setPlayable(false)
       /* Guacamole Keyboard does not provide destroy functions */
@@ -764,21 +815,35 @@
       }
     }
 
+    
+    private lastTouchDistance = 0
     onTouchHandler(e: TouchEvent) {
+      if (e.touches.length === 2 && e.type === 'touchmove') {
+        const t1 = e.touches[0]
+        const t2 = e.touches[1]
+        const dist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY)
+        if (this.lastTouchDistance > 0) {
+          const delta = this.lastTouchDistance - dist
+          const wheelEvent = new WheelEvent('wheel', {
+            bubbles: true, cancelable: true, view: window,
+            deltaY: delta * 2, clientX: (t1.clientX + t2.clientX) / 2, clientY: (t1.clientY + t2.clientY) / 2
+          })
+          if (e.target) e.target.dispatchEvent(wheelEvent)
+        }
+        this.lastTouchDistance = dist
+        return
+      }
+      if (e.type === 'touchend') {
+        this.lastTouchDistance = 0
+      }
+
       let first = e.changedTouches[0]
       let type = ''
       switch (e.type) {
-        case 'touchstart':
-          type = 'mousedown'
-          break
-        case 'touchmove':
-          type = 'mousemove'
-          break
-        case 'touchend':
-          type = 'mouseup'
-          break
-        default:
-          return
+        case 'touchstart': type = 'mousedown'; break
+        case 'touchmove': type = 'mousemove'; break
+        case 'touchend': type = 'mouseup'; break
+        default: return
       }
 
       const simulatedEvent = new MouseEvent(type, {
@@ -789,9 +854,12 @@
         screenY: first.screenY,
         clientX: first.clientX,
         clientY: first.clientY,
+        button: 0,
+        buttons: 1
       })
-      first.target.dispatchEvent(simulatedEvent)
+      if (first.target) first.target.dispatchEvent(simulatedEvent)
     }
+
 
     onCompositionStartHandler() {
       this.lastTextAreaValue = this._overlay.value

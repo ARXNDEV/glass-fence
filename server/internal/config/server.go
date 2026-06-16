@@ -23,17 +23,17 @@ type Server struct {
 }
 
 func (Server) Init(cmd *cobra.Command) error {
-	cmd.PersistentFlags().String("server.bind", "127.0.0.1:8080", "address/port/socket to serve neko")
+	cmd.PersistentFlags().String("server.bind", "127.0.0.1:8080", "address/port/socket to serve glass-fence")
 	if err := viper.BindPFlag("server.bind", cmd.PersistentFlags().Lookup("server.bind")); err != nil {
 		return err
 	}
 
-	cmd.PersistentFlags().String("server.cert", "", "path to the SSL cert used to secure the neko server")
+	cmd.PersistentFlags().String("server.cert", "", "path to the SSL cert used to secure the glass-fence server")
 	if err := viper.BindPFlag("server.cert", cmd.PersistentFlags().Lookup("server.cert")); err != nil {
 		return err
 	}
 
-	cmd.PersistentFlags().String("server.key", "", "path to the SSL key used to secure the neko server")
+	cmd.PersistentFlags().String("server.key", "", "path to the SSL key used to secure the glass-fence server")
 	if err := viper.BindPFlag("server.key", cmd.PersistentFlags().Lookup("server.key")); err != nil {
 		return err
 	}
@@ -43,7 +43,7 @@ func (Server) Init(cmd *cobra.Command) error {
 		return err
 	}
 
-	cmd.PersistentFlags().String("server.static", "", "path to neko client files to serve")
+	cmd.PersistentFlags().String("server.static", "", "path to glass-fence client files to serve")
 	if err := viper.BindPFlag("server.static", cmd.PersistentFlags().Lookup("server.static")); err != nil {
 		return err
 	}
@@ -72,17 +72,17 @@ func (Server) Init(cmd *cobra.Command) error {
 }
 
 func (Server) InitV2(cmd *cobra.Command) error {
-	cmd.PersistentFlags().String("bind", "", "V2: address/port/socket to serve neko")
+	cmd.PersistentFlags().String("bind", "", "V2: address/port/socket to serve glass-fence")
 	if err := viper.BindPFlag("bind", cmd.PersistentFlags().Lookup("bind")); err != nil {
 		return err
 	}
 
-	cmd.PersistentFlags().String("cert", "", "V2: path to the SSL cert used to secure the neko server")
+	cmd.PersistentFlags().String("cert", "", "V2: path to the SSL cert used to secure the glass-fence server")
 	if err := viper.BindPFlag("cert", cmd.PersistentFlags().Lookup("cert")); err != nil {
 		return err
 	}
 
-	cmd.PersistentFlags().String("key", "", "V2: path to the SSL key used to secure the neko server")
+	cmd.PersistentFlags().String("key", "", "V2: path to the SSL key used to secure the glass-fence server")
 	if err := viper.BindPFlag("key", cmd.PersistentFlags().Lookup("key")); err != nil {
 		return err
 	}
@@ -92,7 +92,7 @@ func (Server) InitV2(cmd *cobra.Command) error {
 		return err
 	}
 
-	cmd.PersistentFlags().String("static", "", "V2: path to neko client files to serve")
+	cmd.PersistentFlags().String("static", "", "V2: path to glass-fence client files to serve")
 	if err := viper.BindPFlag("static", cmd.PersistentFlags().Lookup("static")); err != nil {
 		return err
 	}
@@ -132,32 +132,32 @@ func (s *Server) SetV2() {
 
 	if viper.IsSet("cert") {
 		s.Cert = viper.GetString("cert")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_CERT' which is deprecated, please use 'NEKO_SERVER_CERT' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_CERT' which is deprecated, please use 'GF_SERVER_CERT' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("key") {
 		s.Key = viper.GetString("key")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_KEY' which is deprecated, please use 'NEKO_SERVER_KEY' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_KEY' which is deprecated, please use 'GF_SERVER_KEY' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("bind") {
 		s.Bind = viper.GetString("bind")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_BIND' which is deprecated, please use 'NEKO_SERVER_BIND' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_BIND' which is deprecated, please use 'GF_SERVER_BIND' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("proxy") {
 		s.Proxy = viper.GetBool("proxy")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_PROXY' which is deprecated, please use 'NEKO_SERVER_PROXY' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_PROXY' which is deprecated, please use 'GF_SERVER_PROXY' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("static") {
 		s.Static = viper.GetString("static")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_STATIC' which is deprecated, please use 'NEKO_SERVER_STATIC' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_STATIC' which is deprecated, please use 'GF_SERVER_STATIC' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("path_prefix") {
 		s.PathPrefix = path.Join("/", path.Clean(viper.GetString("path_prefix")))
-		log.Warn().Msg("you are using v2 configuration 'NEKO_PATH_PREFIX' which is deprecated, please use 'NEKO_SERVER_PATH_PREFIX' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_PATH_PREFIX' which is deprecated, please use 'GF_SERVER_PATH_PREFIX' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("cors") {
@@ -166,13 +166,13 @@ func (s *Server) SetV2() {
 		if len(s.CORS) == 0 || in {
 			s.CORS = []string{"*"}
 		}
-		log.Warn().Msg("you are using v2 configuration 'NEKO_CORS' which is deprecated, please use 'NEKO_SERVER_CORS' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_CORS' which is deprecated, please use 'GF_SERVER_CORS' instead")
 		enableLegacy = true
 	}
 
 	// set legacy flag if any V2 configuration was used
 	if !viper.IsSet("legacy") && enableLegacy {
-		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://neko.m1k1o.net/docs/v3/migration-from-v2 for more details")
+		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://glass-fence.arxndev.net/docs/v3/migration-from-v2 for more details")
 		viper.Set("legacy", true)
 	}
 }

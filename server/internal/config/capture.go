@@ -126,7 +126,7 @@ func (Capture) Init(cmd *cobra.Command) error {
 		return err
 	}
 
-	cmd.PersistentFlags().Bool("capture.broadcast.autostart", true, "automatically start broadcasting when neko starts and broadcast_url is set")
+	cmd.PersistentFlags().Bool("capture.broadcast.autostart", true, "automatically start broadcasting when glass-fence starts and broadcast_url is set")
 	if err := viper.BindPFlag("capture.broadcast.autostart", cmd.PersistentFlags().Lookup("capture.broadcast.autostart")); err != nil {
 		return err
 	}
@@ -308,7 +308,7 @@ func (Capture) InitV2(cmd *cobra.Command) error {
 		return err
 	}
 
-	cmd.PersistentFlags().Bool("broadcast_autostart", false, "V2: automatically start broadcasting when neko starts and broadcast_url is set")
+	cmd.PersistentFlags().Bool("broadcast_autostart", false, "V2: automatically start broadcasting when glass-fence starts and broadcast_url is set")
 	if err := viper.BindPFlag("broadcast_autostart", cmd.PersistentFlags().Lookup("broadcast_autostart")); err != nil {
 		return err
 	}
@@ -447,7 +447,7 @@ func (s *Capture) SetV2() {
 
 	if display := viper.GetString("display"); display != "" {
 		s.Display = display
-		log.Warn().Msg("you are using v2 configuration 'NEKO_DISPLAY' which is deprecated, please use 'NEKO_CAPTURE_VIDEO_DISPLAY' and/or 'NEKO_DESKTOP_DISPLAY' instead, also consider using 'DISPLAY' env variable if both should be the same")
+		log.Warn().Msg("you are using v2 configuration 'GF_DISPLAY' which is deprecated, please use 'GF_CAPTURE_VIDEO_DISPLAY' and/or 'GF_DESKTOP_DISPLAY' instead, also consider using 'DISPLAY' env variable if both should be the same")
 		enableLegacy = true
 	}
 
@@ -458,29 +458,29 @@ func (s *Capture) SetV2() {
 			log.Warn().Str("codec", videoCodec).Msgf("unknown video codec, using Vp8")
 			s.VideoCodec = codec.VP8()
 		}
-		log.Warn().Msg("you are using v2 configuration 'NEKO_VIDEO_CODEC' which is deprecated, please use 'NEKO_CAPTURE_VIDEO_CODEC' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_VIDEO_CODEC' which is deprecated, please use 'GF_CAPTURE_VIDEO_CODEC' instead")
 		enableLegacy = true
 		modifiedVideoCodec = true
 	}
 
 	if viper.GetBool("vp8") {
 		s.VideoCodec = codec.VP8()
-		log.Warn().Msg("you are using deprecated config setting 'NEKO_VP8=true', use 'NEKO_CAPTURE_VIDEO_CODEC=vp8' instead")
+		log.Warn().Msg("you are using deprecated config setting 'GF_VP8=true', use 'GF_CAPTURE_VIDEO_CODEC=vp8' instead")
 		enableLegacy = true
 		modifiedVideoCodec = true
 	} else if viper.GetBool("vp9") {
 		s.VideoCodec = codec.VP9()
-		log.Warn().Msg("you are using deprecated config setting 'NEKO_VP9=true', use 'NEKO_CAPTURE_VIDEO_CODEC=vp9' instead")
+		log.Warn().Msg("you are using deprecated config setting 'GF_VP9=true', use 'GF_CAPTURE_VIDEO_CODEC=vp9' instead")
 		enableLegacy = true
 		modifiedVideoCodec = true
 	} else if viper.GetBool("h264") {
 		s.VideoCodec = codec.H264()
-		log.Warn().Msg("you are using deprecated config setting 'NEKO_H264=true', use 'NEKO_CAPTURE_VIDEO_CODEC=h264' instead")
+		log.Warn().Msg("you are using deprecated config setting 'GF_H264=true', use 'GF_CAPTURE_VIDEO_CODEC=h264' instead")
 		enableLegacy = true
 		modifiedVideoCodec = true
 	} else if viper.GetBool("av1") {
 		s.VideoCodec = codec.AV1()
-		log.Warn().Msg("you are using deprecated config setting 'NEKO_AV1=true', use 'NEKO_CAPTURE_VIDEO_CODEC=av1' instead")
+		log.Warn().Msg("you are using deprecated config setting 'GF_AV1=true', use 'GF_CAPTURE_VIDEO_CODEC=av1' instead")
 		enableLegacy = true
 		modifiedVideoCodec = true
 	}
@@ -523,7 +523,7 @@ func (s *Capture) SetV2() {
 		}
 
 		if videoPipeline != "" {
-			log.Warn().Msg("you are using v2 configuration 'NEKO_VIDEO' which is deprecated, please use 'NEKO_CAPTURE_VIDEO_PIPELINE' instead")
+			log.Warn().Msg("you are using v2 configuration 'GF_VIDEO' which is deprecated, please use 'GF_CAPTURE_VIDEO_PIPELINE' instead")
 		}
 
 		// TODO: add deprecated warning and proper alternative for HW enc, bitrate and max fps
@@ -536,7 +536,7 @@ func (s *Capture) SetV2() {
 
 	if audioDevice := viper.GetString("device"); audioDevice != "" {
 		s.AudioDevice = audioDevice
-		log.Warn().Msg("you are using v2 configuration 'NEKO_DEVICE' which is deprecated, please use 'NEKO_CAPTURE_AUDIO_DEVICE' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_DEVICE' which is deprecated, please use 'GF_CAPTURE_AUDIO_DEVICE' instead")
 		enableLegacy = true
 	}
 
@@ -547,29 +547,29 @@ func (s *Capture) SetV2() {
 			log.Warn().Str("codec", audioCodec).Msgf("unknown audio codec, using Opus")
 			s.AudioCodec = codec.Opus()
 		}
-		log.Warn().Msg("you are using v2 configuration 'NEKO_AUDIO_CODEC' which is deprecated, please use 'NEKO_CAPTURE_AUDIO_CODEC' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_AUDIO_CODEC' which is deprecated, please use 'GF_CAPTURE_AUDIO_CODEC' instead")
 		enableLegacy = true
 		modifiedAudioCodec = true
 	}
 
 	if viper.GetBool("opus") {
 		s.AudioCodec = codec.Opus()
-		log.Warn().Msg("you are using deprecated config setting 'NEKO_OPUS=true', use 'NEKO_CAPTURE_AUDIO_CODEC=opus' instead")
+		log.Warn().Msg("you are using deprecated config setting 'GF_OPUS=true', use 'GF_CAPTURE_AUDIO_CODEC=opus' instead")
 		enableLegacy = true
 		modifiedAudioCodec = true
 	} else if viper.GetBool("g722") {
 		s.AudioCodec = codec.G722()
-		log.Warn().Msg("you are using deprecated config setting 'NEKO_G722=true', use 'NEKO_CAPTURE_AUDIO_CODEC=g722' instead")
+		log.Warn().Msg("you are using deprecated config setting 'GF_G722=true', use 'GF_CAPTURE_AUDIO_CODEC=g722' instead")
 		enableLegacy = true
 		modifiedAudioCodec = true
 	} else if viper.GetBool("pcmu") {
 		s.AudioCodec = codec.PCMU()
-		log.Warn().Msg("you are using deprecated config setting 'NEKO_PCMU=true', use 'NEKO_CAPTURE_AUDIO_CODEC=pcmu' instead")
+		log.Warn().Msg("you are using deprecated config setting 'GF_PCMU=true', use 'GF_CAPTURE_AUDIO_CODEC=pcmu' instead")
 		enableLegacy = true
 		modifiedAudioCodec = true
 	} else if viper.GetBool("pcma") {
 		s.AudioCodec = codec.PCMA()
-		log.Warn().Msg("you are using deprecated config setting 'NEKO_PCMA=true', use 'NEKO_CAPTURE_AUDIO_CODEC=pcma' instead")
+		log.Warn().Msg("you are using deprecated config setting 'GF_PCMA=true', use 'GF_CAPTURE_AUDIO_CODEC=pcma' instead")
 		enableLegacy = true
 		modifiedAudioCodec = true
 	}
@@ -587,7 +587,7 @@ func (s *Capture) SetV2() {
 		}
 
 		if audioPipeline != "" {
-			log.Warn().Msg("you are using v2 configuration 'NEKO_AUDIO' which is deprecated, please use 'NEKO_CAPTURE_AUDIO_PIPELINE' instead")
+			log.Warn().Msg("you are using v2 configuration 'GF_AUDIO' which is deprecated, please use 'GF_CAPTURE_AUDIO_PIPELINE' instead")
 		}
 
 		// TODO: add deprecated warning and proper alternative for audio bitrate
@@ -600,23 +600,23 @@ func (s *Capture) SetV2() {
 
 	if viper.IsSet("broadcast_pipeline") {
 		s.BroadcastPipeline = viper.GetString("broadcast_pipeline")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_BROADCAST_PIPELINE' which is deprecated, please use 'NEKO_CAPTURE_BROADCAST_PIPELINE' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_BROADCAST_PIPELINE' which is deprecated, please use 'GF_CAPTURE_BROADCAST_PIPELINE' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("broadcast_url") {
 		s.BroadcastUrl = viper.GetString("broadcast_url")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_BROADCAST_URL' which is deprecated, please use 'NEKO_CAPTURE_BROADCAST_URL' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_BROADCAST_URL' which is deprecated, please use 'GF_CAPTURE_BROADCAST_URL' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("broadcast_autostart") {
 		s.BroadcastAutostart = viper.GetBool("broadcast_autostart")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_BROADCAST_AUTOSTART' which is deprecated, please use 'NEKO_CAPTURE_BROADCAST_AUTOSTART' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_BROADCAST_AUTOSTART' which is deprecated, please use 'GF_CAPTURE_BROADCAST_AUTOSTART' instead")
 		enableLegacy = true
 	}
 
 	// set legacy flag if any V2 configuration was used
 	if !viper.IsSet("legacy") && enableLegacy {
-		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://neko.m1k1o.net/docs/v3/migration-from-v2 for more details")
+		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://glass-fence.arxndev.net/docs/v3/migration-from-v2 for more details")
 		viper.Set("legacy", true)
 	}
 }

@@ -7,8 +7,8 @@ RUN set -eux; apt-get update; \
     apt-get install -y --no-install-recommends xfce4 xfce4-terminal sudo; \
     #
     # add user to sudoers
-    usermod -aG sudo neko; \
-    echo "neko:neko" | chpasswd; \
+    usermod -aG sudo glass-fence; \
+    echo "glass-fence:glass-fence" | chpasswd; \
     echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers; \
     # clean up
     apt-get clean -y; \
@@ -16,5 +16,5 @@ RUN set -eux; apt-get update; \
 
 #
 # copy configuation files
-COPY supervisord.conf /etc/neko/supervisord/xfce.conf
+COPY supervisord.conf /etc/glass-fence/supervisord/xfce.conf
 

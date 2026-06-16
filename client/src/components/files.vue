@@ -100,13 +100,13 @@
       margin: 10px 10px 0px 10px;
       padding: 0.5em;
       font-weight: 600;
-      background-color: rgba($color: #fff, $alpha: 0.05);
+      background-color: rgba($color: var(--gf-bg), $alpha: 0.05);
       border-radius: 5px;
     }
 
     .files-list {
       margin: 10px 10px 10px 10px;
-      background-color: rgba($color: #fff, $alpha: 0.05);
+      background-color: rgba($color: var(--gf-bg), $alpha: 0.05);
       border-radius: 5px;
       overflow-y: scroll;
       scrollbar-width: thin;
@@ -133,7 +133,7 @@
 
     .files-list-item {
       padding: 0.5em;
-      border-bottom: 2px solid rgba($color: #fff, $alpha: 0.1);
+      border-bottom: 2px solid rgba($color: var(--gf-bg), $alpha: 0.1);
       display: flex;
       flex-direction: row;
       line-height: 1.2;
@@ -142,7 +142,7 @@
     .transfers-list-header {
       display: flex;
       justify-content: space-between;
-      border-bottom: 2px solid rgba($color: #fff, $alpha: 0.1);
+      border-bottom: 2px solid rgba($color: var(--gf-bg), $alpha: 0.1);
     }
 
     .file-icon,
@@ -174,7 +174,7 @@
     .file-size {
       margin-left: auto;
       margin-right: 0.5em;
-      color: rgba($color: #fff, $alpha: 0.4);
+      color: rgba($color: var(--gf-bg), $alpha: 0.4);
       white-space: nowrap;
     }
 
@@ -190,7 +190,7 @@
 
     .transfers {
       margin: 10px 10px 10px 10px;
-      background-color: rgba($color: #fff, $alpha: 0.05);
+      background-color: rgba($color: var(--gf-bg), $alpha: 0.05);
       border-radius: 5px;
       max-height: 50vh;
       overflow-y: scroll;
@@ -240,7 +240,7 @@
       text-align: center;
       justify-content: center;
       margin: 10px 10px 10px 10px;
-      background-color: rgba($color: #fff, $alpha: 0.05);
+      background-color: rgba($color: var(--gf-bg), $alpha: 0.05);
       border-radius: 5px;
     }
 
@@ -250,7 +250,7 @@
 
     .upload-area-drag,
     .upload-area:hover {
-      background-color: rgba($color: #fff, $alpha: 0.1);
+      background-color: rgba($color: var(--gf-bg), $alpha: 0.1);
     }
 
     .upload-area > i {

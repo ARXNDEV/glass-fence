@@ -1,14 +1,14 @@
 # Roadmap
 
-The roadmap outlines the future development plans for Neko. It is divided into three phases, each focusing on a different aspect of the project.
+The roadmap outlines the future development plans for Glass Fence. It is divided into three phases, each focusing on a different aspect of the project.
 
 ## Phase 1 - Server migration to V3 {#phase-1}
 
-This phase was successfully completed with the release of Neko V3.0.0. The [m1k1o/neko](https://github.com/ARXNDEV/glass-fence) server was merged with the archived [demodesk/neko](https://github.com/demodesk/neko) server, and the new server was released as V3.0.0. A compatibility layer was added to support V2 clients.
+This phase was successfully completed with the release of Glass Fence V3.0.0. The [arxndev/glass-fence](https://github.com/ARXNDEV/glass-fence) server was merged with the archived [demodesk/glass-fence](https://github.com/demodesk/glass-fence) server, and the new server was released as V3.0.0. A compatibility layer was added to support V2 clients.
 
 ## Phase 2 - Client rewrite to V3 {#phase-2}
 
-The client rewrite is the next big step in the development of Neko. The V2 client uses Vue2, which reached [end of life](https://v2.vuejs.org/eol/) a long time ago. The new client will be based on Vue3 and will be more modular and easier to maintain.
+The client rewrite is the next big step in the development of Glass Fence. The V2 client uses Vue2, which reached [end of life](https://v2.vuejs.org/eol/) a long time ago. The new client will be based on Vue3 and will be more modular and easier to maintain.
 
 While the V2 client focused on the user interface, the V3 client will focus on extensibility in the form of components. This means that the client will be able to be loaded seamlessly in any existing application, and the components will be able to be used in any other Vue3 application. For traditional users, the client will still be available as a standalone application with all the known features.
 
@@ -16,12 +16,12 @@ While the V2 client focused on the user interface, the V3 client will focus on e
 
 The V3 client and server will be modularized to allow for easier maintenance and extensibility.
 
-- The client should be split into a library TypeScript component **that does not use Vue.js** or any library and can be imported by any project. It should be as easy to integrate into a custom project as embedding a video player. Similar to how [demodesk/neko-client](https://github.com/demodesk/neko-client) is built, but without Vue.js.
+- The client should be split into a library TypeScript component **that does not use Vue.js** or any library and can be imported by any project. It should be as easy to integrate into a custom project as embedding a video player. Similar to how [demodesk/glass-fence-client](https://github.com/demodesk/glass-fence-client) is built, but without Vue.js.
 - The **connection**, **media streaming**, and **control** should be extracted as an interface so that it can be implemented by various protocols, not just WebSockets+WebRTC. That would elevate this project from just a shared virtual environment to basically a video streaming server with built-in tools for feedback and out-of-band communication (such as natively binding to RDP/VNC protocols, controlling drones/robots/PTZ cameras/industrial devices remotely). Since the controlling layer could be just a plugin, it does not need to rely on only keyboard and mouse but would allow plugging in gamepads, joysticks, or even Virtual Reality glasses (anything).
 
 ### Connection {#phase-3-connection}
 
-Neko can connect to the backend using multiple channels. Therefore API users should not be exposed to WebSocket internals.
+Glass Fence can connect to the backend using multiple channels. Therefore API users should not be exposed to WebSocket internals.
 
 They should only care about the connection status:
 - `connected` - user is connected to the server 

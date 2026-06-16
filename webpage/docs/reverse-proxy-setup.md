@@ -1,12 +1,12 @@
 # Reverse Proxy Setup
 
-If you want to run Neko behind a reverse proxy, you can use the following examples to configure your server.
+If you want to run Glass Fence behind a reverse proxy, you can use the following examples to configure your server.
 
 :::tip
 Do not forget to enable [`server.proxy=true`](/docs/v3/configuration#server.proxy) in your `config.yml` file to allow the server to trust the proxy headers.
 :::
 
-Neko pings websocket client every 10 seconds, and client is scheduled to send [heartbeat](/docs/v3/configuration#session.heartbeat_interval) to the server every 120 seconds. Make sure, that your timeout settings in the reverse proxy are set accordingly.
+Glass Fence pings websocket client every 10 seconds, and client is scheduled to send [heartbeat](/docs/v3/configuration#session.heartbeat_interval) to the server every 120 seconds. Make sure, that your timeout settings in the reverse proxy are set accordingly.
 
 ## Traefik v2 {#traefik-v2}
 
@@ -15,10 +15,10 @@ See the example below for a `docker-compose.yml` file.
 ```yaml title="docker-compose.yml"
 labels:
   - "traefik.enable=true"
-  - "traefik.http.services.neko-frontend.loadbalancer.server.port=8080"
-  - "traefik.http.routers.neko.rule=${TRAEFIK_RULE}"
-  - "traefik.http.routers.neko.entrypoints=${TRAEFIK_ENTRYPOINTS}"
-  - "traefik.http.routers.neko.tls.certresolver=${TRAEFIK_CERTRESOLVER}"
+  - "traefik.http.services.glass-fence-frontend.loadbalancer.server.port=8080"
+  - "traefik.http.routers.glass-fence.rule=${TRAEFIK_RULE}"
+  - "traefik.http.routers.glass-fence.entrypoints=${TRAEFIK_ENTRYPOINTS}"
+  - "traefik.http.routers.glass-fence.tls.certresolver=${TRAEFIK_CERTRESOLVER}"
 ```
 
 For more information, check out the [official Traefik documentation](https://doc.traefik.io/traefik/v2.0/routing/routers/). For SSL, see the [official Traefik SSL documentation](https://doc.traefik.io/traefik/v2.0/https/acme/).
@@ -27,7 +27,7 @@ For more information, check out the [official Traefik documentation](https://doc
 
 See the example below for an Nginx configuration file.
 
-```conf title="/etc/nginx/sites-available/neko.conf"
+```conf title="/etc/nginx/sites-available/glass-fence.conf"
 server {
   listen 443 ssl http2;
   server_name example.com;
@@ -48,13 +48,13 @@ For more information, check out the [official Nginx documentation](https://nginx
 
 ## Apache {#apache}
 
-To do this, you need to have a running Apache server. Navigate to the `/etc/apache2/sites-available` folder and create a new configuration file, for example, `neko.conf`.
+To do this, you need to have a running Apache server. Navigate to the `/etc/apache2/sites-available` folder and create a new configuration file, for example, `glass-fence.conf`.
 
 After creating the new configuration file, you can use the example below and paste it in. Some things may vary on your machine, so read through and modify it if needed.
 
-Bear in mind that your Neko server does not have to run on the same computer as Apache. They just need to be on the same network, and then you replace `localhost` with the correct internal IP.
+Bear in mind that your Glass Fence server does not have to run on the same computer as Apache. They just need to be on the same network, and then you replace `localhost` with the correct internal IP.
 
-```xml title="/etc/apache2/sites-available/neko.conf"
+```xml title="/etc/apache2/sites-available/glass-fence.conf"
 <VirtualHost *:80>
   # The ServerName directive sets the request scheme, hostname, and port that
   # the server uses to identify itself. This is used when creating
@@ -99,7 +99,7 @@ Bear in mind that your Neko server does not have to run on the same computer as 
 </VirtualHost>
 ```
 
-After creating your new configuration file, just use `sudo a2ensite neko.conf` and then `sudo systemctl reload apache2`.
+After creating your new configuration file, just use `sudo a2ensite glass-fence.conf` and then `sudo systemctl reload apache2`.
 
 See the [official Apache documentation](https://httpd.apache.org/docs/2.4/vhosts/examples.html) for more information. For SSL, see the [official Apache SSL documentation](https://httpd.apache.org/docs/2.4/ssl/ssl_howto.html) or use [certbot](https://certbot.eff.org/instructions?ws=apache&os=snap).
 
@@ -117,20 +117,20 @@ For more information, check out the [official Caddy documentation](https://caddy
 
 ## HAProxy {#haproxy}
 
-Using your frontend section *(mine is called http-in)*, add the ACL to redirect correctly to your Neko instance.
+Using your frontend section *(mine is called http-in)*, add the ACL to redirect correctly to your Glass Fence instance.
 
 ```sh title="/etc/haproxy/haproxy.cfg"
 frontend http-in
   #/********
-  #* NEKO *
-  acl neko_rule_http hdr(host) neko.domain.com # Adapt the domain
-  use_backend neko_srv if neko_rule_http
+  #* GLASS_FENCE *
+  acl glass-fence_rule_http hdr(host) glass-fence.domain.com # Adapt the domain
+  use_backend glass-fence_srv if glass-fence_rule_http
   #********/
 
-backend neko_srv
+backend glass-fence_srv
   mode http
   option httpchk
-      server neko 172.16.0.0:8080 # Adapt the IP
+      server glass-fence 172.16.0.0:8080 # Adapt the IP
 ```
 
 Then, restart the HAProxy service.
@@ -158,7 +158,7 @@ If you're having trouble reaching your HAProxy instance, try the following steps
     ```sh
     tail -f /var/log/haproxy.log
     ```
-    Then, access your `neko.instance.com` and observe the logs for any issues.
+    Then, access your `glass-fence.instance.com` and observe the logs for any issues.
 
 3. **Adjust Timeout Settings**  
     Ensure the global timeout is set to 60 seconds to prevent premature request failures:

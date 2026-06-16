@@ -12,14 +12,14 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://neko.m1k1o.net',
+  url: 'https://glass-fence.arxndev.net',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
-  organizationName: 'm1k1o',
-  projectName: 'neko',
+  organizationName: 'arxndev',
+  projectName: 'glass-fence',
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
@@ -66,7 +66,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/neko-social-card.jpg',
+    image: 'img/glass-fence-social-card.jpg',
     navbar: {
       //title: 'Glass Fence',
       logo: {
@@ -96,7 +96,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://github.com/sponsors/m1k1o',
+          href: 'https://github.com/sponsors/arxndev',
           label: 'Donate',
           position: 'left',
         },
@@ -123,15 +123,15 @@ const config: Config = {
           title: 'Other Projects',
           items: [
             {
-              label: 'Neko Rooms',
+              label: 'Glass Fence Rooms',
               href: 'https://github.com/ARXNDEV/glass-fence-rooms',
             },
             {
-              label: 'Neko Apps',
+              label: 'Glass Fence Apps',
               href: 'https://github.com/ARXNDEV/glass-fence-apps',
             },
             {
-              label: 'Neko VPN',
+              label: 'Glass Fence VPN',
               href: 'https://github.com/ARXNDEV/glass-fence-vpn',
             },
           ],
@@ -158,12 +158,12 @@ const config: Config = {
             },
             {
               label: 'Sponsors',
-              href: 'https://github.com/sponsors/m1k1o',
+              href: 'https://github.com/sponsors/arxndev',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://github.com/m1k1o">m1k1o</a>. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://github.com/arxndev">arxndev</a>. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
@@ -182,7 +182,7 @@ const config: Config = {
           api: {
             specPath: "../server/openapi.yaml",
             outputDir: "docs/api",
-            downloadUrl: "https://raw.githubusercontent.com/m1k1o/neko/refs/heads/master/server/openapi.yaml",
+            downloadUrl: "https://raw.githubusercontent.com/arxndev/glass-fence/refs/heads/master/server/openapi.yaml",
             baseUrl: "/docs/v3/api",
             sidebarOptions: {
               groupPathsBy: "tag",

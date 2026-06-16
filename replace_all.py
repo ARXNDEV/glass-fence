@@ -14,48 +14,65 @@ def replace_in_file(filepath, old_str, new_str):
 
 def main():
     replacements = [
-        ("name: 'neko-chat'", "name: 'gf-chat'"),
-        ("name: 'neko-video'", "name: 'gf-video'"),
-        ("name: 'neko-files'", "name: 'gf-files'"),
-        ("name: 'neko-menu'", "name: 'gf-menu'"),
-        ("name: 'neko-avatar'", "name: 'gf-avatar'"),
-        ("name: 'neko-emote'", "name: 'gf-emote'"),
-        ("name: 'neko-emotes'", "name: 'gf-emotes'"),
-        ("name: 'neko-context'", "name: 'gf-context'"),
-        ("name: 'neko-unsupported'", "name: 'gf-unsupported'"),
-        ("name: 'neko-connect'", "name: 'gf-connect'"),
-        ("name: 'neko-resolution'", "name: 'gf-resolution'"),
-        ("name: 'neko-settings'", "name: 'gf-settings'"),
-        ("name: 'neko-about'", "name: 'gf-about'"),
-        ("name: 'neko-clipboard'", "name: 'gf-clipboard'"),
-        ("name: 'neko-emoji'", "name: 'gf-emoji'"),
-        ("name: 'neko-markdown'", "name: 'gf-markdown'"),
-        ("<neko-", "<gf-"),
-        ("</neko-", "</gf-"),
-        ("id=\"neko\"", "id=\"glass-fence\""),
-        ("#neko", "#glass-fence"),
-        ("group=\"neko\"", "group=\"glass-fence\""),
-        (".neko-menu", ".gf-menu"),
-        ("'~/neko/", "'~/glassfence/"),
-        ("\"~/neko/", "\"~/glassfence/")
+        ("name: 'glass-fence-chat'", "name: 'gf-chat'"),
+        ("name: 'glass-fence-video'", "name: 'gf-video'"),
+        ("name: 'glass-fence-files'", "name: 'gf-files'"),
+        ("name: 'glass-fence-menu'", "name: 'gf-menu'"),
+        ("name: 'glass-fence-avatar'", "name: 'gf-avatar'"),
+        ("name: 'glass-fence-emote'", "name: 'gf-emote'"),
+        ("name: 'glass-fence-emotes'", "name: 'gf-emotes'"),
+        ("name: 'glass-fence-context'", "name: 'gf-context'"),
+        ("name: 'glass-fence-unsupported'", "name: 'gf-unsupported'"),
+        ("name: 'glass-fence-connect'", "name: 'gf-connect'"),
+        ("name: 'glass-fence-resolution'", "name: 'gf-resolution'"),
+        ("name: 'glass-fence-settings'", "name: 'gf-settings'"),
+        ("name: 'glass-fence-about'", "name: 'gf-about'"),
+        ("name: 'glass-fence-clipboard'", "name: 'gf-clipboard'"),
+        ("name: 'glass-fence-emoji'", "name: 'gf-emoji'"),
+        ("name: 'glass-fence-markdown'", "name: 'gf-markdown'"),
+        ("<glass-fence-", "<gf-"),
+        ("</glass-fence-", "</gf-"),
+        ("id=\"glass-fence\"", "id=\"glass-fence\""),
+        ("#glass-fence", "#glass-fence"),
+        ("group=\"glass-fence\"", "group=\"glass-fence\""),
+        (".glass-fence-menu", ".gf-menu"),
+        ("'~/glass-fence/", "'~/glassfence/"),
+        ("\"~/glass-fence/", "\"~/glassfence/"),
+        ("module github.com/ARXNDEV/glass-fence", "module github.com/arxndev/glass-fence"),
+        ("net.ARXNDEV.glass-fence", "net.arxndev.glass-fence"),
+        ("ARXNDEV/glass-fence", "arxndev/glass-fence"),
+        ("ARXNDEV", "arxndev"),
+        ("/home/glass-fence", "/home/glassfence"),
+        ("/usr/bin/glass-fence", "/usr/bin/glass-fence"),
+        ("glass-fence.yaml", "glass-fence.yaml"),
+        ("glass-fence-rooms", "glass-fence"),
+        ("Built on n.eko", ""),
+        ("n.eko", "Glass Fence"),
+        ("Glass Fence", "Glass Fence"),
+        ("glass-fence", "glass-fence")
     ]
     
-    for root, dirs, files in os.walk('./client'):
-        if '.git' in dirs:
-            dirs.remove('.git')
-        if 'node_modules' in dirs:
-            dirs.remove('node_modules')
-        if 'dist' in dirs:
-            dirs.remove('dist')
-            
-        for file in files:
-            # Skip images and binary files
-            if file.endswith(('.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.webmanifest', '.xbm', '.woff', '.woff2', '.ttf')):
-                continue
-            
-            filepath = os.path.join(root, file)
-            for old_str, new_str in replacements:
-                replace_in_file(filepath, old_str, new_str)
+    directories_to_walk = ['./client', './server', './runtime', './apps', './utils', './webpage', './ai-engine']
+    
+    for d in directories_to_walk:
+        for root, dirs, files in os.walk(d):
+            if '.git' in dirs:
+                dirs.remove('.git')
+            if 'node_modules' in dirs:
+                dirs.remove('node_modules')
+            if 'dist' in dirs:
+                dirs.remove('dist')
+            if '__pycache__' in dirs:
+                dirs.remove('__pycache__')
+                
+            for file in files:
+                # Skip images and binary files
+                if file.endswith(('.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.webmanifest', '.xbm', '.woff', '.woff2', '.ttf', '.bin', '.so', '.a', '.pyc')):
+                    continue
+                
+                filepath = os.path.join(root, file)
+                for old_str, new_str in replacements:
+                    replace_in_file(filepath, old_str, new_str)
 
 if __name__ == "__main__":
     main()

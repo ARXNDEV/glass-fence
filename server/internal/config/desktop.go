@@ -41,7 +41,7 @@ func (Desktop) Init(cmd *cobra.Command) error {
 		return err
 	}
 
-	cmd.PersistentFlags().String("desktop.input.socket", "/tmp/xf86-input-neko.sock", "socket path for custom xf86 input driver connection")
+	cmd.PersistentFlags().String("desktop.input.socket", "/tmp/xf86-input-glass-fence.sock", "socket path for custom xf86 input driver connection")
 	if err := viper.BindPFlag("desktop.input.socket", cmd.PersistentFlags().Lookup("desktop.input.socket")); err != nil {
 		return err
 	}
@@ -127,13 +127,13 @@ func (s *Desktop) SetV2() {
 				s.ScreenSize.Rate = int16(rate)
 			}
 		}
-		log.Warn().Msg("you are using v2 configuration 'NEKO_SCREEN' which is deprecated, please use 'NEKO_DESKTOP_SCREEN' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_SCREEN' which is deprecated, please use 'GF_DESKTOP_SCREEN' instead")
 		enableLegacy = true
 	}
 
 	// set legacy flag if any V2 configuration was used
 	if !viper.IsSet("legacy") && enableLegacy {
-		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://neko.m1k1o.net/docs/v3/migration-from-v2 for more details")
+		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://glass-fence.arxndev.net/docs/v3/migration-from-v2 for more details")
 		viper.Set("legacy", true)
 	}
 }

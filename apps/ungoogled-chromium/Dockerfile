@@ -51,7 +51,7 @@ RUN set -eux; apt-get update; \
 
 #
 # copy configuation files
-COPY supervisord.conf /etc/neko/supervisord/ungoogled-chromium.conf
+COPY supervisord.conf /etc/glass-fence/supervisord/ungoogled-chromium.conf
 COPY preferences.json /usr/lib/chromium/master_preferences
 COPY policies.json /etc/chromium/policies/managed/policies.json
-COPY openbox.xml /etc/neko/openbox.xml
+COPY openbox.xml /etc/glass-fence/openbox.xml

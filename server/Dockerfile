@@ -27,5 +27,5 @@ RUN ./build
 
 #
 # artifacts from this stage
-# COPY --from=server /src/bin/plugins/ $NEKO_PLUGINS_DIR
-# COPY --from=server /src/bin/neko /usr/bin/neko
+# COPY --from=server /src/bin/plugins/ $GF_PLUGINS_DIR
+# COPY --from=server /src/bin/glass-fence /usr/bin/glass-fence

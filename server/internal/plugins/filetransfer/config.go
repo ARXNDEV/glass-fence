@@ -20,7 +20,7 @@ func (Config) Init(cmd *cobra.Command) error {
 		return err
 	}
 
-	cmd.PersistentFlags().String("filetransfer.dir", "/home/neko/Downloads", "root directory for file transfer")
+	cmd.PersistentFlags().String("filetransfer.dir", "/home/glassfence/Downloads", "root directory for file transfer")
 	if err := viper.BindPFlag("filetransfer.dir", cmd.PersistentFlags().Lookup("filetransfer.dir")); err != nil {
 		return err
 	}

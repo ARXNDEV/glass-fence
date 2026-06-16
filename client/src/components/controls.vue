@@ -171,7 +171,7 @@
             height: 12px;
             width: 12px;
             border-radius: 12px;
-            background: #fff;
+            background: var(--gf-bg);
             cursor: pointer;
           }
 
@@ -188,7 +188,7 @@
             height: 12px;
             width: 12px;
             border-radius: 12px;
-            background: #fff;
+            background: var(--gf-bg);
             cursor: pointer;
             margin-top: -4px;
           }

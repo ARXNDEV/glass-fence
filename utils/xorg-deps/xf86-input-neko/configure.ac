@@ -22,14 +22,14 @@
 # Process this file with autoconf to produce a configure script
 
 AC_PREREQ(2.59)
-AC_INIT([xf86-input-neko],[0.0.1],[https://github.com/ARXNDEV/glass-fence/issues],[xf86-input-neko],[https://github.com/ARXNDEV/glass-fence])
+AC_INIT([xf86-input-glass-fence],[0.0.1],[https://github.com/ARXNDEV/glass-fence/issues],[xf86-input-glass-fence],[https://github.com/ARXNDEV/glass-fence])
 
 AC_CONFIG_SRCDIR([Makefile.am])
 AC_CONFIG_AUX_DIR(.)
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([dist-bzip2 dist-xz])
 
-DRIVER_NAME=neko
+DRIVER_NAME=glass-fence
 AC_SUBST([DRIVER_NAME])
 
 AC_CONFIG_HEADERS(config.h)
@@ -105,5 +105,5 @@ AC_HEADER_STDC
 
 AC_CONFIG_FILES([Makefile
 		 src/Makefile
-		 xorg-neko.pc])
+		 xorg-glass-fence.pc])
 AC_OUTPUT

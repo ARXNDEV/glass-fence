@@ -1,5 +1,5 @@
 ---
-description: Configuration related to the WebRTC and Networking in Neko.
+description: Configuration related to the WebRTC and Networking in Glass Fence.
 ---
 
 import { Def, Opt } from '@site/src/components/Anchor';
@@ -8,9 +8,9 @@ import configOptions from './help.json';
 
 # WebRTC Configuration
 
-This page describes how to configure WebRTC settings inside neko.
+This page describes how to configure WebRTC settings inside glass-fence.
 
-Neko uses WebRTC with the [Pion](https://github.com/pion/webrtc) library to establish a peer-to-peer connection between the client and the server. This connection is used to stream audio, video, and data bidirectionally between the client and the server.
+Glass Fence uses WebRTC with the [Pion](https://github.com/pion/webrtc) library to establish a peer-to-peer connection between the client and the server. This connection is used to stream audio, video, and data bidirectionally between the client and the server.
 
 ## ICE Setup {#ice}
 
@@ -59,8 +59,8 @@ import TabItem from '@theme/TabItem';
   
     ```yaml title="Example of multiple ICE servers in YAML"
     - urls: "turn:<MY-COTURN-SERVER>:3478"
-      username: "neko"
-      credential: "neko"
+      username: "glass-fence"
+      credential: "glass-fence"
     - urls: "stun:stun.l.google.com:19302"
     ```
 
@@ -71,8 +71,8 @@ import TabItem from '@theme/TabItem';
     [
       {
         "urls": "turn:<MY-COTURN-SERVER>:3478",
-        "username": "neko",
-        "credential": "neko"
+        "username": "glass-fence",
+        "credential": "glass-fence"
       },
       {
         "urls": "stun:stun.l.google.com:19302"
@@ -81,14 +81,14 @@ import TabItem from '@theme/TabItem';
     ```
 
     :::tip
-      You can specify the ICE servers as a JSON string in the `docker-compose.yaml` file using the `NEKO_WEBRTC_ICESERVERS_FRONTEND` and `NEKO_WEBRTC_ICESERVERS_BACKEND` environment variables.
+      You can specify the ICE servers as a JSON string in the `docker-compose.yaml` file using the `GF_WEBRTC_ICESERVERS_FRONTEND` and `GF_WEBRTC_ICESERVERS_BACKEND` environment variables.
 
       ```yaml title="docker-compose.yaml"
-        NEKO_WEBRTC_ICESERVERS_FRONTEND: |
+        GF_WEBRTC_ICESERVERS_FRONTEND: |
           [{
             "urls": [ "turn:<MY-COTURN-SERVER>:3478" ],
-            "username": "neko",
-            "credential": "neko"
+            "username": "glass-fence",
+            "credential": "glass-fence"
           },{
             "urls": [ "stun:stun.nextcloud.com:3478" ]
           }]
@@ -126,7 +126,7 @@ services:
       --min-port=49160
       --max-port=49200
       --log-file=stdout
-      --user=neko:neko
+      --user=glass-fence:glass-fence
       --lt-cred-mech
 ```
 
@@ -167,7 +167,7 @@ When specifying the ephemeral UDP port range in `docker-compose.yaml`, make sure
 
 ```yaml title="docker-compose.yaml"
 environment:
-  NEKO_WEBRTC_EPR: "59000-59100"
+  GF_WEBRTC_EPR: "59000-59100"
 ports:
   - "59000-59100:59000-59100/udp"
 ```
@@ -194,8 +194,8 @@ When specifying the UDP/TCP multiplexing port in `docker-compose.yaml`, make sur
 
 ```yaml title="docker-compose.yaml"
 environment:
-  NEKO_WEBRTC_UDPMUX: "59000"
-  NEKO_WEBRTC_TCPMUX: "59000"
+  GF_WEBRTC_UDPMUX: "59000"
+  GF_WEBRTC_TCPMUX: "59000"
 ports:
   - "59000:59000/udp"
   - "59000:59000/tcp"
@@ -206,7 +206,7 @@ It is important to expose the same ports to the host machine, without any remapp
 
 ### Server IP Address {#ip}
 
-The server IP address is sent to the client in ICE candidates so that the client can establish a connection with the server. By default, the server IP address is automatically resolved by the server to the public IP address of the server. If the server is behind a NAT, you want to specify a different IP address or use neko only in a local network, you can specify the server IP address manually.
+The server IP address is sent to the client in ICE candidates so that the client can establish a connection with the server. By default, the server IP address is automatically resolved by the server to the public IP address of the server. If the server is behind a NAT, you want to specify a different IP address or use glass-fence only in a local network, you can specify the server IP address manually.
 
 #### NAT 1-to-1 {#nat1to1}
 <ConfigurationTab options={configOptions} filter={{

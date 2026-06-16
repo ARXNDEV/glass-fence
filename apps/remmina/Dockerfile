@@ -11,9 +11,9 @@ RUN set -eux; apt-get update; \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 # copy configuation files
-COPY supervisord.conf /etc/neko/supervisord/remmina.conf
-COPY --chown=neko remmina.pref /home/neko/.config/remmina/remmina.pref
-COPY --chown=neko rdp.remmina spice.remmina vnc.remmina /home/neko/.local/share/remmina/
+COPY supervisord.conf /etc/glass-fence/supervisord/remmina.conf
+COPY --chown=glass-fence remmina.pref /home/glassfence/.config/remmina/remmina.pref
+COPY --chown=glass-fence rdp.remmina spice.remmina vnc.remmina /home/glassfence/.local/share/remmina/
 COPY run-remmina.sh /usr/bin/run-remmina.sh
 ENV REMMINA_URL=
 ENV REMMINA_PROFILE=

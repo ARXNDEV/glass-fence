@@ -2,9 +2,9 @@
 
 ## Reporting a Vulnerability
 
-If there are any vulnerabilities in **m1k1o/neko**, don't hesitate to _report them_.
+If there are any vulnerabilities in **ARXNDEV/glass-fence**, don't hesitate to _report them_.
 
-1. Send an email to `security@m1k1o.net`.
+1. Send an email to `security@ARXNDEV.net`.
 
 2. Describe the vulnerability.
 
@@ -16,4 +16,4 @@ If there are any vulnerabilities in **m1k1o/neko**, don't hesitate to _report th
 
 4. Once we have either a) published a fix, or b) declined to address the vulnerability for whatever reason, you are free to publicly disclose it.
 
-We appreciate your help in keeping Neko secure.
+We appreciate your help in keeping Glass Fence secure.

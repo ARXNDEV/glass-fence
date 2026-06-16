@@ -39,8 +39,8 @@ RUN set -eux; apt-get update; \
     fi; \
     #
     # create a profile directory
-    mkdir -p /home/neko/.mozilla/firefox/profile.default/extensions; \
-    chown -R neko:neko /home/neko/.mozilla/firefox/profile.default; \
+    mkdir -p /home/glassfence/.mozilla/firefox/profile.default/extensions; \
+    chown -R glass-fence:glass-fence /home/glassfence/.mozilla/firefox/profile.default; \
     #
     # clean up
     apt-get clean -y; \
@@ -48,9 +48,9 @@ RUN set -eux; apt-get update; \
 
 #
 # copy configuation files
-COPY supervisord.conf /etc/neko/supervisord/firefox.conf
-COPY neko.js /usr/lib/firefox/mozilla.cfg
+COPY supervisord.conf /etc/glass-fence/supervisord/firefox.conf
+COPY glass-fence.js /usr/lib/firefox/mozilla.cfg
 COPY autoconfig.js /usr/lib/firefox/defaults/pref/autoconfig.js
 COPY policies.json /usr/lib/firefox/distribution/policies.json
-COPY --chown=neko profiles.ini /home/neko/.mozilla/firefox/profiles.ini
-COPY openbox.xml /etc/neko/openbox.xml
+COPY --chown=glass-fence profiles.ini /home/glassfence/.mozilla/firefox/profiles.ini
+COPY openbox.xml /etc/glass-fence/openbox.xml

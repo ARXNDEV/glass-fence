@@ -22,7 +22,7 @@
       position: absolute;
       width: 100px;
       height: 100%;
-      color: #fff;
+      color: var(--gf-bg);
       transform: scale(0.7);
       text-align: center;
       background-size: contain;

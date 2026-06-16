@@ -5,6 +5,7 @@
         <img src="/logo.svg" alt="Logo" class="logo-img" />
         <span class="brand-text">GLASS FENCE</span>
       </div>
+      <div class="tagline">Isolated. Secure. Private.</div>
       <form class="message" v-if="!connecting" @submit.stop.prevent="connect">
         <span v-if="!autoPassword">{{ $t('connect.login_title') }}</span>
         <span v-else>{{ $t('connect.invitation_title') }}</span>
@@ -64,6 +65,16 @@
           letter-spacing: 2px;
           color: var(--text-primary);
         }
+      }
+
+      .tagline {
+        text-align: center;
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        color: var(--text-secondary);
+        margin-bottom: 25px;
+        margin-top: -10px;
+        text-transform: uppercase;
       }
 
       .message {

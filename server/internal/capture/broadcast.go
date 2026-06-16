@@ -43,7 +43,7 @@ func broadcastNew(pipelineFn func(url string) (string, error), defaultUrl string
 		// metrics
 		pipelinesCounter: promauto.NewCounter(prometheus.CounterOpts{
 			Name:      "pipelines_total",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Total number of created pipelines.",
 			ConstLabels: map[string]string{
@@ -55,7 +55,7 @@ func broadcastNew(pipelineFn func(url string) (string, error), defaultUrl string
 		}),
 		pipelinesActive: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "pipelines_active",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Total number of active pipelines.",
 			ConstLabels: map[string]string{

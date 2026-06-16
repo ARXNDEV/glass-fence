@@ -20,21 +20,21 @@
       "cert"
     ],
     "type": "string",
-    "description": "path to the SSL cert used to secure the neko server"
+    "description": "path to the SSL cert used to secure the glass-fence server"
   },
   {
     "key": [
       "key"
     ],
     "type": "string",
-    "description": "path to the SSL key used to secure the neko server"
+    "description": "path to the SSL key used to secure the glass-fence server"
   },
   {
     "key": [
       "bind"
     ],
     "type": "string",
-    "description": "address/port/socket to serve neko"
+    "description": "address/port/socket to serve glass-fence"
   },
   {
     "key": [
@@ -49,7 +49,7 @@
       "static"
     ],
     "type": "string",
-    "description": "path to neko client files to serve"
+    "description": "path to glass-fence client files to serve"
   },
   {
     "key": [
@@ -265,7 +265,7 @@
     ],
     "type": "boolean",
     "defaultValue": "false",
-    "description": "automatically start broadcasting when neko starts and broadcast_url is set"
+    "description": "automatically start broadcasting when glass-fence starts and broadcast_url is set"
   },
   {
     "key": [

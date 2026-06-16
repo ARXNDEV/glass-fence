@@ -3,7 +3,7 @@ set -e
 cd "$(dirname "$0")"
 
 #
-# This script builds the neko base image and all the applications
+# This script builds the glass-fence base image and all the applications
 #
 
 # disable buildx because of https://github.com/docker/buildx/issues/847
@@ -20,7 +20,7 @@ fi
 #fi
 
 function log() {
-  echo "$(date +'%Y-%m-%d %H:%M:%S') - [NEKO] - $1" > /dev/stderr
+  echo "$(date +'%Y-%m-%d %H:%M:%S') - [GLASS_FENCE] - $1" > /dev/stderr
 }
 
 function help() {

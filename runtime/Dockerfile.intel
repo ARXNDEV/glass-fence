@@ -3,7 +3,7 @@ FROM $BASE_IMAGE AS runtime
 
 #
 # set custom user
-ARG USERNAME=neko
+ARG USERNAME=glassfence
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -48,14 +48,14 @@ RUN set -eux; \
     chmod 1777 /tmp/.X11-unix; \
     chown $USERNAME /tmp/.X11-unix/; \
     #
-    # make directories for neko
-    mkdir -p /etc/neko /var/www /var/log/neko \
+    # make directories for glass-fence
+    mkdir -p /etc/glass-fence /var/www /var/log/glass-fence \
         /tmp/runtime-$USERNAME \
         /home/$USERNAME/.config/pulse  \
         /home/$USERNAME/.local/share/xorg; \
-    chmod 1777 /var/log/neko; \
+    chmod 1777 /var/log/glass-fence; \
     chmod 0700 /tmp/runtime-$USERNAME; \
-    chown $USERNAME /var/log/neko/ /tmp/runtime-$USERNAME; \
+    chown $USERNAME /var/log/glass-fence/ /tmp/runtime-$USERNAME; \
     chown -R $USERNAME:$USERNAME /home/$USERNAME; \
     #
     # install fonts
@@ -80,18 +80,18 @@ RUN set -eux; \
 
 #
 # copy runtime configs
-COPY --chown=neko:neko .Xresources /home/$USERNAME/.Xresources
+COPY --chown=glass-fence:glass-fence .Xresources /home/$USERNAME/.Xresources
 COPY dbus /usr/bin/dbus
 COPY default.pa /etc/pulse/default.pa
-COPY supervisord.conf /etc/neko/supervisord.conf
-COPY supervisord.dbus.conf /etc/neko/supervisord.dbus.conf
-COPY xorg.conf /etc/neko/xorg.conf
+COPY supervisord.conf /etc/glass-fence/supervisord.conf
+COPY supervisord.dbus.conf /etc/glass-fence/supervisord.dbus.conf
+COPY xorg.conf /etc/glass-fence/xorg.conf
 COPY intel/add-render-group.sh /usr/bin/add-render-group.sh
-COPY intel/supervisord.rendergroup.conf /etc/neko/supervisord/supervisord.rendergroup.conf
+COPY intel/supervisord.rendergroup.conf /etc/glass-fence/supervisord/supervisord.rendergroup.conf
 
 #
 # copy runtime folders
-COPY --chown=neko:neko icon-theme /home/$USERNAME/.icons/default
+COPY --chown=glass-fence:glass-fence icon-theme /home/$USERNAME/.icons/default
 COPY fontconfig/* /etc/fonts/conf.d/
 COPY fonts /usr/local/share/fonts
 
@@ -101,19 +101,19 @@ ENV USER=$USERNAME
 ENV DISPLAY=:99.0
 ENV PULSE_SERVER=unix:/tmp/pulseaudio.socket
 ENV XDG_RUNTIME_DIR=/tmp/runtime-$USERNAME
-ENV NEKO_SERVER_BIND=:8080
-ENV NEKO_PLUGINS_ENABLED=true
-ENV NEKO_PLUGINS_DIR=/etc/neko/plugins/
-ENV NEKO_HWENC=VAAPI
+ENV GF_SERVER_BIND=:8080
+ENV GF_PLUGINS_ENABLED=true
+ENV GF_PLUGINS_DIR=/etc/glass-fence/plugins/
+ENV GF_HWENC=VAAPI
 ENV RENDER_GID=
 
 #
 # add healthcheck
 HEALTHCHECK --interval=10s --timeout=5s --retries=8 \
-    CMD wget -O - http://localhost:${NEKO_SERVER_BIND#*:}/health || \
-        wget --no-check-certificate -O - https://localhost:${NEKO_SERVER_BIND#*:}/health || \
+    CMD wget -O - http://localhost:${GF_SERVER_BIND#*:}/health || \
+        wget --no-check-certificate -O - https://localhost:${GF_SERVER_BIND#*:}/health || \
         exit 1
 
 #
-# run neko
-CMD ["/usr/bin/supervisord", "-c", "/etc/neko/supervisord.conf"]
+# run glass-fence
+CMD ["/usr/bin/supervisord", "-c", "/etc/glass-fence/supervisord.conf"]

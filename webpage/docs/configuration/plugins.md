@@ -1,5 +1,5 @@
 ---
-description: Configuration related to the Neko plugins.
+description: Configuration related to the Glass Fence plugins.
 ---
 
 import { Def, Opt } from '@site/src/components/Anchor';
@@ -8,7 +8,7 @@ import configOptions from './help.json';
 
 # Plugins Configuration
 
-Neko allows you to extend its functionality by using [plugins](https://pkg.go.dev/plugin). Go plugins come with a lot of benefits as well as some limitations. The main advantage is that you can extend the functionality of the application without recompiling the main application. But the main limitation is that you need to use the same Go version and all dependencies with the same version as the main application.
+Glass Fence allows you to extend its functionality by using [plugins](https://pkg.go.dev/plugin). Go plugins come with a lot of benefits as well as some limitations. The main advantage is that you can extend the functionality of the application without recompiling the main application. But the main limitation is that you need to use the same Go version and all dependencies with the same version as the main application.
 
 <ConfigurationTab options={configOptions} filter={[
   'plugins.enabled',
@@ -24,7 +24,7 @@ Neko allows you to extend its functionality by using [plugins](https://pkg.go.de
 External plugins are experimental and may not work as expected. They will be replaced with [hashicorp/go-plugin](https://github.com/hashicorp/go-plugin) in the future.
 :::
 
-There exist a few pre-loaded internal plugins that are shipped with Neko:
+There exist a few pre-loaded internal plugins that are shipped with Glass Fence:
 
 ## Chat Plugin {#chat}
 

@@ -3,11 +3,11 @@
 
       --logs                                          save logs to file
 
-      --cert string                                   path to the SSL cert used to secure the neko server
-      --key string                                    path to the SSL key used to secure the neko server
-      --bind string                                   address/port/socket to serve neko
+      --cert string                                   path to the SSL cert used to secure the glass-fence server
+      --key string                                    path to the SSL key used to secure the glass-fence server
+      --bind string                                   address/port/socket to serve glass-fence
       --proxy                                         enable reverse proxy mode
-      --static string                                 path to neko client files to serve
+      --static string                                 path to glass-fence client files to serve
       --path_prefix string                            path prefix for HTTP requests
       --cors strings                                  list of allowed origins for CORS
       --locks strings                                 resources, that will be locked when starting (control, login)
@@ -39,7 +39,7 @@
 
       --broadcast_pipeline string                     custom gst pipeline used for broadcasting, strings {hostname} {url} {device} {display} will be replaced
       --broadcast_url string                          a default default URL for broadcast streams, can be disabled/changed later by admins in the GUI
-      --broadcast_autostart                           automatically start broadcasting when neko starts and broadcast_url is set
+      --broadcast_autostart                           automatically start broadcasting when glass-fence starts and broadcast_url is set
 
       --screen string                                 default screen resolution and framerate
 

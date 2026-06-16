@@ -127,19 +127,19 @@ func (s *Root) SetV2() {
 		if viper.GetBool("logs") {
 			logs := filepath.Join(".", "logs")
 			if runtime.GOOS == "linux" {
-				logs = "/var/log/neko"
+				logs = "/var/log/glass-fence"
 			}
 			s.LogDir = logs
 		} else {
 			s.LogDir = ""
 		}
-		log.Warn().Msg("you are using v2 configuration 'NEKO_LOGS' which is deprecated, please use 'NEKO_LOG_DIR=/path/to/logs' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_LOGS' which is deprecated, please use 'GF_LOG_DIR=/path/to/logs' instead")
 		enableLegacy = true
 	}
 
 	// set legacy flag if any V2 configuration was used
 	if !viper.IsSet("legacy") && enableLegacy {
-		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://neko.m1k1o.net/docs/v3/migration-from-v2 for more details")
+		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://glass-fence.arxndev.net/docs/v3/migration-from-v2 for more details")
 		viper.Set("legacy", true)
 	}
 }

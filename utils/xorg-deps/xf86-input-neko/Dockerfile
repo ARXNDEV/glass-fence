@@ -18,5 +18,5 @@ RUN set -eux; \
     make -j$(nproc); \
     make install;
 
-# docker build -t xf86-input-neko .
-# docker run -v $PWD/build:/app/build --rm xf86-input-neko make install DESTDIR=/app/build
+# docker build -t xf86-input-glass-fence .
+# docker run -v $PWD/build:/app/build --rm xf86-input-glass-fence make install DESTDIR=/app/build

@@ -77,7 +77,7 @@ const sidebars: SidebarsConfig = {
             {
               type: 'link',
               label: 'API Reference',
-              description: 'OpenAPI documentation for the Neko API',
+              description: 'OpenAPI documentation for the Glass Fence API',
               href: '/docs/v3/api',
             },
           ]

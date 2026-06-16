@@ -103,19 +103,19 @@ echo "======================================================"
 ./autogen-clean.sh
 git clean -d -f
 
-git commit -a -m "xf86-input-neko ${version}"
-git tag -s ${version} -m "xf86-input-neko ${version}"
+git commit -a -m "xf86-input-glass-fence ${version}"
+git tag -s ${version} -m "xf86-input-glass-fence ${version}"
 
 ./autogen.sh && ./configure && make distcheck
-sha256sum xf86-input-neko-${version}.tar.xz > xf86-input-neko-${version}.tar.xz.sha256
-sha256sum xf86-input-neko-${version}.tar.gz > xf86-input-neko-${version}.tar.gz.sha256
-sha256sum xf86-input-neko-${version}.tar.bz2 > xf86-input-neko-${version}.tar.bz2.sha256
+sha256sum xf86-input-glass-fence-${version}.tar.xz > xf86-input-glass-fence-${version}.tar.xz.sha256
+sha256sum xf86-input-glass-fence-${version}.tar.gz > xf86-input-glass-fence-${version}.tar.gz.sha256
+sha256sum xf86-input-glass-fence-${version}.tar.bz2 > xf86-input-glass-fence-${version}.tar.bz2.sha256
 
-sha512sum xf86-input-neko-${version}.tar.xz > xf86-input-neko-${version}.tar.xz.sha512
-sha512sum xf86-input-neko-${version}.tar.gz > xf86-input-neko-${version}.tar.gz.sha512
-sha512sum xf86-input-neko-${version}.tar.bz2 > xf86-input-neko-${version}.tar.bz2.sha512
+sha512sum xf86-input-glass-fence-${version}.tar.xz > xf86-input-glass-fence-${version}.tar.xz.sha512
+sha512sum xf86-input-glass-fence-${version}.tar.gz > xf86-input-glass-fence-${version}.tar.gz.sha512
+sha512sum xf86-input-glass-fence-${version}.tar.bz2 > xf86-input-glass-fence-${version}.tar.bz2.sha512
 
-gpg -b -a xf86-input-neko-${version}.tar.xz
-gpg -b -a xf86-input-neko-${version}.tar.gz
-gpg -b -a xf86-input-neko-${version}.tar.bz2
+gpg -b -a xf86-input-glass-fence-${version}.tar.xz
+gpg -b -a xf86-input-glass-fence-${version}.tar.gz
+gpg -b -a xf86-input-glass-fence-${version}.tar.bz2
 

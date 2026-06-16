@@ -22,6 +22,11 @@ export abstract class BaseClient extends EventEmitter<BaseEvents> {
   protected _ws?: WebSocket
   protected _ws_heartbeat?: number
   protected _peer?: RTCPeerConnection
+
+  public get peerConnection() {
+    return this._peer
+  }
+
   protected _channel?: RTCDataChannel
   protected _timeout?: number
   protected _displayname?: string

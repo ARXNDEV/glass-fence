@@ -17,7 +17,7 @@ RUN set -eux; apt-get update; \
 
 #
 # copy configuation files
-COPY supervisord.nvidia.conf /etc/neko/supervisord/brave.conf
-COPY --chown=neko preferences.json /home/neko/.config/brave/Default/Preferences
+COPY supervisord.nvidia.conf /etc/glass-fence/supervisord/brave.conf
+COPY --chown=glass-fence preferences.json /home/glassfence/.config/brave/Default/Preferences
 COPY policies.json /etc/brave/policies/managed/policies.json
-COPY openbox.xml /etc/neko/openbox.xml
+COPY openbox.xml /etc/glass-fence/openbox.xml

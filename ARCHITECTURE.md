@@ -35,7 +35,7 @@ Traefik handles:
 - Load balancing across multiple instances (if scaled).
 
 ### UDP Multiplexing
-To avoid the overhead of opening hundreds of UDP ports in Docker, Glass Fence uses WebRTC UDP Multiplexing (`NEKO_WEBRTC_UDPMUX`). All WebRTC traffic for a specific container is routed through a single UDP port.
+To avoid the overhead of opening hundreds of UDP ports in Docker, Glass Fence uses WebRTC UDP Multiplexing (`GF_WEBRTC_UDPMUX`). All WebRTC traffic for a specific container is routed through a single UDP port.
 
 ## Build System
 

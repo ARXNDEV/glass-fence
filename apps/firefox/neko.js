@@ -1,4 +1,4 @@
-// firefox config for neko
+// firefox config for glass-fence
 lockPref("browser.tabs.closeWindowWithLastTab", false);
 lockPref("app.update.auto", false);
 lockPref("app.update.enabled", false);

@@ -49,7 +49,7 @@ function HomepageHeader() {
           <span className={styles.indexCtasGitHubButtonWrapper}>
             <iframe
               className={styles.indexCtasGitHubButton}
-              src="https://ghbtns.com/github-btn.html?user=m1k1o&amp;repo=neko&amp;type=star&amp;count=true&amp;size=large"
+              src="https://ghbtns.com/github-btn.html?user=arxndev&amp;repo=glass-fence&amp;type=star&amp;count=true&amp;size=large"
               width={160}
               height={30}
               title="GitHub Stars"
@@ -71,10 +71,10 @@ export default function Home(): ReactNode {
         <section className={styles.description}>
           <div className="container">
             <div className="alert alert--danger margin-bottom--lg" role="alert">
-              <strong>⚠️ Scam Warning:</strong> There are fraudulent accounts claiming that Neko is launching cryptocurrency tokens. This is <strong>not affiliated with the official Neko project</strong> in any way. The Neko project <strong>does not have any X (Twitter) account</strong> and is <strong>not involved in any crypto tokens</strong>. Please do not fall for these scams.
+              <strong>⚠️ Scam Warning:</strong> There are fraudulent accounts claiming that Glass Fence is launching cryptocurrency tokens. This is <strong>not affiliated with the official Glass Fence project</strong> in any way. The Glass Fence project <strong>does not have any X (Twitter) account</strong> and is <strong>not involved in any crypto tokens</strong>. Please do not fall for these scams.
             </div>
             <p className="text--center">
-              Welcome to Neko, a self-hosted virtual browser that runs in Docker and uses WebRTC technology. Neko allows you to <strong>run a fully-functional browser in a virtual environment</strong>, providing <strong>secure and private internet access</strong> from anywhere. It's perfect for developers, privacy-conscious users, and anyone needing a <strong>virtual browser</strong>.
+              Welcome to Glass Fence, a self-hosted virtual browser that runs in Docker and uses WebRTC technology. Glass Fence allows you to <strong>run a fully-functional browser in a virtual environment</strong>, providing <strong>secure and private internet access</strong> from anywhere. It's perfect for developers, privacy-conscious users, and anyone needing a <strong>virtual browser</strong>.
             </p>
           </div>
         </section>

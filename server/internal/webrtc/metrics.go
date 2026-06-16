@@ -45,7 +45,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 
 		connectionState: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "connection_state",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Connection state of session.",
 			ConstLabels: map[string]string{
@@ -54,7 +54,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 		}),
 		connectionStateCount: promauto.NewCounter(prometheus.CounterOpts{
 			Name:      "connection_state_count",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Count of connection state changes for a session.",
 			ConstLabels: map[string]string{
@@ -63,7 +63,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 		}),
 		connectionCount: promauto.NewCounter(prometheus.CounterOpts{
 			Name:      "connection_count",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Connection count of a session.",
 			ConstLabels: map[string]string{
@@ -75,7 +75,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 		iceCandidatesMu: &sync.Mutex{},
 		iceCandidatesUdpCount: promauto.NewCounter(prometheus.CounterOpts{
 			Name:      "ice_candidates_count",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Count of ICE candidates sent by a remote client.",
 			ConstLabels: map[string]string{
@@ -85,7 +85,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 		}),
 		iceCandidatesTcpCount: promauto.NewCounter(prometheus.CounterOpts{
 			Name:      "ice_candidates_count",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Count of ICE candidates sent by a remote client.",
 			ConstLabels: map[string]string{
@@ -96,7 +96,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 
 		iceCandidatesUsedUdp: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "ice_candidates_used",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Used ICE candidates that are currently in use.",
 			ConstLabels: map[string]string{
@@ -106,7 +106,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 		}),
 		iceCandidatesUsedTcp: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "ice_candidates_used",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Used ICE candidates that are currently in use.",
 			ConstLabels: map[string]string{
@@ -120,7 +120,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 
 		receiverEstimatedMaximumBitrate: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "receiver_estimated_maximum_bitrate",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Receiver Estimated Maximum Bitrate from RTCP.",
 			ConstLabels: map[string]string{
@@ -129,7 +129,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 		}),
 		receiverEstimatedTargetBitrate: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "receiver_estimated_target_bitrate",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Receiver Estimated Target Bitrate using Google's congestion control.",
 			ConstLabels: map[string]string{
@@ -139,7 +139,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 
 		receiverReportDelay: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "receiver_report_delay",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Receiver Report Delay from RTCP, expressed in units of 1/65536 seconds.",
 			ConstLabels: map[string]string{
@@ -148,7 +148,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 		}),
 		receiverReportJitter: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "receiver_report_jitter",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Receiver Report Jitter from RTCP.",
 			ConstLabels: map[string]string{
@@ -157,7 +157,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 		}),
 		receiverReportTotalLost: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "receiver_report_total_lost",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Receiver Report Total Lost from RTCP.",
 			ConstLabels: map[string]string{
@@ -167,7 +167,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 
 		transportLayerNacks: promauto.NewCounter(prometheus.CounterOpts{
 			Name:      "transport_layer_nacks",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Transport Layer NACKs from RTCP.",
 			ConstLabels: map[string]string{
@@ -177,7 +177,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 
 		iceBytesSent: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "bytes_sent",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Sent bytes to a session.",
 			ConstLabels: map[string]string{
@@ -187,7 +187,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 		}),
 		iceBytesReceived: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "bytes_received",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Received bytes from a session.",
 			ConstLabels: map[string]string{
@@ -198,7 +198,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 
 		sctpBytesSent: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "bytes_sent",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Sent bytes to a session.",
 			ConstLabels: map[string]string{
@@ -208,7 +208,7 @@ func (m *metricsManager) getBySession(session types.Session) *metrics {
 		}),
 		sctpBytesReceived: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "bytes_received",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Received bytes from a session.",
 			ConstLabels: map[string]string{
@@ -336,7 +336,7 @@ func (met *metrics) SetVideoID(videoId string) {
 	if _, found := met.videoIds[videoId]; !found {
 		met.videoIds[videoId] = promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "video_listeners",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "webrtc",
 			Help:      "Listeners for Video pipelines by a session.",
 			ConstLabels: map[string]string{

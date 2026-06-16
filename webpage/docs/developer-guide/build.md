@@ -1,16 +1,16 @@
 ---
-description: Building Neko from source
+description: Building Glass Fence from source
 ---
 
 # Building From Source
 
-This guide walks you through the process of setting up Neko on your local machine or server.
+This guide walks you through the process of setting up Glass Fence on your local machine or server.
 
-Start by cloning the Neko Git repository to your machine:
+Start by cloning the Glass Fence Git repository to your machine:
 
 ```bash
 git clone https://github.com/ARXNDEV/glass-fence.git
-cd neko
+cd glass-fence
 ```
 
 ## Building the Frontend {#frontend}
@@ -43,4 +43,4 @@ cd server;
 ./build;
 ```
 
-This will create a binary file named `neko` in the `bin` directory along with `plugins` that were built with the server.
+This will create a binary file named `glass-fence` in the `bin` directory along with `plugins` that were built with the server.

@@ -18,7 +18,7 @@ RUN set -eux; apt-get update; \
 
 #
 # copy configuation files
-COPY supervisord.conf /etc/neko/supervisord/microsoft-edge.conf
-COPY --chown=neko preferences.json /home/neko/.config/microsoft-edge/Default/Preferences
+COPY supervisord.conf /etc/glass-fence/supervisord/microsoft-edge.conf
+COPY --chown=glass-fence preferences.json /home/glassfence/.config/microsoft-edge/Default/Preferences
 COPY policies.json /etc/opt/edge/policies/managed/policies.json
-COPY openbox.xml /etc/neko/openbox.xml
+COPY openbox.xml /etc/glass-fence/openbox.xml

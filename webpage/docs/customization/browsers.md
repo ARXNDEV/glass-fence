@@ -1,6 +1,6 @@
 ---
 sidebar_label: "Browsers"
-description: "Customize your browser settings and configurations in Neko."
+description: "Customize your browser settings and configurations in Glass Fence."
 ---
 
 import { AppIcon } from '@site/src/components/AppIcon';
@@ -8,9 +8,9 @@ import { ProfileDirectoryPaths, PolicyFilePaths } from './browsers'
 
 # Browsers Customization
 
-Browsers use policies to manage settings and configurations programmatically. This is useful for Neko containers that can be set up with a specific configuration every time a fresh container is created. It also prevents users from changing certain settings, which is useful for security and privacy. For example, not allowing users to install extensions can prevent them from installing malicious extensions that could compromise their privacy and security.
+Browsers use policies to manage settings and configurations programmatically. This is useful for Glass Fence containers that can be set up with a specific configuration every time a fresh container is created. It also prevents users from changing certain settings, which is useful for security and privacy. For example, not allowing users to install extensions can prevent them from installing malicious extensions that could compromise their privacy and security.
 
-However, as a user of Neko, you may want to customize your browser settings (install your own extensions) or wish to have your bookmarks and settings persist across sessions.
+However, as a user of Glass Fence, you may want to customize your browser settings (install your own extensions) or wish to have your bookmarks and settings persist across sessions.
 
 ## Persistent Browser Profile {#persistent-profile}
 
@@ -20,7 +20,7 @@ If you want to persist your browser settings, bookmarks, extensions, and browsin
 
 ```yaml title="docker-compose.yaml"
 services:
-  neko:
+  glass-fence:
     image: "arxndevv/glass-fence/firefox:latest"
     restart: "unless-stopped"
     shm_size: "2gb"
@@ -29,25 +29,25 @@ services:
       - "52000-52100:52000-52100/udp"
     # highlight-start
     volumes:
-      - "./profile:/home/neko/.mozilla/firefox/profile.default"
+      - "./profile:/home/glassfence/.mozilla/firefox/profile.default"
     # highlight-end
     environment:
-      NEKO_DESKTOP_SCREEN: 1920x1080@30
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
-      NEKO_WEBRTC_EPR: 52000-52100
-      NEKO_WEBRTC_ICELITE: 1
+      GF_DESKTOP_SCREEN: 1920x1080@30
+      GF_MEMBER_MULTIUSER_USER_PASSWORD: glass-fence
+      GF_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
+      GF_WEBRTC_EPR: 52000-52100
+      GF_WEBRTC_ICELITE: 1
 ```
 
 Replace `./profile` with the path to the directory where you want to store your browser data. This directory will be created if it does not exist.
 
-Make sure to set the correct permissions for the directory so that the container can access it. The Neko user inside the container has a UID of `1000`, so you need to set the ownership of the directory to `1000:1000`. You can do this by running the following command:
+Make sure to set the correct permissions for the directory so that the container can access it. The Glass Fence user inside the container has a UID of `1000`, so you need to set the ownership of the directory to `1000:1000`. You can do this by running the following command:
 
 ```bash
 sudo chown -R 1000:1000 ./profile
 ```
 
-The path inside the container will be `/home/neko/.mozilla/firefox/profile.default`, which is the default profile directory for Firefox. You can find the profile directory for other browsers in the table below:
+The path inside the container will be `/home/glassfence/.mozilla/firefox/profile.default`, which is the default profile directory for Firefox. You can find the profile directory for other browsers in the table below:
 
 <ProfileDirectoryPaths />
 
@@ -63,7 +63,7 @@ If you want to customize the policy file, you can mount your own policy file to 
 
 ```yaml title="docker-compose.yaml"
 services:
-  neko:
+  glass-fence:
     image: "arxndevv/glass-fence/firefox:latest"
     restart: "unless-stopped"
     shm_size: "2gb"
@@ -75,29 +75,29 @@ services:
       - "./policy.json:/usr/lib/firefox/distribution/policies.json"
     # highlight-end
     environment:
-      NEKO_DESKTOP_SCREEN: 1920x1080@30
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: neko
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
-      NEKO_WEBRTC_EPR: 52000-52100
-      NEKO_WEBRTC_ICELITE: 1
+      GF_DESKTOP_SCREEN: 1920x1080@30
+      GF_MEMBER_MULTIUSER_USER_PASSWORD: glass-fence
+      GF_MEMBER_MULTIUSER_ADMIN_PASSWORD: admin
+      GF_WEBRTC_EPR: 52000-52100
+      GF_WEBRTC_ICELITE: 1
 ```
 
 If you just want to modify the default policy file, you can copy the current policy file from the container to your local machine:
 
 ```bash
 # Create a container without starting it
-docker create --name neko arxndevv/glass-fence/firefox:latest
+docker create --name glass-fence arxndevv/glass-fence/firefox:latest
 # Copy the policy file from the container to your local machine
-docker cp neko:/usr/lib/firefox/distribution/policies.json ./policy.json
+docker cp glass-fence:/usr/lib/firefox/distribution/policies.json ./policy.json
 # Remove the container
-docker rm neko
+docker rm glass-fence
 ```
 
 Or you can download the default policy file from the repository directly:
 
 ```bash
 # Replace firefox with the browser you are using
-curl -o ./policy.json https://raw.githubusercontent.com/m1k1o/neko/refs/heads/main/apps/firefox/policies.json
+curl -o ./policy.json https://raw.githubusercontent.com/arxndev/glass-fence/refs/heads/main/apps/firefox/policies.json
 ```
 
 If you wish to disable the policies altogether, you can just create an empty JSON file. This will disable all policies and allow you to customize the browser settings as you wish.
@@ -116,7 +116,7 @@ The policy files are located in the following paths:
 
 **Allow persistent data in policies**
 
-By default, the browsers in Neko are set up to forget all cookies and browsing history when they are closed. If you want to allow persistent data, you can set the following policies in the JSON file:
+By default, the browsers in Glass Fence are set up to forget all cookies and browsing history when they are closed. If you want to allow persistent data, you can set the following policies in the JSON file:
 
 ```json title="policy.json"
 {
@@ -131,7 +131,7 @@ By default, the browsers in Neko are set up to forget all cookies and browsing h
 
 **Manage extensions**
 
-By default, the browsers in Neko do not allow installing extensions except for the ones that are pre-installed.
+By default, the browsers in Glass Fence do not allow installing extensions except for the ones that are pre-installed.
 
 - `installation_mode`: The installation mode for the extension. It can be one of the following:
   - `allowed`: The extension can be installed by the user.
@@ -182,21 +182,21 @@ The policy files are located in the following paths:
 
 **Allow file uploading & downloading**
 
-By default, the browsers in Neko do not allow local file access. If you want to allow file uploading and downloading, you can set the following policies in the JSON file:
+By default, the browsers in Glass Fence do not allow local file access. If you want to allow file uploading and downloading, you can set the following policies in the JSON file:
 
 ```json title="policy.json"
 {
   "DownloadRestrictions": 0,
   "AllowFileSelectionDialogs": true,
   "URLAllowlist": [
-    "file:///home/neko/Downloads"
+    "file:///home/glassfence/Downloads"
   ]
 }
 ```
 
 **Allow persistent data in policies**
 
-By default, the browsers in Neko are set up to forget all cookies and browsing history when they are closed. If you want to allow persistent data, you can set the following policies in the JSON file:
+By default, the browsers in Glass Fence are set up to forget all cookies and browsing history when they are closed. If you want to allow persistent data, you can set the following policies in the JSON file:
 
 ```json title="policy.json"
 {
@@ -207,7 +207,7 @@ By default, the browsers in Neko are set up to forget all cookies and browsing h
 
 **Manage extensions**
 
-By default, the browsers in Neko do not allow installing extensions except for the ones that are pre-installed.
+By default, the browsers in Glass Fence do not allow installing extensions except for the ones that are pre-installed.
 
 - `ExtensionInstallForcelist`: These extensions will be installed automatically and cannot be removed by the user.
 - `ExtensionInstallAllowlist`: These extensions can be installed by the user when needed; they are not pre-installed.

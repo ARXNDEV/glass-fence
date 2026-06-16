@@ -1,53 +1,29 @@
-# 🛡️ Glass Fence
+# Glass Fence
 
-**AI-Powered Remote Browser Isolation (RBI) Platform**
+AI-Powered Remote Browser Isolation (RBI) platform for secure, sandboxed browsing.
 
-Built by [ARXNDEV](https://github.com/ARXNDEV)
-
-Glass Fence isolates web browsing in a secure Docker container, streaming only pixels to the user via WebRTC. No web content ever reaches the end-user's device.
-
-## Features
-- 🔒 Complete browser isolation — zero content reaches local device
-- 🌐 WebRTC pixel streaming — ultra-low latency
-- 🤖 AI threat intelligence layer (LangGraph + XGBoost + BERT)
-- 👥 Multi-user session support
-- 🖥️ Multiple browser profiles — Firefox, Chromium, Chrome, Brave, Edge
-- 📊 Real-time threat monitoring dashboard
+Glass Fence provides a highly secure, containerized browser environment that physically isolates web threats from your local network. Powered by real-time AI threat analysis, it delivers unparalleled security for zero-trust architectures.
 
 ## Quick Start
+
 ```bash
-cp .env.example .env
-# Edit .env with your passwords and server IP
-docker compose up -d
-# Visit http://localhost:8081
+git clone https://github.com/ARXNDEV/glass-fence.git
+cd glass-fence
+docker-compose -f docker-compose.prod.yaml up -d
 ```
 
-## Architecture
-```
-User Browser → [Nginx] → [Glass Fence Container] → WebRTC Stream
-                              ↕
-                    [AI Threat Engine - FastAPI]
-                              ↕
-                    [LangGraph + XGBoost + BERT]
-```
+## Features
 
-## Environment Variables
-| Variable | Description | Default |
-|---|---|---|
-| GF_USER_PASSWORD | Password for users | changeme |
-| GF_ADMIN_PASSWORD | Password for admins | changeme_admin |
-| SERVER_PUBLIC_IP | Your server's public IP | 127.0.0.1 |
-| VIDEO_CODEC | WebRTC video codec (vp8/vp9/h264) | vp9 |
-| SCREEN_RESOLUTION | Virtual desktop resolution | 1920x1080@60 |
+- **True Isolation**: Web code executes entirely within an ephemeral container; only a sterile video/audio stream and UI events cross the boundary.
+- **AI-Powered Threat Analysis**: Built-in machine learning models actively screen URLs and visual content for phishing, malware, and suspicious behavior.
+- **Observability**: Real-time insights and monitoring with comprehensive Prometheus metrics available at `/metrics`, fully integrated with Grafana.
+- **High Performance**: Low-latency WebRTC streaming ensures a seamless user experience that feels like a local browser.
 
-## Stack
-- **Frontend**: Vue 2 + TypeScript + SCSS
-- **Backend**: Go + WebRTC (pion) + WebSocket
-- **Streaming**: WebRTC with VP9
-- **Infrastructure**: Docker + Nginx + Traefik (prod)
+## Monitoring & Observability
 
-## Built on
-Glass Fence is built on top of [n.eko](https://github.com/m1k1o/neko) (Apache 2.0), extended with AI-powered threat intelligence.
+Glass Fence exports Prometheus metrics at `/metrics`. A complete Grafana dashboard is included in the production deployment to monitor:
+- Active sessions and session durations
+- WebRTC performance, bitrates, and error rates
+- AI Engine screening volume and threat categorizations
 
-## License
-Apache 2.0 — © 2025 ARXNDEV
+*Developed by ARXNDEV.*

@@ -1,6 +1,6 @@
 # Contributing
 
-Neko is an open-source project, and we welcome contributions from the community. Whether you're a developer, designer, or user, you can help improve Neko by reporting bugs, suggesting new features, or submitting code changes.
+Glass Fence is an open-source project, and we welcome contributions from the community. Whether you're a developer, designer, or user, you can help improve Glass Fence by reporting bugs, suggesting new features, or submitting code changes.
 
 ## Reporting Issues {#issues}
 
@@ -17,7 +17,7 @@ When reporting an issue, please provide as much information as possible, includi
 
 ## Contributing Code {#pull-requests}
 
-If you're a developer and want to contribute code to Neko, follow these steps:
+If you're a developer and want to contribute code to Glass Fence, follow these steps:
 
 1. **Fork the [project](https://github.com/ARXNDEV/glass-fence)**: Create a personal copy of the repository by [forking it](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) to your GitHub account.
 

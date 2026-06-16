@@ -20,7 +20,7 @@
   "PasswordManagerEnabled": false,
   "BrowserLabsEnabled": false,
   "URLAllowlist": [
-    "file:///home/neko/Downloads"
+    "file:///home/glassfence/Downloads"
   ],
   "URLBlocklist": [
       "file://*",

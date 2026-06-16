@@ -9,13 +9,13 @@ sidebar_position: 4
 ```yaml
 labels:
   - "traefik.enable=true"
-  - "traefik.http.services.neko-frontend.loadbalancer.server.port=8080"
-  - "traefik.http.routers.neko.rule=${TRAEFIK_RULE}"
-  - "traefik.http.routers.neko.entrypoints=${TRAEFIK_ENTRYPOINTS}"
-  - "traefik.http.routers.neko.tls.certresolver=${TRAEFIK_CERTRESOLVER}"
+  - "traefik.http.services.glass-fence-frontend.loadbalancer.server.port=8080"
+  - "traefik.http.routers.glass-fence.rule=${TRAEFIK_RULE}"
+  - "traefik.http.routers.glass-fence.entrypoints=${TRAEFIK_ENTRYPOINTS}"
+  - "traefik.http.routers.glass-fence.tls.certresolver=${TRAEFIK_CERTRESOLVER}"
 ```
 
-(by [@m1k1o](https://github.com/m1k1o), [example](https://github.com/ARXNDEV/glass-fence-vpn/blob/a1b934515dcf597992a515d61d307c2450a11002/docker-compose.yml#L38-L43))
+(by [@arxndev](https://github.com/arxndev), [example](https://github.com/ARXNDEV/glass-fence-vpn/blob/a1b934515dcf597992a515d61d307c2450a11002/docker-compose.yml#L38-L43))
 
 ## Nginx
 
@@ -40,16 +40,16 @@ server {
 }
 ```
 
-(by [@GigaFyde](https://github.com/GigaFyde), [source](https://github.com/nurdism/neko/issues/111#issuecomment-742656957))
+(by [@GigaFyde](https://github.com/GigaFyde), [source](https://github.com/nurdism/glass-fence/issues/111#issuecomment-742656957))
 
 ## Apache
 
-After successfully installing and running neko, you might want to get rid of the port in the url, use DNS instead of IP address and also having SSL.
+After successfully installing and running glass-fence, you might want to get rid of the port in the url, use DNS instead of IP address and also having SSL.
 This will remove the port from the URL and also enables HTTPS.
 
-To do this, you have to get running Apache server. Now you can go into the `/etc/apache2/sites-available` folder and create new config file for example `neko.conf`
+To do this, you have to get running Apache server. Now you can go into the `/etc/apache2/sites-available` folder and create new config file for example `glass-fence.conf`
 After creating new config file, you can use this example config and paste it in. Some things may vary on your machine so read through and modify if needed.
-Bear in mind that your neko server doesn't have to run on the same computer as Apache. They just have to be on the same network, and then you replace localhost with correct internal IP.
+Bear in mind that your glass-fence server doesn't have to run on the same computer as Apache. They just have to be on the same network, and then you replace localhost with correct internal IP.
 
 ```xml
 <VirtualHost *:80>
@@ -96,14 +96,14 @@ Bear in mind that your neko server doesn't have to run on the same computer as A
 </VirtualHost>
 ```
 
-(by [@DarkReaper231](https://github.com/DarkReaper231), [source](https://github.com/nurdism/neko/blob/cad98a62a5bd7f1daf2c11980631bb14ba81a1f6/docs/apache-proxypass-config.md#example-apache-config))
+(by [@DarkReaper231](https://github.com/DarkReaper231), [source](https://github.com/nurdism/glass-fence/blob/cad98a62a5bd7f1daf2c11980631bb14ba81a1f6/docs/apache-proxypass-config.md#example-apache-config))
 
-After creating your new config file, just use `sudo a2ensite neko.conf` and then `sudo systemctl reload apache2`
+After creating your new config file, just use `sudo a2ensite glass-fence.conf` and then `sudo systemctl reload apache2`
 
 ### Enabling SSL
 
 If you want to use SSL for your apache configuration, you can install certbot and use it with `sudo certbot`
-Then you can just select both `example.com` and `www.example.com` and apply. This will copy your `neko.conf` file and creates one for SSL.
+Then you can just select both `example.com` and `www.example.com` and apply. This will copy your `glass-fence.conf` file and creates one for SSL.
 
 ## Caddy
 
@@ -118,7 +118,7 @@ https://example.com {
 }
 ```
 
-(by [@ccallahan](https://github.com/ccallahan), [source](https://github.com/nurdism/neko/pull/125/commits/eb4ceda75423b0d960c8aea0240acf6d7a10fef4))
+(by [@ccallahan](https://github.com/ccallahan), [source](https://github.com/nurdism/glass-fence/pull/125/commits/eb4ceda75423b0d960c8aea0240acf6d7a10fef4))
 
 ## HAProxy
 
@@ -127,15 +127,15 @@ Using your frontend section *(mine is called http-in)*, add the ACL to redirect 
 ```sh
 frontend http-in
   #/********
-  #* NEKO *
-  acl neko_rule_http hdr(host) neko.domain.com # Adapt the domain
-  use_backend neko_srv if neko_rule_http
+  #* GLASS_FENCE *
+  acl glass-fence_rule_http hdr(host) glass-fence.domain.com # Adapt the domain
+  use_backend glass-fence_srv if glass-fence_rule_http
   #********/
 
-backend neko_srv
+backend glass-fence_srv
   mode http
   option httpchk
-      server neko 172.16.0.0:8080 # Adapt the IP
+      server glass-fence 172.16.0.0:8080 # Adapt the IP
 ```
 
 Then, restart the haproxy service.
@@ -155,7 +155,7 @@ Try the following steps:
 - If the service is UP and the ACL rule + backend is OK then tail the log and keep them to verify :
   ```sh
   tail -f /var/log/haproxy.log
-  # after that, go to your neko.instance.com and look for the logs in the shell 
+  # after that, go to your glass-fence.instance.com and look for the logs in the shell 
   ```
 
 - Ensure you set the timeout to 60 seconds before the request fail. 

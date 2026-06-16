@@ -15,16 +15,16 @@ services:
           memory: 512M
     ports:
       - "8081:8080"
-      - "53001:53001/udp"
+      - "${GF_FIREFOX_UDP_PORT:-53000}:${GF_FIREFOX_UDP_PORT:-53000}/udp"
     environment:
-      NEKO_DESKTOP_SCREEN: 1920x1080@60
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
-      NEKO_WEBRTC_UDPMUX: 53001
-      NEKO_WEBRTC_ICELITE: 1
-      NEKO_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
-      NEKO_CAPTURE_VIDEO_IDS: main
-      NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
+      GF_DESKTOP_SCREEN: 1920x1080@60
+      GF_MEMBER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
+      GF_MEMBER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
+      GF_WEBRTC_UDPMUX: ${GF_FIREFOX_UDP_PORT:-53000}
+      GF_WEBRTC_ICELITE: 1
+      GF_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
+      GF_CAPTURE_VIDEO_IDS: main
+      GF_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
 
   chromium:
     cap_add:
@@ -42,18 +42,18 @@ services:
           memory: 512M
     ports:
       - "8082:8080"
-      - "53002:53002/udp"
+      - "${GF_CHROMIUM_UDP_PORT:-53001}:${GF_CHROMIUM_UDP_PORT:-53001}/udp"
     environment:
-      NEKO_DESKTOP_SCREEN: 1920x1080@60
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
-      NEKO_WEBRTC_UDPMUX: 53002
-      NEKO_WEBRTC_ICELITE: 1
-      NEKO_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
-      NEKO_CAPTURE_VIDEO_IDS: main
-      NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
+      GF_DESKTOP_SCREEN: 1920x1080@60
+      GF_MEMBER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
+      GF_MEMBER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
+      GF_WEBRTC_UDPMUX: ${GF_CHROMIUM_UDP_PORT:-53001}
+      GF_WEBRTC_ICELITE: 1
+      GF_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
+      GF_CAPTURE_VIDEO_IDS: main
+      GF_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
 
-  linux:
+  xfce-desktop:
     cap_add:
       - SYS_ADMIN
     image: "arxndevv/glass-fence-xfce:latest"
@@ -69,16 +69,16 @@ services:
           memory: 512M
     ports:
       - "8084:8080"
-      - "53004:53004/udp"
+      - "${GF_LINUX_UDP_PORT:-53002}:${GF_LINUX_UDP_PORT:-53002}/udp"
     environment:
-      NEKO_DESKTOP_SCREEN: 1920x1080@60
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
-      NEKO_WEBRTC_UDPMUX: 53004
-      NEKO_WEBRTC_ICELITE: 1
-      NEKO_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
-      NEKO_CAPTURE_VIDEO_IDS: main
-      NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
+      GF_DESKTOP_SCREEN: 1920x1080@60
+      GF_MEMBER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
+      GF_MEMBER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
+      GF_WEBRTC_UDPMUX: ${GF_LINUX_UDP_PORT:-53002}
+      GF_WEBRTC_ICELITE: 1
+      GF_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
+      GF_CAPTURE_VIDEO_IDS: main
+      GF_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
 
   ai-engine:
     build: ./ai-engine
@@ -86,12 +86,23 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ai-model-cache:/tmp
+      - gf-ai-model-cache:/tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health').read()"]
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 90s
 
 volumes:
-  ai-model-cache:
+  gf-ai-model-cache:
+    labels:
+      com.arxndev.project: glass-fence

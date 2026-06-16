@@ -51,7 +51,7 @@ func streamSrcNew(enabled bool, codecPipeline map[string]string, video_id string
 
 		pushedData[codecName] = promauto.NewSummary(prometheus.SummaryOpts{
 			Name:      "streamsrc_data_bytes",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Data pushed to a pipeline (in bytes).",
 			ConstLabels: map[string]string{
@@ -62,7 +62,7 @@ func streamSrcNew(enabled bool, codecPipeline map[string]string, video_id string
 		})
 		pipelinesCounter[codecName] = promauto.NewCounter(prometheus.CounterOpts{
 			Name:      "pipelines_total",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Total number of created pipelines.",
 			ConstLabels: map[string]string{
@@ -74,7 +74,7 @@ func streamSrcNew(enabled bool, codecPipeline map[string]string, video_id string
 		})
 		pipelinesActive[codecName] = promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "pipelines_active",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Total number of active pipelines.",
 			ConstLabels: map[string]string{

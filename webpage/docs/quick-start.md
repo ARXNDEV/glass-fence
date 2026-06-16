@@ -1,10 +1,10 @@
 ---
-description: A quick guide to get you started with Neko.
+description: A quick guide to get you started with Glass Fence.
 ---
 
 # Quick Start
 
-Neko is easy to use and requires no technical expertise to get started. All you need to do is download the Docker image and you're ready to go:
+Glass Fence is easy to use and requires no technical expertise to get started. All you need to do is download the Docker image and you're ready to go:
 
 1. Deploy a server or VPS with a public IP address.
 
@@ -41,15 +41,15 @@ Neko is easy to use and requires no technical expertise to get started. All you 
 
 5. Download the docker compose file and start it:
     ```shell
-    wget https://raw.githubusercontent.com/m1k1o/neko/master/docker-compose.yaml
+    wget https://raw.githubusercontent.com/arxndev/glass-fence/master/docker-compose.yaml
     sudo docker compose up -d
     ```
 
     :::note
-    If you want to run Neko on your local network, you have to add `NEKO_NAT1TO1: <your-local-ip>` to the `docker-compose.yaml` file.
+    If you want to run Glass Fence on your local network, you have to add `GF_NAT1TO1: <your-local-ip>` to the `docker-compose.yaml` file.
     :::
 
-6. Visit the server's IP address in your browser and log in, the default password is `neko`.
+6. Visit the server's IP address in your browser and log in, the default password is `glass-fence`.
 
 :::tip
 Run `nano docker-compose.yaml` to edit the settings, then press `ctrl+x` to exit and save the file.

@@ -23,8 +23,8 @@ SUBDIRS = src
 ACLOCAL_AMFLAGS = -I m4
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = xorg-neko.pc
+pkgconfig_DATA = xorg-glass-fence.pc
 
-dist_xorgconf_DATA = 80-neko.conf
+dist_xorgconf_DATA = 80-glass-fence.conf
 
 EXTRA_DIST = README.md

@@ -1,23 +1,23 @@
 import { PluginObject } from 'vue'
-import { NekoClient } from '~/glassfence'
+import { GlassFenceClient } from '~/glassfence'
 
 declare global {
-  const $client: NekoClient
+  const $client: GlassFenceClient
 
   interface Window {
-    $client: NekoClient
+    $client: GlassFenceClient
   }
 }
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $client: NekoClient
+    $client: GlassFenceClient
   }
 }
 
 const plugin: PluginObject<undefined> = {
   install(Vue) {
-    window.$client = new NekoClient()
+    window.$client = new GlassFenceClient()
       .on('error', window.$log.error)
       .on('warn', window.$log.warn)
       .on('info', window.$log.info)

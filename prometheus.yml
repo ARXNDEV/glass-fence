@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'glass-fence'
+    static_configs:
+      - targets: ['glass-fence:8080']
+
+  - job_name: 'ai-engine'
+    static_configs:
+      - targets: ['ai-engine:8000']

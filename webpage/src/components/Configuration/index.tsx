@@ -89,7 +89,7 @@ export function EnvironmentVariables({ options, comments, ...props }: { options:
     if (comments && description) {
       code += `# ${description}${type}\n`;
     }
-    code += `NEKO_${option.key.join('_').toUpperCase()}=${defaultValue(option)}\n`;
+    code += `GF_${option.key.join('_').toUpperCase()}=${defaultValue(option)}\n`;
   });
 
   return (
@@ -231,13 +231,13 @@ export function ConfigurationTab({ options, heading, comments, filter, ...props 
       </TabItem>
       <TabItem value="args" label="Command Line Arguments">
         {heading && (
-          <p>You can list the following command line arguments using <code>neko serve --help</code>.</p>
+          <p>You can list the following command line arguments using <code>glass-fence serve --help</code>.</p>
         )}
         {CommandLineArguments({ options: configOptions, comments })}
       </TabItem>
       <TabItem value="yaml" label="YAML Configuration File">
         {heading && (
-          <p>You can create a <code>/etc/neko/neko.yaml</code> file with the following configuration options.</p>
+          <p>You can create a <code>/etc/glass-fence/glass-fence.yaml</code> file with the following configuration options.</p>
         )}
         {YamlFileContent({ options: configOptions, comments })}
       </TabItem>

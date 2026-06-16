@@ -23,7 +23,7 @@ RUN set -eux; \
 
 # build custom input driver
 RUN set -eux; \
-    cd xf86-input-neko; \
+    cd xf86-input-glass-fence; \
     ./autogen.sh --prefix=/usr; \
     ./configure; \
     make -j$(nproc); \
@@ -31,4 +31,4 @@ RUN set -eux; \
 
 # artifacts from this stage
 # COPY --from=xorg-deps /usr/local/lib/xorg/modules/drivers/dummy_drv.so /usr/lib/xorg/modules/drivers/dummy_drv.so
-# COPY --from=xorg-deps /usr/local/lib/xorg/modules/input/neko_drv.so /usr/lib/xorg/modules/input/neko_drv.so
+# COPY --from=xorg-deps /usr/local/lib/xorg/modules/input/glass-fence_drv.so /usr/lib/xorg/modules/input/glass-fence_drv.so

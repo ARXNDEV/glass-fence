@@ -1,18 +1,18 @@
 ---
-description: List of available Neko Docker images and their flavors.
+description: List of available Glass Fence Docker images and their flavors.
 ---
 
 import { AppIcon } from '@site/src/components/AppIcon';
 
 # Docker Images
 
-Neko as a standalone streaming server is available as a Docker image. But that is rarely interesting for general use. The real power of Neko is in its ability to accommodate custom applications in the virtual desktop environment. This is where the various flavors of Neko Docker images come in.
+Glass Fence as a standalone streaming server is available as a Docker image. But that is rarely interesting for general use. The real power of Glass Fence is in its ability to accommodate custom applications in the virtual desktop environment. This is where the various flavors of Glass Fence Docker images come in.
 
 The base image is available as multi-arch image at [`arxndevv/glass-fence/base`](https://arxndevv/glass-fence/base). See [Supported Architectures](#arch) for more information.
 
 ## Naming Convention {#naming}
 
-Neko images are available on two public registries. The [GitHub Container Registry (GHCR)](#ghcr.io) hosts stable releases with all flavors and architectures. The latest development version of the Neko image for the AMD64 architecture is available on [Docker Hub](#docker.io).
+Glass Fence images are available on two public registries. The [GitHub Container Registry (GHCR)](#ghcr.io) hosts stable releases with all flavors and architectures. The latest development version of the Glass Fence image for the AMD64 architecture is available on [Docker Hub](#docker.io).
 
 :::info
 You should always prefer the GHCR registry, as it supports flavors and specific versions, unless you want to test the latest development version.
@@ -20,7 +20,7 @@ You should always prefer the GHCR registry, as it supports flavors and specific 
 
 ### GitHub Container Registry (GHCR) {#ghcr.io}
 
-Neko Docker images are available on the [GitHub Container Registry (GHCR)](https://github.com/m1k1o?tab=packages&repo_name=neko). The naming convention for Neko Docker images is as follows:
+Glass Fence Docker images are available on the [GitHub Container Registry (GHCR)](https://github.com/arxndev?tab=packages&repo_name=glass-fence). The naming convention for Glass Fence Docker images is as follows:
 
 ```
 arxndevv/glass-fence/[<flavor>-]<application>:<version>
@@ -49,21 +49,21 @@ A full list of published versions can be found in the [GitHub tags](https://gith
 
 ### Docker Hub {#docker.io}
 
-An alternative registry is available on [Docker Hub](https://hub.docker.com/r/m1k1o/neko). This registry hosts images built from the latest code in the [master branch](https://github.com/ARXNDEV/glass-fence/tree/master). However, it only includes images without flavors and supports the AMD64 architecture. The naming convention for these images is as follows:
+An alternative registry is available on [Docker Hub](https://hub.docker.com/r/arxndev/glass-fence). This registry hosts images built from the latest code in the [master branch](https://github.com/ARXNDEV/glass-fence/tree/master). However, it only includes images without flavors and supports the AMD64 architecture. The naming convention for these images is as follows:
 
 ```
-m1k1o/neko:<application>
+arxndev/glass-fence:<application>
 ```
 
 - `<application>` is the application name or base image. See [Available Applications](#apps) for more information.
 
 :::info
-`m1k1o/neko:latest` is an alias for `m1k1o/neko:firefox` due to historical reasons. It is recommended to use the `arxndevv/glass-fence/firefox:latest` image instead.
+`arxndev/glass-fence:latest` is an alias for `arxndev/glass-fence:firefox` due to historical reasons. It is recommended to use the `arxndevv/glass-fence/firefox:latest` image instead.
 :::
 
 ## Available Applications {#apps}
 
-The following applications are available as Neko Docker images:
+The following applications are available as Glass Fence Docker images:
 
 ### Firefox-based browsers {#firefox-based-browsers}
 
@@ -83,7 +83,7 @@ Check the [Firefox-based browsers customization guide](/docs/v3/customization/br
 
 ### Chromium-based browsers {#chromium-based-browsers}
 
-There are multiple flavors of Chromium-based browsers available as Neko Docker images.
+There are multiple flavors of Chromium-based browsers available as Glass Fence Docker images.
 
 Chromium is running with `--no-sandbox` flag, which is required to run it in a container without additional configuration. You can read more about it in [Quick introduction](https://www.google.com/googlebooks/chrome/med_26.html) to Chrome's sandbox. More in-depth [design document](https://chromium.googlesource.com/chromium/src/+/refs/heads/main/docs/design/sandbox.md), with internal links to FAQ, etc.
 
@@ -137,7 +137,7 @@ These images feature a full desktop environment where you can install and run mu
 
 ### Other Applications {#other}
 
-As it would be impossible to include all possible applications in the repository, a couple of the most popular ones that work well with Neko have been chosen. Custom images can be created by using the base image and installing the desired application.
+As it would be impossible to include all possible applications in the repository, a couple of the most popular ones that work well with Glass Fence have been chosen. Custom images can be created by using the base image and installing the desired application.
 
 | Icon | Name | Docker Image |
 | ---- | ---- | ------------ |
@@ -146,7 +146,7 @@ As it would be impossible to include all possible applications in the repository
 
 #### Remmina Configuration {#remmina}
 
-To use Remmina with Neko, you can either pass the `REMMINA_URL=<proto>://[<username>[:<password>]@]server[:port]` environment variable (proto being `vnc`, `rdp` or `spice`):
+To use Remmina with Glass Fence, you can either pass the `REMMINA_URL=<proto>://[<username>[:<password>]@]server[:port]` environment variable (proto being `vnc`, `rdp` or `spice`):
 
 ```bash
 docker run \
@@ -173,7 +173,7 @@ docker run \
 
 #### VLC Configuration {#vlc}
 
-To use VLC with Neko, you can either pass the `VLC_MEDIA=<url>` environment variable:
+To use VLC with Glass Fence, you can either pass the `VLC_MEDIA=<url>` environment variable:
 
 ```bash
 docker run \
@@ -191,7 +191,7 @@ docker run \
 ```
 
 :::tip
-See [neko-apps](https://github.com/ARXNDEV/glass-fence-apps) repository for more applications.
+See [glass-fence-apps](https://github.com/ARXNDEV/glass-fence-apps) repository for more applications.
 :::
 
 ## Available Flavors {#flavors}
@@ -200,7 +200,7 @@ See [neko-apps](https://github.com/ARXNDEV/glass-fence-apps) repository for more
 Currently the focus is on CPU images (wihout any flavor). So the GPU support might not work as expected.
 :::
 
-The following flavors are available for Neko Docker images:
+The following flavors are available for Glass Fence Docker images:
 
 - `nvidia` - NVIDIA GPU support.
 - `intel` - Intel GPU support.
@@ -244,7 +244,7 @@ The base image is available at [`arxndevv/glass-fence/nvidia-base`](https://arxn
 
 ## Supported Architectures {#arch}
 
-Neko Docker images are built with docker buildx and are available for multiple architectures. The following architectures are supported by the base image:
+Glass Fence Docker images are built with docker buildx and are available for multiple architectures. The following architectures are supported by the base image:
 
 - `linux/amd64` - 64-bit Intel/AMD architecture (most common).
 - `linux/arm64` - 64-bit ARM architecture (e.g., Raspberry Pi 4, Apple M1/M2).
@@ -273,5 +273,5 @@ The availability of applications for ARM architecture is limited due to the lack
 \* No DRM support.
 
 :::tip
-[Oracle Cloud ARM free tier](https://www.oracle.com/cloud/free/) is a great way to test Neko on ARM architecture for free. You can use the `arxndevv/glass-fence/xfce` image to run a full desktop environment with Xfce and test the applications.
+[Oracle Cloud ARM free tier](https://www.oracle.com/cloud/free/) is a great way to test Glass Fence on ARM architecture for free. You can use the `arxndevv/glass-fence/xfce` image to run a full desktop environment with Xfce and test the applications.
 :::

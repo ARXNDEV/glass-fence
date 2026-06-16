@@ -1,6 +1,9 @@
 package session
 
 import (
+	"time"
+	"github.com/ARXNDEV/glass-fence/server/internal/metrics"
+
 	"errors"
 	"sync"
 	"sync/atomic"
@@ -89,6 +92,9 @@ type SessionManagerCtx struct {
 }
 
 func (manager *SessionManagerCtx) Create(id string, profile types.MemberProfile) (types.Session, string, error) {
+	metrics.ActiveSessions.Inc()
+	session.Set("connectedAt", time.Now())
+
 	token, err := utils.NewUID(64)
 	if err != nil {
 		return nil, "", err

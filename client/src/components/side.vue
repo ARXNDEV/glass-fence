@@ -2,10 +2,13 @@
   <aside class="gf-menu">
     <div class="tabs-container">
       <ul>
+        
         <li :class="{ active: tab === 'chat' }" @click.stop.prevent="change('chat')">
-          <i class="fas fa-comment-alt" />
+          <i class="fas fa-comment-alt"></i>
           <span>{{ $t('side.chat') }}</span>
+          <span class="unread-badge" v-if="unreadCount > 0">{{ unreadCount }}</span>
         </li>
+
         <li v-if="filetransferAllowed" :class="{ active: tab === 'files' }" @click.stop.prevent="change('files')">
           <i class="fas fa-file" />
           <span>{{ $t('side.files') }}</span>
@@ -98,6 +101,16 @@
       return (
         this.$accessor.remote.fileTransfer && (this.$accessor.user.admin || !this.$accessor.isLocked('file_transfer'))
       )
+    }
+
+    
+    private lastMsgLength = 0
+    get unreadCount() {
+      if (this.tab === 'chat') {
+        this.lastMsgLength = this.$accessor.chat.messages.length
+        return 0
+      }
+      return Math.max(0, this.$accessor.chat.messages.length - this.lastMsgLength)
     }
 
     get tab() {

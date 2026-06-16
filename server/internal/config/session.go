@@ -91,7 +91,7 @@ func (Session) Init(cmd *cobra.Command) error {
 		return err
 	}
 
-	cmd.PersistentFlags().String("session.cookie.name", "NEKO_SESSION", "name of the cookie that holds token")
+	cmd.PersistentFlags().String("session.cookie.name", "GF_SESSION", "name of the cookie that holds token")
 	if err := viper.BindPFlag("session.cookie.name", cmd.PersistentFlags().Lookup("session.cookie.name")); err != nil {
 		return err
 	}
@@ -184,29 +184,29 @@ func (s *Session) SetV2() {
 				s.LockedLogins = true
 			}
 		}
-		log.Warn().Msg("you are using v2 configuration 'NEKO_LOCKS' which is deprecated, please use 'NEKO_SESSION_LOCKED_CONTROLS' and 'NEKO_SESSION_LOCKED_LOGINS' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_LOCKS' which is deprecated, please use 'GF_SESSION_LOCKED_CONTROLS' and 'GF_SESSION_LOCKED_LOGINS' instead")
 		enableLegacy = true
 	}
 
 	if viper.IsSet("implicit_control") {
 		s.ImplicitHosting = viper.GetBool("implicit_control")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_IMPLICIT_CONTROL' which is deprecated, please use 'NEKO_SESSION_IMPLICIT_HOSTING' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_IMPLICIT_CONTROL' which is deprecated, please use 'GF_SESSION_IMPLICIT_HOSTING' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("control_protection") {
 		s.ControlProtection = viper.GetBool("control_protection")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_CONTROL_PROTECTION' which is deprecated, please use 'NEKO_SESSION_CONTROL_PROTECTION' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_CONTROL_PROTECTION' which is deprecated, please use 'GF_SESSION_CONTROL_PROTECTION' instead")
 		enableLegacy = true
 	}
 	if viper.IsSet("heartbeat_interval") {
 		s.HeartbeatInterval = viper.GetInt("heartbeat_interval")
-		log.Warn().Msg("you are using v2 configuration 'NEKO_HEARTBEAT_INTERVAL' which is deprecated, please use 'NEKO_SESSION_HEARTBEAT_INTERVAL' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_HEARTBEAT_INTERVAL' which is deprecated, please use 'GF_SESSION_HEARTBEAT_INTERVAL' instead")
 		enableLegacy = true
 	}
 
 	// set legacy flag if any V2 configuration was used
 	if !viper.IsSet("legacy") && enableLegacy {
-		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://neko.m1k1o.net/docs/v3/migration-from-v2 for more details")
+		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://glass-fence.arxndev.net/docs/v3/migration-from-v2 for more details")
 		viper.Set("legacy", true)
 	}
 }

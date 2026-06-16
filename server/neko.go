@@ -1,4 +1,4 @@
-package neko
+package glass-fence
 
 import (
 	"fmt"

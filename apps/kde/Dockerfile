@@ -7,8 +7,8 @@ RUN set -eux; apt-get update; \
     apt-get install -y --no-install-recommends kde-full kwin-x11 libkf5config-bin sudo; \
     #
     # add user to sudoers
-    usermod -aG sudo neko; \
-    echo "neko:neko" | chpasswd; \
+    usermod -aG sudo glass-fence; \
+    echo "glass-fence:glass-fence" | chpasswd; \
     echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers; \
     # clean up
     apt remove xserver-xorg-legacy -y; \
@@ -17,10 +17,10 @@ RUN set -eux; apt-get update; \
 
 #
 # disable autolock
-RUN kwriteconfig5 --file /home/neko/.config/kscreenlockerrc --group Daemon --key Autolock false; \
-    chown neko:neko /home/neko/.config/kscreenlockerrc
+RUN kwriteconfig5 --file /home/glassfence/.config/kscreenlockerrc --group Daemon --key Autolock false; \
+    chown glass-fence:glass-fence /home/glassfence/.config/kscreenlockerrc
 
 #
 # copy configuation files
-COPY supervisord.conf /etc/neko/supervisord/kde.conf
+COPY supervisord.conf /etc/glass-fence/supervisord/kde.conf
 

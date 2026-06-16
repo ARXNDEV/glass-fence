@@ -10,23 +10,23 @@ set -e
 docker run --rm -it \
     -v "${PWD}/../:/src" \
     --entrypoint="/bin/bash" \
-    neko_server:src "./build" "$@";
+    glass-fence_server:src "./build" "$@";
 
 #
 # remove old plugins
-docker exec neko_server_dev rm -rf /etc/neko/plugins
+docker exec glass-fence_server_dev rm -rf /etc/glass-fence/plugins
 
 #
 # replace server binary in container
-docker cp "${PWD}/../bin/neko" neko_server_dev:/usr/bin/neko
+docker cp "${PWD}/../bin/glass-fence" glass-fence_server_dev:/usr/bin/glass-fence
 
 #
 # replace plugin binaries in container
 if [ -d "${PWD}/../bin/plugins" ];
 then
-    docker cp "${PWD}/../bin/plugins" neko_server_dev:/etc/neko/plugins
+    docker cp "${PWD}/../bin/plugins" glass-fence_server_dev:/etc/glass-fence/plugins
 fi
 
 #
 # restart server
-docker exec neko_server_dev supervisorctl -c /etc/neko/supervisord.conf restart neko
+docker exec glass-fence_server_dev supervisorctl -c /etc/glass-fence/supervisord.conf restart glass-fence

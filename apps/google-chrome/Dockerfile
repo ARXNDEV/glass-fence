@@ -15,7 +15,7 @@ RUN set -eux; apt-get update; \
 
 #
 # copy configuation files
-COPY supervisord.conf /etc/neko/supervisord/google-chrome.conf
-COPY --chown=neko preferences.json /home/neko/.config/google-chrome/Default/Preferences
+COPY supervisord.conf /etc/glass-fence/supervisord/google-chrome.conf
+COPY --chown=glass-fence preferences.json /home/glassfence/.config/google-chrome/Default/Preferences
 COPY policies.json /etc/opt/chrome/policies/managed/policies.json
-COPY openbox.xml /etc/neko/openbox.xml
+COPY openbox.xml /etc/glass-fence/openbox.xml

@@ -1,118 +1,258 @@
-version: "3.8"
-
 services:
   traefik:
     image: traefik:v2.10
     container_name: traefik
     restart: unless-stopped
     command:
-      - "--api.insecure=false"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL:-admin@yourdomain.com}"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    - --api.insecure=false
+    - --api.dashboard=true
+    - --providers.docker=true
+    - --providers.docker.exposedbydefault=false
+    - --entrypoints.web.address=:80
+    - --entrypoints.websecure.address=:443
+    - --certificatesresolvers.myresolver.acme.tlschallenge=true
+    - --certificatesresolvers.myresolver.acme.email=${ACME_EMAIL:-admin@yourdomain.com}
+    - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '5'
     ports:
-      - "80:80"
-      - "443:443"
+    - 80:80
+    - 443:443
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "traefik_certs:/letsencrypt"
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    - traefik_certs:/letsencrypt
     networks:
-      - web
-
+    - web
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)
+    - traefik.http.routers.traefik.entrypoints=websecure
+    - traefik.http.routers.traefik.tls.certresolver=myresolver
+    - traefik.http.routers.traefik.service=api@internal
+    - traefik.http.routers.traefik.middlewares=traefik-auth
+    - traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_USERS}
   firefox:
-    image: "arxndevv/glass-fence-firefox:latest"
-    restart: "unless-stopped"
-    shm_size: "2gb"
+    image: arxndevv/glass-fence-firefox:latest
+    restart: unless-stopped
+    shm_size: 2gb
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 3G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '5'
     environment:
-      NEKO_DESKTOP_SCREEN: ${SCREEN_RESOLUTION:-1920x1080@60}
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
-      NEKO_WEBRTC_UDPMUX: ${UDP_MUX_PORT:-53000}
-      NEKO_WEBRTC_ICELITE: 1
-      NEKO_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
-      # Uncomment and configure for production deployments behind strict NAT/corporate firewalls
-      # NEKO_WEBRTC_ICESERVERS: '[{"urls":["turn:your-turn-server.com:3478"],"username":"glassfence","credential":"your_secret"}]'
-      NEKO_CAPTURE_VIDEO_IDS: main
-      NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
+      GF_DESKTOP_SCREEN: ${SCREEN_RESOLUTION:-1920x1080@60}
+      GF_MEMBER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
+      GF_MEMBER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
+      GF_WEBRTC_UDPMUX: ${GF_FIREFOX_UDP_PORT:-53000}
+      GF_WEBRTC_ICELITE: 1
+      GF_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
+      GF_WEBRTC_ICESERVERS: '[{"urls":["turn:${TURN_SERVER}:3478"],"username":"glassfence","credential":"${TURN_SECRET}"}]'
+      GF_CAPTURE_VIDEO_IDS: main
+      GF_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
     ports:
-      - "${UDP_MUX_PORT:-53000}:${UDP_MUX_PORT:-53000}/udp"
+    - ${GF_FIREFOX_UDP_PORT:-53000}:${GF_FIREFOX_UDP_PORT:-53000}/udp
     volumes:
-      - "firefox_profile:/home/neko/.mozilla/firefox"
+    - firefox_profile:/home/glassfence/.mozilla/firefox
     networks:
-      - web
+    - web
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.firefox.rule=Host(`firefox.${DOMAIN:-glassfence.local}`)"
-      - "traefik.http.routers.firefox.entrypoints=websecure"
-      - "traefik.http.routers.firefox.tls.certresolver=myresolver"
-      - "traefik.http.services.firefox.loadbalancer.server.port=8080"
-
+    - traefik.enable=true
+    - traefik.http.middlewares.ratelimit.ratelimit.average=20
+    - traefik.http.middlewares.ratelimit.ratelimit.burst=5
+    - traefik.http.routers.firefox.rule=Host(`firefox.${DOMAIN:-glassfence.local}`)
+    - traefik.http.routers.firefox.entrypoints=websecure
+    - traefik.http.routers.firefox.tls.certresolver=myresolver
+    - traefik.http.routers.firefox.middlewares=ratelimit
+    - traefik.http.services.firefox.loadbalancer.server.port=8080
   chromium:
-    image: "arxndevv/glass-fence-chromium:latest"
-    restart: "unless-stopped"
-    shm_size: "2gb"
+    image: arxndevv/glass-fence-chromium:latest
+    restart: unless-stopped
+    shm_size: 2gb
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 3G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '5'
     environment:
-      NEKO_DESKTOP_SCREEN: ${SCREEN_RESOLUTION:-1920x1080@60}
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
-      NEKO_WEBRTC_UDPMUX: ${UDP_MUX_PORT:-53001}
-      NEKO_WEBRTC_ICELITE: 1
-      NEKO_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
-      # Uncomment and configure for production deployments behind strict NAT/corporate firewalls
-      # NEKO_WEBRTC_ICESERVERS: '[{"urls":["turn:your-turn-server.com:3478"],"username":"glassfence","credential":"your_secret"}]'
-      NEKO_CAPTURE_VIDEO_IDS: main
-      NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
+      GF_DESKTOP_SCREEN: ${SCREEN_RESOLUTION:-1920x1080@60}
+      GF_MEMBER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
+      GF_MEMBER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
+      GF_WEBRTC_UDPMUX: ${GF_CHROMIUM_UDP_PORT:-53001}
+      GF_WEBRTC_ICELITE: 1
+      GF_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
+      GF_WEBRTC_ICESERVERS: '[{"urls":["turn:${TURN_SERVER}:3478"],"username":"glassfence","credential":"${TURN_SECRET}"}]'
+      GF_CAPTURE_VIDEO_IDS: main
+      GF_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
     ports:
-      - "${UDP_MUX_PORT:-53001}:${UDP_MUX_PORT:-53001}/udp"
+    - ${GF_CHROMIUM_UDP_PORT:-53001}:${GF_CHROMIUM_UDP_PORT:-53001}/udp
     volumes:
-      - "chromium_profile:/home/neko/.config/chromium"
+    - chromium_profile:/home/glassfence/.config/chromium
     networks:
-      - web
+    - web
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.chromium.rule=Host(`chromium.${DOMAIN:-glassfence.local}`)"
-      - "traefik.http.routers.chromium.entrypoints=websecure"
-      - "traefik.http.routers.chromium.tls.certresolver=myresolver"
-      - "traefik.http.services.chromium.loadbalancer.server.port=8080"
-
-  linux:
-    image: "arxndevv/glass-fence-xfce:latest"
-    restart: "unless-stopped"
-    shm_size: "2gb"
+    - traefik.enable=true
+    - traefik.http.middlewares.ratelimit.ratelimit.average=20
+    - traefik.http.middlewares.ratelimit.ratelimit.burst=5
+    - traefik.http.routers.chromium.rule=Host(`chromium.${DOMAIN:-glassfence.local}`)
+    - traefik.http.routers.chromium.entrypoints=websecure
+    - traefik.http.routers.chromium.tls.certresolver=myresolver
+    - traefik.http.routers.chromium.middlewares=ratelimit
+    - traefik.http.services.chromium.loadbalancer.server.port=8080
+  xfce-desktop:
+    image: arxndevv/glass-fence-xfce:latest
+    restart: unless-stopped
+    shm_size: 2gb
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 3G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '5'
     environment:
-      NEKO_DESKTOP_SCREEN: ${SCREEN_RESOLUTION:-1920x1080@60}
-      NEKO_MEMBER_MULTIUSER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
-      NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
-      NEKO_WEBRTC_UDPMUX: ${UDP_MUX_PORT:-53002}
-      NEKO_WEBRTC_ICELITE: 1
-      NEKO_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
-      # Uncomment and configure for production deployments behind strict NAT/corporate firewalls
-      # NEKO_WEBRTC_ICESERVERS: '[{"urls":["turn:your-turn-server.com:3478"],"username":"glassfence","credential":"your_secret"}]'
-      NEKO_CAPTURE_VIDEO_IDS: main
-      NEKO_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
+      GF_DESKTOP_SCREEN: ${SCREEN_RESOLUTION:-1920x1080@60}
+      GF_MEMBER_USER_PASSWORD: ${GF_USER_PASSWORD:-changeme}
+      GF_MEMBER_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD:-changeme_admin}
+      GF_WEBRTC_UDPMUX: ${GF_LINUX_UDP_PORT:-53002}
+      GF_WEBRTC_ICELITE: 1
+      GF_WEBRTC_NAT1TO1: ${SERVER_PUBLIC_IP:-127.0.0.1}
+      GF_WEBRTC_ICESERVERS: '[{"urls":["turn:${TURN_SERVER}:3478"],"username":"glassfence","credential":"${TURN_SECRET}"}]'
+      GF_CAPTURE_VIDEO_IDS: main
+      GF_CAPTURE_VIDEO_CODEC: ${VIDEO_CODEC:-vp9}
     ports:
-      - "${UDP_MUX_PORT:-53002}:${UDP_MUX_PORT:-53002}/udp"
+    - ${GF_LINUX_UDP_PORT:-53002}:${GF_LINUX_UDP_PORT:-53002}/udp
     volumes:
-      - "linux_home:/home/neko"
+    - xfce_desktop_home:/home/glassfence
     networks:
-      - web
+    - web
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.linux.rule=Host(`linux.${DOMAIN:-glassfence.local}`)"
-      - "traefik.http.routers.linux.entrypoints=websecure"
-      - "traefik.http.routers.linux.tls.certresolver=myresolver"
-      - "traefik.http.services.linux.loadbalancer.server.port=8080"
-
+    - traefik.enable=true
+    - traefik.http.middlewares.ratelimit.ratelimit.average=20
+    - traefik.http.middlewares.ratelimit.ratelimit.burst=5
+    - traefik.http.routers.xfce-desktop.rule=Host(`linux.${DOMAIN:-glassfence.local}`)
+    - traefik.http.routers.xfce-desktop.entrypoints=websecure
+    - traefik.http.routers.xfce-desktop.tls.certresolver=myresolver
+    - traefik.http.routers.xfce-desktop.middlewares=ratelimit
+    - traefik.http.services.xfce-desktop.loadbalancer.server.port=8080
+  coturn:
+    image: coturn/coturn:4.6
+    restart: unless-stopped
+    network_mode: host
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '5'
+    volumes:
+    - ./coturn.conf:/etc/coturn/turnserver.conf:ro
+    labels:
+      com.arxndev.project: glass-fence
+  ai-engine:
+    image: arxndevv/glass-fence-ai-engine:latest
+    restart: unless-stopped
+    networks:
+    - web
+    volumes:
+    - gf-ai-model-cache:/app/models
+    - gf-threat-db:/app/data
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '5'
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.ai.rule=Host(`ai.${DOMAIN}`)
+    - traefik.http.routers.ai.entrypoints=websecure
+    - traefik.http.routers.ai.tls.certresolver=myresolver
+    - traefik.http.routers.ai.middlewares=ratelimit
+    - traefik.http.services.ai.loadbalancer.server.port=8000
+  backup:
+    image: alpine:3.19
+    restart: unless-stopped
+    volumes:
+    - gf-threat-db:/data/db:ro
+    - ./backups:/backup
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '5'
+    command: "sh -c \"while true; do\n  tar czf /backup/gf-backup-$$(date +%Y%m%d-%H%M%S).tar.gz\
+      \ /data;\n  find /backup -mtime +7 -delete;\n  sleep 86400;\ndone\"\n"
+  prometheus:
+    image: prom/prometheus:v2.50.0
+    volumes:
+    - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    - prometheus-data:/prometheus
+    networks:
+    - web
+    labels:
+    - traefik.enable=true
+    - traefik.http.routers.prometheus.rule=Host(`metrics.${DOMAIN}`)
+    - traefik.http.routers.prometheus.middlewares=traefik-auth
+  grafana:
+    image: grafana/grafana:10.3.0
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-changeme}
+    volumes:
+    - grafana-data:/var/lib/grafana
+    - ./grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+    - ./grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    networks:
+    - web
 networks:
   web:
     driver: bridge
-
 volumes:
   traefik_certs:
+    labels:
+      com.arxndev.project: glass-fence
   firefox_profile:
+    labels:
+      com.arxndev.project: glass-fence
   chromium_profile:
-  linux_home:
+    labels:
+      com.arxndev.project: glass-fence
+  xfce_desktop_home:
+    labels:
+      com.arxndev.project: glass-fence
+  gf-ai-model-cache:
+    labels:
+      com.arxndev.project: glass-fence
+  gf-threat-db:
+    labels:
+      com.arxndev.project: glass-fence
+  prometheus-data: null
+  grafana-data: null

@@ -4,7 +4,7 @@ import configOptions from './help.json';
 
 # Configuration
 
-Neko uses the [Viper](https://github.com/spf13/viper) library to manage configuration. The configuration file is optional and is not required for Neko to run. If a configuration file is present, it will be read in and merged with the default configuration values.
+Glass Fence uses the [Viper](https://github.com/spf13/viper) library to manage configuration. The configuration file is optional and is not required for Glass Fence to run. If a configuration file is present, it will be read in and merged with the default configuration values.
 
 The merge order is as follows:
 
@@ -26,10 +26,10 @@ server:
 EOF
 
 # Environment Variable
-export NEKO_SERVER_BIND=127.0.0.1:8082
+export GF_SERVER_BIND=127.0.0.1:8082
 
 # Command-line Argument
-./neko -config=config.yaml -server.bind=127.0.0.1:8083
+./glass-fence -config=config.yaml -server.bind=127.0.0.1:8083
 ```
 
 The final value of `server.bind` will be `127.0.0.1:8083`.
@@ -38,12 +38,12 @@ The final value of `server.bind` will be `127.0.0.1:8083`.
 
 ## Configuration File {#file}
 
-You have multiple ways to specify the configuration file for the neko server:
+You have multiple ways to specify the configuration file for the glass-fence server:
 
 - Command-line argument: `-config=/path/to/config.yaml`
-- Environment variable: `NEKO_CONFIG=/path/to/config.yaml`
-- Place the `neko.yaml` file in the same directory as the neko binary.
-- Place the `neko.yaml` file to `/etc/neko/neko.yaml` *(ideal for Docker containers)*.
+- Environment variable: `GF_CONFIG=/path/to/config.yaml`
+- Place the `glass-fence.yaml` file in the same directory as the glass-fence binary.
+- Place the `glass-fence.yaml` file to `/etc/glass-fence/glass-fence.yaml` *(ideal for Docker containers)*.
 
 The configuration file can be specified in YAML, JSON, TOML, HCL, envfile, and Java properties format. Throughout the documentation, we will use the YAML format.
 
@@ -71,7 +71,7 @@ import TabItem from '@theme/TabItem';
       provider: "multiuser"
       multiuser:
       admin_password: "admin"
-      user_password: "neko"
+      user_password: "glass-fence"
 
     session:
       merciful_reconnect: true
@@ -111,7 +111,7 @@ import TabItem from '@theme/TabItem';
         "provider": "multiuser",
         "multiuser": {
           "admin_password": "admin",
-          "user_password": "neko"
+          "user_password": "glass-fence"
         }
       },
       "session": {
@@ -158,7 +158,7 @@ import TabItem from '@theme/TabItem';
 
     [member.multiuser]
     admin_password = "admin"
-    user_password = "neko"
+    user_password = "glass-fence"
 
     [session]
     merciful_reconnect = true
@@ -202,7 +202,7 @@ import TabItem from '@theme/TabItem';
 
       multiuser {
         admin_password = "admin"
-        user_password = "neko"
+        user_password = "glass-fence"
       }
     }
 
@@ -244,7 +244,7 @@ import TabItem from '@theme/TabItem';
 
     MEMBER_PROVIDER=multiuser
     MEMBER_MULTIUSER_ADMIN_PASSWORD=admin
-    MEMBER_MULTIUSER_USER_PASSWORD=neko
+    MEMBER_MULTIUSER_USER_PASSWORD=glass-fence
 
     SESSION_MERCIFUL_RECONNECT=true
     SESSION_IMPLICIT_HOSTING=false
@@ -270,7 +270,7 @@ import TabItem from '@theme/TabItem';
 
     member.provider = multiuser
     member.multiuser.admin_password = admin
-    member.multiuser.user_password = neko
+    member.multiuser.user_password = glass-fence
 
     session.merciful_reconnect = true
     session.implicit_hosting = false
@@ -315,7 +315,7 @@ This is the initial configuration of the room that can be modified by an admin i
 
 ## Server Configuration {#server}
 
-This is the configuration of the neko server.
+This is the configuration of the glass-fence server.
 
 <ConfigurationTab options={configOptions} filter={[
   'server.bind',
@@ -329,17 +329,17 @@ This is the configuration of the neko server.
   'server.static',
 ]} comments={false} />
 
-- <Def id="server.bind" /> address/port/socket to serve neko. For docker you might want to bind to `0.0.0.0` to allow connections from outside the container.
-- <Def id="server.cert" /> and <Def id="server.key" /> paths to the SSL cert and key used to secure the neko server. If both are empty, the server will run in plain HTTP.
+- <Def id="server.bind" /> address/port/socket to serve glass-fence. For docker you might want to bind to `0.0.0.0` to allow connections from outside the container.
+- <Def id="server.cert" /> and <Def id="server.key" /> paths to the SSL cert and key used to secure the glass-fence server. If both are empty, the server will run in plain HTTP.
 - <Def id="server.cors" /> is a list of allowed origins for CORS.
   - If empty, CORS is disabled, and only same-origin requests are allowed.
-  - If `*` is present, all origins are allowed. Neko will respond always with the requested origin, not with `*` since [credentials are not allowed with wildcard](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSNotSupportingCredentials).
+  - If `*` is present, all origins are allowed. Glass Fence will respond always with the requested origin, not with `*` since [credentials are not allowed with wildcard](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSNotSupportingCredentials).
   - If a list of origins is present, only those origins are allowed for CORS.
 - <Def id="server.metrics" /> when true, [prometheus](https://prometheus.io/docs/prometheus/latest/getting_started/) metrics are available at `/metrics`.
-- <Def id="server.path_prefix" /> is the prefix for all HTTP requests. This is useful when running neko behind a reverse proxy and you want to serve neko under a subpath, e.g. `/neko`.
+- <Def id="server.path_prefix" /> is the prefix for all HTTP requests. This is useful when running glass-fence behind a reverse proxy and you want to serve glass-fence under a subpath, e.g. `/glass-fence`.
 - <Def id="server.pprof" /> when true, the [pprof](https://golang.org/pkg/net/http/pprof/) endpoint is available at `/debug/pprof` for debugging and profiling. This should be disabled in production.
-- <Def id="server.proxy" /> when true, neko will trust the `X-Forwarded-For` and `X-Real-IP` headers from the reverse proxy. Make sure your reverse proxy is configured to set these headers and never trust them when not behind a reverse proxy. See [Reverse Proxy Setup](/docs/v3/reverse-proxy-setup) for more information.
-- <Def id="server.static" /> path to the directory containing the neko client files to serve. This is useful if you want to serve the client files on the same domain as the server.
+- <Def id="server.proxy" /> when true, glass-fence will trust the `X-Forwarded-For` and `X-Real-IP` headers from the reverse proxy. Make sure your reverse proxy is configured to set these headers and never trust them when not behind a reverse proxy. See [Reverse Proxy Setup](/docs/v3/reverse-proxy-setup) for more information.
+- <Def id="server.static" /> path to the directory containing the glass-fence client files to serve. This is useful if you want to serve the client files on the same domain as the server.
 
 ## Logging Configuration {#log}
 
@@ -353,14 +353,14 @@ This is the configuration of the logging system.
   'log.time',
 ]} comments={false} />
 
-- <Def id="log.dir" /> directory to store logs. If empty, logs are written to stdout. This is useful when running neko in a container.
+- <Def id="log.dir" /> directory to store logs. If empty, logs are written to stdout. This is useful when running glass-fence in a container.
 - <Def id="log.json" /> when true, logs are written in JSON format.
 - <Def id="log.level" /> log level to set. Available levels are `trace`, `debug`, `info`, `warn`, `error`, `fatal`, `panic`, and `disabled`.
 - <Def id="log.nocolor" /> when true, ANSI colors are disabled in non-JSON output. Accepts as well [`NO_COLOR` environment variable](https://no-color.org/).
 - <Def id="log.time" /> time format used in logs. Available formats are `unix`, `unixms`, and `unixmicro`.
 
 :::tip
-Shortcut environment variable to enable DEBUG mode: `NEKO_DEBUG=true`
+Shortcut environment variable to enable DEBUG mode: `GF_DEBUG=true`
 :::
 
 ## Full Configuration Reference {#full}

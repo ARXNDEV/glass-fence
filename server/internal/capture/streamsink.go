@@ -73,7 +73,7 @@ func streamSinkNew(codec codec.RTPCodec, pipelineFn func() (string, error), id s
 		// metrics
 		currentListeners: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "streamsink_listeners",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Current number of listeners for a pipeline.",
 			ConstLabels: map[string]string{
@@ -84,7 +84,7 @@ func streamSinkNew(codec codec.RTPCodec, pipelineFn func() (string, error), id s
 		}),
 		totalBytes: promauto.NewCounter(prometheus.CounterOpts{
 			Name:      "streamsink_bytes",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Total number of bytes created by the pipeline.",
 			ConstLabels: map[string]string{
@@ -95,7 +95,7 @@ func streamSinkNew(codec codec.RTPCodec, pipelineFn func() (string, error), id s
 		}),
 		pipelinesCounter: promauto.NewCounter(prometheus.CounterOpts{
 			Name:      "pipelines_total",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Total number of created pipelines.",
 			ConstLabels: map[string]string{
@@ -107,7 +107,7 @@ func streamSinkNew(codec codec.RTPCodec, pipelineFn func() (string, error), id s
 		}),
 		pipelinesActive: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "pipelines_active",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Total number of active pipelines.",
 			ConstLabels: map[string]string{

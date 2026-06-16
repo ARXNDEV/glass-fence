@@ -1,20 +1,20 @@
 # Migration from V2
 
-Currently, Neko is in compatibility mode, meaning that as soon as a single V2 configuration option is set, the legacy mode is enabled. This approach allows for a smooth transition from V2 to V3, where it does not expose the V2 API for new users but still allows existing users who use the old configuration to continue using it as before.
+Currently, Glass Fence is in compatibility mode, meaning that as soon as a single V2 configuration option is set, the legacy mode is enabled. This approach allows for a smooth transition from V2 to V3, where it does not expose the V2 API for new users but still allows existing users who use the old configuration to continue using it as before.
 
-The legacy mode includes a compatibility layer that allows V2 clients to connect to V3. Currently, the **client is not compatible with V3**, so the legacy mode is enabled by default. It can be explicitly enabled or disabled by setting the `NEKO_LEGACY` environment variable to `true` or `false`.
+The legacy mode includes a compatibility layer that allows V2 clients to connect to V3. Currently, the **client is not compatible with V3**, so the legacy mode is enabled by default. It can be explicitly enabled or disabled by setting the `GF_LEGACY` environment variable to `true` or `false`.
 
 :::warning
-The legacy mode is **still used by the client**. It is recommended to migrate to the new configuration options, but do not disable the legacy mode unless you are using a new client that is compatible with V3 (e.g., [demodesk/neko-client](https://github.com/demodesk/neko-client)). Once the new client is released, the legacy mode will be automatically removed from the server.
+The legacy mode is **still used by the client**. It is recommended to migrate to the new configuration options, but do not disable the legacy mode unless you are using a new client that is compatible with V3 (e.g., [demodesk/glass-fence-client](https://github.com/demodesk/glass-fence-client)). Once the new client is released, the legacy mode will be automatically removed from the server.
 :::
 
 If you set both V3 and V2 configuration options, the V2 configuration options will take precedence over the V3 configuration options. This is to ensure that the legacy mode works as expected and does not break existing configurations.
 
 ## Docker Images {#docker}
 
-Previously, neko was available primarily on Dockerhub as `m1k1o/neko`. While it stays as an option there, now the primary location is `arxndevv/glass-fence`.
+Previously, glass-fence was available primarily on Dockerhub as `arxndev/glass-fence`. While it stays as an option there, now the primary location is `arxndevv/glass-fence`.
 
-ARM images were previously available as an flavor e.g. `m1k1o/neko:arm-firefox` or `arxndevv/glass-fence/arm-firefox`. Now, the ARM images are available as multi-arch images under the same tags as the amd64 images., e.g. `arxndevv/glass-fence/firefox`.
+ARM images were previously available as an flavor e.g. `arxndev/glass-fence:arm-firefox` or `arxndevv/glass-fence/arm-firefox`. Now, the ARM images are available as multi-arch images under the same tags as the amd64 images., e.g. `arxndevv/glass-fence/firefox`.
 
 All applications available in the V2 images are also available in the V3 images. See the [Docker Images](/docs/v3/installation/docker-images) documentation for more details.
 
@@ -22,26 +22,26 @@ All applications available in the V2 images are also available in the V3 images.
 
 V3 is compatible with V2 configuration options when legacy support is enabled. You should be able to run V3 with the V2 configuration without any issues.
 
-The configuration in Neko V3 has been structured differently compared to V2. The V3 configuration is more modular and allows for more flexibility. The V3 configuration is split into multiple sections, each section is responsible for a specific part of the application. This allows for better organization and easier management of the configuration.
+The configuration in Glass Fence V3 has been structured differently compared to V2. The V3 configuration is more modular and allows for more flexibility. The V3 configuration is split into multiple sections, each section is responsible for a specific part of the application. This allows for better organization and easier management of the configuration.
 
 In order to migrate from V2 to V3, you need to update the configuration to the new format. The following table shows the mapping between the V2 and V3 configuration options.
 
 | **V2 Configuration**                  | **V3 Configuration**                                      |
 |---------------------------------------|-----------------------------------------------------------|
-| `NEKO_LOGS=true`                      | `NEKO_LOG_DIR=/var/log/neko`, V3 allows specifying the log directory |
-| `NEKO_CERT`                           | `NEKO_SERVER_CERT`                                        |
-| `NEKO_KEY`                            | `NEKO_SERVER_KEY`                                         |
-| `NEKO_BIND`                           | `NEKO_SERVER_BIND`                                        |
-| `NEKO_PROXY`                          | `NEKO_SERVER_PROXY`                                       |
-| `NEKO_STATIC`                         | `NEKO_SERVER_STATIC`                                      |
-| `NEKO_PATH_PREFIX`                    | `NEKO_SERVER_PATH_PREFIX`                                 |
-| `NEKO_CORS`                           | `NEKO_SERVER_CORS`                                        |
-| `NEKO_LOCKS`                          | `NEKO_SESSION_LOCKED_CONTROLS` and `NEKO_SESSION_LOCKED_LOGINS`, <br /> V3 allows separate locks for controls and logins |
-| `NEKO_IMPLICIT_CONTROL`               | `NEKO_SESSION_IMPLICIT_HOSTING`                           |
-| `NEKO_CONTROL_PROTECTION`             | `NEKO_SESSION_CONTROL_PROTECTION`                         |
-| `NEKO_HEARTBEAT_INTERVAL`             | `NEKO_SESSION_HEARTBEAT_INTERVAL`                         |
-| `NEKO_FILE_TRANSFER_ENABLED`          | `NEKO_FILETRANSFER_ENABLED`                               |
-| `NEKO_FILE_TRANSFER_PATH`             | `NEKO_FILETRANSFER_DIR`                                   |
+| `GF_LOGS=true`                      | `GF_LOG_DIR=/var/log/glass-fence`, V3 allows specifying the log directory |
+| `GF_CERT`                           | `GF_SERVER_CERT`                                        |
+| `GF_KEY`                            | `GF_SERVER_KEY`                                         |
+| `GF_BIND`                           | `GF_SERVER_BIND`                                        |
+| `GF_PROXY`                          | `GF_SERVER_PROXY`                                       |
+| `GF_STATIC`                         | `GF_SERVER_STATIC`                                      |
+| `GF_PATH_PREFIX`                    | `GF_SERVER_PATH_PREFIX`                                 |
+| `GF_CORS`                           | `GF_SERVER_CORS`                                        |
+| `GF_LOCKS`                          | `GF_SESSION_LOCKED_CONTROLS` and `GF_SESSION_LOCKED_LOGINS`, <br /> V3 allows separate locks for controls and logins |
+| `GF_IMPLICIT_CONTROL`               | `GF_SESSION_IMPLICIT_HOSTING`                           |
+| `GF_CONTROL_PROTECTION`             | `GF_SESSION_CONTROL_PROTECTION`                         |
+| `GF_HEARTBEAT_INTERVAL`             | `GF_SESSION_HEARTBEAT_INTERVAL`                         |
+| `GF_FILE_TRANSFER_ENABLED`          | `GF_FILETRANSFER_ENABLED`                               |
+| `GF_FILE_TRANSFER_PATH`             | `GF_FILETRANSFER_DIR`                                   |
 
 See the V3 [configuration options](/docs/v3/configuration). For file transfer, see the [File Transfer Plugin](/docs/v3/configuration/plugins#filetransfer).
 
@@ -51,16 +51,16 @@ See the V3 configuration options for the [WebRTC Video](/docs/v3/configuration/c
 
 | **V2 Configuration**                  | **V3 Configuration**                                      |
 |---------------------------------------|-----------------------------------------------------------|
-| `NEKO_DISPLAY`                        | `NEKO_CAPTURE_VIDEO_DISPLAY` and `NEKO_DESKTOP_DISPLAY`, <br /> consider using `DISPLAY` env variable if both should be the same |
-| `NEKO_VIDEO_CODEC`                    | `NEKO_CAPTURE_VIDEO_CODEC`                                |
-| `NEKO_AV1=true` *deprecated*          | `NEKO_CAPTURE_VIDEO_CODEC=av1`                            |
-| `NEKO_H264=true` *deprecated*         | `NEKO_CAPTURE_VIDEO_CODEC=h264`                           |
-| `NEKO_VP8=true` *deprecated*          | `NEKO_CAPTURE_VIDEO_CODEC=vp8`                            |
-| `NEKO_VP9=true` *deprecated*          | `NEKO_CAPTURE_VIDEO_CODEC=vp9`                            |
-| `NEKO_VIDEO`                          | `NEKO_CAPTURE_VIDEO_PIPELINE`, V3 allows multiple video pipelines |
-| `NEKO_VIDEO_BITRATE`                  | **removed**, use [custom pipeline](/docs/v3/configuration/capture#video.gst_pipeline) instead |
-| `NEKO_HWENC`                          | **removed**, use [custom pipeline](/docs/v3/configuration/capture#video.gst_pipeline) instead |
-| `NEKO_MAX_FPS`                        | **removed**, use [custom pipeline](/docs/v3/configuration/capture#video.gst_pipeline) instead |
+| `GF_DISPLAY`                        | `GF_CAPTURE_VIDEO_DISPLAY` and `GF_DESKTOP_DISPLAY`, <br /> consider using `DISPLAY` env variable if both should be the same |
+| `GF_VIDEO_CODEC`                    | `GF_CAPTURE_VIDEO_CODEC`                                |
+| `GF_AV1=true` *deprecated*          | `GF_CAPTURE_VIDEO_CODEC=av1`                            |
+| `GF_H264=true` *deprecated*         | `GF_CAPTURE_VIDEO_CODEC=h264`                           |
+| `GF_VP8=true` *deprecated*          | `GF_CAPTURE_VIDEO_CODEC=vp8`                            |
+| `GF_VP9=true` *deprecated*          | `GF_CAPTURE_VIDEO_CODEC=vp9`                            |
+| `GF_VIDEO`                          | `GF_CAPTURE_VIDEO_PIPELINE`, V3 allows multiple video pipelines |
+| `GF_VIDEO_BITRATE`                  | **removed**, use [custom pipeline](/docs/v3/configuration/capture#video.gst_pipeline) instead |
+| `GF_HWENC`                          | **removed**, use [custom pipeline](/docs/v3/configuration/capture#video.gst_pipeline) instead |
+| `GF_MAX_FPS`                        | **removed**, use [custom pipeline](/docs/v3/configuration/capture#video.gst_pipeline) instead |
 
 
 :::warning Limitation
@@ -73,14 +73,14 @@ See the V3 configuration options for the [WebRTC Audio](/docs/v3/configuration/c
 
 | **V2 Configuration**                  | **V3 Configuration**                                      |
 |---------------------------------------|-----------------------------------------------------------|
-| `NEKO_DEVICE`                         | `NEKO_CAPTURE_AUDIO_DEVICE`                               |
-| `NEKO_AUDIO_CODEC`                    | `NEKO_CAPTURE_AUDIO_CODEC`                                |
-| `NEKO_G722=true` *deprecated*         | `NEKO_CAPTURE_AUDIO_CODEC=g722`                           |
-| `NEKO_OPUS=true` *deprecated*         | `NEKO_CAPTURE_AUDIO_CODEC=opus`                           |
-| `NEKO_PCMA=true` *deprecated*         | `NEKO_CAPTURE_AUDIO_CODEC=pcma`                           |
-| `NEKO_PCMU=true` *deprecated*         | `NEKO_CAPTURE_AUDIO_CODEC=pcmu`                           |
-| `NEKO_AUDIO`                          | `NEKO_CAPTURE_AUDIO_PIPELINE`                             |
-| `NEKO_AUDIO_BITRATE`                  | **removed**, use custom pipeline instead                  |
+| `GF_DEVICE`                         | `GF_CAPTURE_AUDIO_DEVICE`                               |
+| `GF_AUDIO_CODEC`                    | `GF_CAPTURE_AUDIO_CODEC`                                |
+| `GF_G722=true` *deprecated*         | `GF_CAPTURE_AUDIO_CODEC=g722`                           |
+| `GF_OPUS=true` *deprecated*         | `GF_CAPTURE_AUDIO_CODEC=opus`                           |
+| `GF_PCMA=true` *deprecated*         | `GF_CAPTURE_AUDIO_CODEC=pcma`                           |
+| `GF_PCMU=true` *deprecated*         | `GF_CAPTURE_AUDIO_CODEC=pcmu`                           |
+| `GF_AUDIO`                          | `GF_CAPTURE_AUDIO_PIPELINE`                             |
+| `GF_AUDIO_BITRATE`                  | **removed**, use custom pipeline instead                  |
 
 ### Broadcast {#config.broadcast}
 
@@ -88,9 +88,9 @@ See the V3 configuration options for the [Broadcast](/docs/v3/configuration/capt
 
 | **V2 Configuration**                  | **V3 Configuration**                                      |
 |---------------------------------------|-----------------------------------------------------------|
-| `NEKO_BROADCAST_PIPELINE`             | `NEKO_CAPTURE_BROADCAST_PIPELINE`                         |
-| `NEKO_BROADCAST_URL`                  | `NEKO_CAPTURE_BROADCAST_URL`                              |
-| `NEKO_BROADCAST_AUTOSTART`            | `NEKO_CAPTURE_BROADCAST_AUTOSTART`                        |
+| `GF_BROADCAST_PIPELINE`             | `GF_CAPTURE_BROADCAST_PIPELINE`                         |
+| `GF_BROADCAST_URL`                  | `GF_CAPTURE_BROADCAST_URL`                              |
+| `GF_BROADCAST_AUTOSTART`            | `GF_CAPTURE_BROADCAST_AUTOSTART`                        |
 
 ### Desktop {#config.desktop}
 
@@ -98,7 +98,7 @@ See the V3 configuration options for the [Desktop](/docs/v3/configuration/deskto
 
 | **V2 Configuration**                  | **V3 Configuration**                                      |
 |---------------------------------------|-----------------------------------------------------------|
-| `NEKO_SCREEN`                         | `NEKO_DESKTOP_SCREEN`                                     |
+| `GF_SCREEN`                         | `GF_DESKTOP_SCREEN`                                     |
 
 ### Authentication {#config.auth}
 
@@ -106,8 +106,8 @@ See the V3 configuration options for the [Authentication](/docs/v3/configuration
 
 | **V2 Configuration**                  | **V3 Configuration**                                      |
 |---------------------------------------|-----------------------------------------------------------|
-| `NEKO_PASSWORD`                       | `NEKO_MEMBER_MULTIUSER_USER_PASSWORD` with `NEKO_MEMBER_PROVIDER=multiuser` |
-| `NEKO_PASSWORD_ADMIN`                 | `NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD` with `NEKO_MEMBER_PROVIDER=multiuser` |
+| `GF_PASSWORD`                       | `GF_MEMBER_MULTIUSER_USER_PASSWORD` with `GF_MEMBER_PROVIDER=multiuser` |
+| `GF_PASSWORD_ADMIN`                 | `GF_MEMBER_MULTIUSER_ADMIN_PASSWORD` with `GF_MEMBER_PROVIDER=multiuser` |
 
 In order for the legacy authentication to work, you need to set [Multi-user](/docs/v3/configuration/authentication#member.multiuser).
 
@@ -121,17 +121,17 @@ See the V3 configuration options for the [WebRTC](/docs/v3/configuration/webrtc)
 
 | **V2 Configuration**                  | **V3 Configuration**                                      |
 |---------------------------------------|-----------------------------------------------------------|
-| `NEKO_NAT1TO1`                        | `NEKO_WEBRTC_NAT1TO1`                                     |
-| `NEKO_TCPMUX`                         | `NEKO_WEBRTC_TCPMUX`                                      |
-| `NEKO_UDPMUX`                         | `NEKO_WEBRTC_UDPMUX`                                      |
-| `NEKO_ICELITE`                        | `NEKO_WEBRTC_ICELITE`                                     |
-| `NEKO_ICESERVERS` or `NEKO_ICESERVER` | `NEKO_WEBRTC_ICESERVERS_FRONTEND` and `NEKO_WEBRTC_ICESERVERS_BACKEND`, <br /> V3 allows separate ICE servers for frontend and backend |
-| `NEKO_IPFETCH`                        | `NEKO_WEBRTC_IP_RETRIEVAL_URL`                            |
-| `NEKO_EPR`                            | `NEKO_WEBRTC_EPR`                                         |
+| `GF_NAT1TO1`                        | `GF_WEBRTC_NAT1TO1`                                     |
+| `GF_TCPMUX`                         | `GF_WEBRTC_TCPMUX`                                      |
+| `GF_UDPMUX`                         | `GF_WEBRTC_UDPMUX`                                      |
+| `GF_ICELITE`                        | `GF_WEBRTC_ICELITE`                                     |
+| `GF_ICESERVERS` or `GF_ICESERVER` | `GF_WEBRTC_ICESERVERS_FRONTEND` and `GF_WEBRTC_ICESERVERS_BACKEND`, <br /> V3 allows separate ICE servers for frontend and backend |
+| `GF_IPFETCH`                        | `GF_WEBRTC_IP_RETRIEVAL_URL`                            |
+| `GF_EPR`                            | `GF_WEBRTC_EPR`                                         |
 
 ### Full V2 Configuration Reference {#config.full}
 
-Here is a full list of all the configuration options available in Neko V2 that are still available in Neko V3 with legacy support enabled.
+Here is a full list of all the configuration options available in Glass Fence V2 that are still available in Glass Fence V3 with legacy support enabled.
 
 import { ConfigurationTab } from '@site/src/components/Configuration';
 import configOptions from './help.json';

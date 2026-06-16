@@ -2,7 +2,7 @@
       --capture.audio.device string                   pulseaudio device to capture (default "audio_output.monitor")
       --capture.audio.pipeline string                 gstreamer pipeline used for audio streaming
       --capture.broadcast.audio_bitrate int           broadcast audio bitrate in KB/s (default 128)
-      --capture.broadcast.autostart                   automatically start broadcasting when neko starts and broadcast_url is set (default true)
+      --capture.broadcast.autostart                   automatically start broadcasting when glass-fence starts and broadcast_url is set (default true)
       --capture.broadcast.pipeline string             gstreamer pipeline used for broadcasting
       --capture.broadcast.preset string               broadcast speed preset for h264 encoding (default "veryfast")
       --capture.broadcast.url string                  initial URL for broadcasting, setting this value will automatically start broadcasting
@@ -25,7 +25,7 @@
       --desktop.display string                        X display to use for desktop sharing
       --desktop.file_chooser_dialog                   whether to handle file chooser dialog externally
       --desktop.input.enabled                         whether custom xf86 input driver should be used to handle touchscreen (default true)
-      --desktop.input.socket string                   socket path for custom xf86 input driver connection (default "/tmp/xf86-input-neko.sock")
+      --desktop.input.socket string                   socket path for custom xf86 input driver connection (default "/tmp/xf86-input-glass-fence.sock")
       --desktop.screen string                         default screen size and framerate (default "1280x720@30")
       --desktop.unminimize                            automatically unminimize window when it is minimized (default true)
       --desktop.upload_drop                           whether drop upload is enabled (default true)
@@ -33,29 +33,29 @@
       --member.file.path string                       member file provider: path to the file containing the users and their passwords
       --member.multiuser.admin_password string        member multiuser provider: password for admin users (default "admin")
       --member.multiuser.admin_profile string         member multiuser provider: profile template for admin users (default "{}")
-      --member.multiuser.user_password string         member multiuser provider: password for regular users (default "neko")
+      --member.multiuser.user_password string         member multiuser provider: password for regular users (default "glass-fence")
       --member.multiuser.user_profile string          member multiuser provider: profile template for regular users (default "{}")
       --member.object.users string                    member object provider: list of users with their passwords and profiles (default "[]")
       --member.provider string                        selected member provider (default "multiuser")
-      --plugins.dir string                            path to neko plugins to load (default "./bin/plugins")
+      --plugins.dir string                            path to glass-fence plugins to load (default "./bin/plugins")
       --plugins.enabled                               load plugins in runtime
-      --plugins.required                              if true, neko will exit if there is an error when loading a plugin
-      --server.bind string                            address/port/socket to serve neko (default "127.0.0.1:8080")
-      --server.cert string                            path to the SSL cert used to secure the neko server
+      --plugins.required                              if true, glass-fence will exit if there is an error when loading a plugin
+      --server.bind string                            address/port/socket to serve glass-fence (default "127.0.0.1:8080")
+      --server.cert string                            path to the SSL cert used to secure the glass-fence server
       --server.cors strings                           list of allowed origins for CORS, if empty CORS is disabled, if '*' is present all origins are allowed
-      --server.key string                             path to the SSL key used to secure the neko server
+      --server.key string                             path to the SSL key used to secure the glass-fence server
       --server.metrics                                enable prometheus metrics available at /metrics (default true)
       --server.path_prefix string                     path prefix for HTTP requests (default "/")
       --server.pprof                                  enable pprof endpoint available at /debug/pprof
       --server.proxy                                  trust reverse proxy headers
-      --server.static string                          path to neko client files to serve
+      --server.static string                          path to glass-fence client files to serve
       --session.api_token string                      API token for interacting with external services
       --session.control_protection                    users can gain control only if at least one admin is in the room
       --session.cookie.domain string                  domain of the cookie
       --session.cookie.enabled                        whether cookies authentication should be enabled (default true)
       --session.cookie.expiration duration            expiration of the cookie (default 24h0m0s)
       --session.cookie.http_only                      use http only cookies (default true)
-      --session.cookie.name string                    name of the cookie that holds token (default "NEKO_SESSION")
+      --session.cookie.name string                    name of the cookie that holds token (default "GF_SESSION")
       --session.cookie.path string                    path of the cookie
       --session.cookie.secure                         use secure cookies (default true)
       --session.file string                           if sessions should be stored in a file, otherwise they will be stored only in memory

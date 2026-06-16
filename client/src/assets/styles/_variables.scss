@@ -5,24 +5,24 @@ $font-mono: 'JetBrains Mono', monospace;
 
 // Brutalist Monochrome Variables
 :root {
-  --bg-primary: #000000;
+  --bg-primary: var(--gf-text);
   --bg-secondary: #0d0d0d;
-  --bg-card: #111111;
+  --bg-card: var(--gf-text);
   --bg-elevated: #1a1a1a;
 
   --border-subtle: rgba(255, 255, 255, 0.06);
   --border-default: rgba(255, 255, 255, 0.12);
   --border-strong: rgba(255, 255, 255, 0.24);
 
-  --text-primary: #ffffff;
+  --text-primary: var(--gf-bg);
   --text-secondary: #888888;
   --text-muted: #444444;
   --text-mono: 'JetBrains Mono', monospace;
 
-  --status-safe: #ffffff;
+  --status-safe: var(--gf-bg);
   --status-warn: #888888;
-  --status-danger-bg: #ffffff;
-  --status-danger-text: #000000;
+  --status-danger-bg: var(--gf-bg);
+  --status-danger-text: var(--gf-text);
 
   --font-main: 'Inter', sans-serif;
   --font-display: 'Space Grotesk', sans-serif;
@@ -31,7 +31,7 @@ $font-mono: 'JetBrains Mono', monospace;
   --transition: 150ms ease;
 }
 
-// Map old Neko variables to the new root variables to prevent SCSS compilation errors
+// Map old Glass Fence variables to the new root variables to prevent SCSS compilation errors
 $text-size: 14px;
 $text-normal: var(--text-primary);
 $text-muted: var(--text-secondary);
@@ -69,8 +69,8 @@ $side-width: 30%;
 }
 
 @keyframes threat-flash {
-  0%, 100% { background: #000; color: #fff; }
-  50% { background: #fff; color: #000; }
+  0%, 100% { background: var(--gf-text); color: var(--gf-bg); }
+  50% { background: var(--gf-bg); color: var(--gf-text); }
 }
 
 @keyframes log-entry {

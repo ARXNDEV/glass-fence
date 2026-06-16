@@ -29,14 +29,14 @@
  * License-Filename: COPYING
  */
 
-/* neko input driver */
+/* glass-fence input driver */
 // https://www.x.org/releases/X11R7.7/doc/xorg-server/Xinput.html
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 
-#define DEF_SOCKET_NAME "/tmp/xf86-input-neko.sock"
+#define DEF_SOCKET_NAME "/tmp/xf86-input-glass-fence.sock"
 #define BUFFER_SIZE 12
 
 #include <stdio.h>
@@ -59,7 +59,7 @@
 #define MAX_USED_VALUATORS 3 /* x, y, pressure */
 #define TOUCH_MAX_SLOTS 10 /* max number of simultaneous touches */
 
-struct neko_message
+struct glass-fence_message
 {
     uint16_t type;
     uint32_t touchId;
@@ -68,7 +68,7 @@ struct neko_message
     uint8_t pressure;
 };
 
-struct neko_priv
+struct glass-fence_priv
 {
     pthread_t thread;
     /* config */
@@ -85,7 +85,7 @@ struct neko_priv
 
 // from binary representation to struct
 static void
-UnpackNekoMessage(struct neko_message *msg, unsigned char *buffer)
+UnpackGlassFenceMessage(struct glass-fence_message *msg, unsigned char *buffer)
 {
     msg->type = buffer[0]; // TODO: use full 16bit type
     msg->touchId = buffer[1] | (buffer[2] << 8); // TODO: use full 32bit touchId
@@ -97,8 +97,8 @@ UnpackNekoMessage(struct neko_message *msg, unsigned char *buffer)
 static void
 ReadInput(InputInfoPtr pInfo)
 {
-    struct neko_priv *priv = (struct neko_priv *) (pInfo->private);
-    struct neko_message msg;
+    struct glass-fence_priv *priv = (struct glass-fence_priv *) (pInfo->private);
+    struct glass-fence_message msg;
     int ret;
 
     int data_socket;
@@ -144,7 +144,7 @@ ReadInput(InputInfoPtr pInfo)
                 break;
             }
 
-            UnpackNekoMessage(&msg, buffer);
+            UnpackGlassFenceMessage(&msg, buffer);
 
             ValuatorMask *m = priv->valuators;
             valuator_mask_zero(m);
@@ -178,7 +178,7 @@ static int
 InitTouch(InputInfoPtr pInfo)
 {
     // custom private data
-    struct neko_priv *priv = pInfo->private;
+    struct glass-fence_priv *priv = pInfo->private;
 
 	const int nbtns = 11;
 	const int naxes = 3;
@@ -305,7 +305,7 @@ DeviceControl(DeviceIntPtr device, int what)
     // device pInfo
     InputInfoPtr pInfo = device->public.devicePrivate;
     // custom private data
-    struct neko_priv *priv = pInfo->private;
+    struct glass-fence_priv *priv = pInfo->private;
 
     switch (what) {
     case DEVICE_INIT:
@@ -344,10 +344,10 @@ PreInit(__attribute__ ((unused)) InputDriverPtr drv,
         InputInfoPtr pInfo,
         __attribute__ ((unused)) int flags)
 {
-    struct neko_priv *priv;
+    struct glass-fence_priv *priv;
     int ret;
 
-    priv = calloc(1, sizeof (struct neko_priv));
+    priv = calloc(1, sizeof (struct glass-fence_priv));
     if (!priv)
     {
         xf86IDrvMsg(pInfo, X_ERROR, "%s: out of memory\n", __FUNCTION__);
@@ -440,7 +440,7 @@ UnInit(__attribute__ ((unused)) InputDriverPtr drv,
        InputInfoPtr pInfo,
        __attribute__ ((unused)) int flags)
 {
-    struct neko_priv *priv = (struct neko_priv *)(pInfo->private);
+    struct glass-fence_priv *priv = (struct glass-fence_priv *)(pInfo->private);
 
     /* close socket */
     close(priv->listen_socket);
@@ -469,10 +469,10 @@ UnInit(__attribute__ ((unused)) InputDriverPtr drv,
  * X module information and plug / unplug routines
  */
 
-_X_EXPORT InputDriverRec NEKO =
+_X_EXPORT InputDriverRec GLASS_FENCE =
 {
     .driverVersion = 1,
-    .driverName    = "neko",
+    .driverName    = "glass-fence",
 	.Identify      = NULL,
     .PreInit       = PreInit,
     .UnInit        = UnInit,
@@ -485,7 +485,7 @@ Plug(pointer module,
      __attribute__ ((unused)) int *errmaj,
      __attribute__ ((unused)) int *errmin)
 {
-    xf86AddInputDriver(&NEKO, module, 0);
+    xf86AddInputDriver(&GLASS_FENCE, module, 0);
     return module;
 }
 
@@ -496,7 +496,7 @@ Unplug(__attribute__ ((unused)) pointer module)
 
 static XF86ModuleVersionInfo versionRec =
 {
-	.modname      = "neko",
+	.modname      = "glass-fence",
 	.vendor       = MODULEVENDORSTRING,
 	._modinfo1_   = MODINFOSTRING1,
 	._modinfo2_   = MODINFOSTRING2,
@@ -510,7 +510,7 @@ static XF86ModuleVersionInfo versionRec =
     .checksum     = {0, 0, 0, 0} /* signature, to be patched into the file by a tool */
 };
 
-_X_EXPORT XF86ModuleData nekoModuleData =
+_X_EXPORT XF86ModuleData glass-fenceModuleData =
 {
     .vers     = &versionRec,
     .setup    = Plug,

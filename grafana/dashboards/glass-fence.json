@@ -1,0 +1,39 @@
+{
+  "title": "Glass Fence - Observability",
+  "uid": "gf-observability",
+  "timezone": "browser",
+  "panels": [
+    {
+      "title": "Active Sessions",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 },
+      "targets": [{ "expr": "gf_active_sessions", "refId": "A" }]
+    },
+    {
+      "title": "Session Duration (Sec)",
+      "type": "histogram",
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 0 },
+      "targets": [{ "expr": "rate(gf_session_duration_sec_sum[5m]) / rate(gf_session_duration_sec_count[5m])", "refId": "A" }]
+    },
+    {
+      "title": "Threats per hour",
+      "type": "timeseries",
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 0 },
+      "targets": [{ "expr": "sum(rate(ai_threats_total[1h])) by (category)", "refId": "A" }]
+    },
+    {
+      "title": "AI Engine Latency p99",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 6 },
+      "targets": [{ "expr": "histogram_quantile(0.99, rate(ai_request_latency_seconds_bucket[5m]))", "refId": "A" }]
+    },
+    {
+      "title": "Stream Bitrate Distribution",
+      "type": "heatmap",
+      "gridPos": { "h": 6, "w": 18, "x": 6, "y": 6 },
+      "targets": [{ "expr": "sum(rate(gf_stream_bitrate_kbps_bucket[5m])) by (le)", "refId": "A" }]
+    }
+  ],
+  "schemaVersion": 38,
+  "version": 1
+}

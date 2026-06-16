@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Troubleshooting
 
-Neko UI loads, but you don't see the screen, and it gives you `connection timeout` or `disconnected` error?
+Glass Fence UI loads, but you don't see the screen, and it gives you `connection timeout` or `disconnected` error?
 
 ## Test your client
 
@@ -23,15 +23,15 @@ If you are absolutely sure, that your client is working correctly, then most lik
 
 ### Check if your ports are correctly exposed using docker
 
-Check that your ephemeral port range `NEKO_EPR` is correctly exposed as `/udp` port range.
+Check that your ephemeral port range `GF_EPR` is correctly exposed as `/udp` port range.
 
 In following example, specified range `52000-52100` must be also exposed using docker.
 
 ```yaml title="docker-compose.yaml"
 version: "3.4"
 services:
-  neko:
-    image: "m1k1o/neko:firefox"
+  glass-fence:
+    image: "arxndev/glass-fence:firefox"
     restart: "unless-stopped"
     shm_size: "2gb"
     ports:
@@ -40,13 +40,13 @@ services:
     - "52000-52100:52000-52100/udp"
     # highlight-end
     environment:
-      NEKO_SCREEN: 1920x1080@30
-      NEKO_PASSWORD: neko
-      NEKO_PASSWORD_ADMIN: admin
+      GF_SCREEN: 1920x1080@30
+      GF_PASSWORD: glass-fence
+      GF_PASSWORD_ADMIN: admin
       # highlight-start
-      NEKO_EPR: 52000-52100
+      GF_EPR: 52000-52100
       # highlight-end
-      NEKO_ICELITE: 1
+      GF_ICELITE: 1
 ```
 
 ### Validate UDP ports reachability
@@ -82,7 +82,7 @@ sudo apt-get install netcat
 One of the first logs, when the server starts, writes down your external IP that will be sent to your clients to connect to.
 
 ```shell
-docker-compose logs neko | grep nat_ips
+docker-compose logs glass-fence | grep nat_ips
 ```
 
 Note: Some newer versions of docker-compose use `docker compose` instead of `docker-compose`.
@@ -93,55 +93,55 @@ You should see this:
 11:11AM INF webrtc starting ephemeral_port_range=52000-52100 ice_lite=true ice_servers="[{URLs:[stun:stun.l.google.com:19302] Username: Credential:<nil> CredentialType:password}]" module=webrtc nat_ips=<your-IP>
 ```
 
-If your IP is not correct, you can specify own IP resolver using `NEKO_IPFETCH`. It needs to return IP address that will be used.
+If your IP is not correct, you can specify own IP resolver using `GF_IPFETCH`. It needs to return IP address that will be used.
 
 ```yaml title="docker-compose.yaml"
 version: "3.4"
 services:
-  neko:
-    image: "m1k1o/neko:firefox"
+  glass-fence:
+    image: "arxndev/glass-fence:firefox"
     restart: "unless-stopped"
     shm_size: "2gb"
     ports:
     - "8080:8080"
     - "52000-52100:52000-52100/udp"
     environment:
-      NEKO_SCREEN: 1920x1080@30
-      NEKO_PASSWORD: neko
-      NEKO_PASSWORD_ADMIN: admin
-      NEKO_EPR: 52000-52100
-      NEKO_ICELITE: 1
+      GF_SCREEN: 1920x1080@30
+      GF_PASSWORD: glass-fence
+      GF_PASSWORD_ADMIN: admin
+      GF_EPR: 52000-52100
+      GF_ICELITE: 1
       # highlight-start
-      NEKO_IPFETCH: https://ifconfig.co/ip
+      GF_IPFETCH: https://ifconfig.co/ip
       # highlight-end
 ```
 
-Or you can specify your IP address manually using `NEKO_NAT1TO1`: (It's read as NAT 1 to 1, so it's capital letter 'O', not zero '0', in NAT1`TO`1)
+Or you can specify your IP address manually using `GF_NAT1TO1`: (It's read as NAT 1 to 1, so it's capital letter 'O', not zero '0', in NAT1`TO`1)
 
 ```yaml title="docker-compose.yaml"
 version: "3.4"
 services:
-  neko:
-    image: "m1k1o/neko:firefox"
+  glass-fence:
+    image: "arxndev/glass-fence:firefox"
     restart: "unless-stopped"
     shm_size: "2gb"
     ports:
     - "8080:8080"
     - "52000-52100:52000-52100/udp"
     environment:
-      NEKO_SCREEN: 1920x1080@30
-      NEKO_PASSWORD: neko
-      NEKO_PASSWORD_ADMIN: admin
-      NEKO_EPR: 52000-52100
-      NEKO_ICELITE: 1
+      GF_SCREEN: 1920x1080@30
+      GF_PASSWORD: glass-fence
+      GF_PASSWORD_ADMIN: admin
+      GF_EPR: 52000-52100
+      GF_ICELITE: 1
       # highlight-start
-      NEKO_NAT1TO1: <your-IP>
+      GF_NAT1TO1: <your-IP>
       # highlight-end
 ```
 
 If you want to use Glass Fence only locally, you must put here your local IP address, otherwise public address will be used.
 
-### Neko works externally, but not locally
+### Glass Fence works externally, but not locally
 
 You are probably missing NAT Loopback (NAT Hairpinning) setting on your router.
 
@@ -149,39 +149,39 @@ Example for pfsense with truecharts docker container:
 - First, port forward the relevant ports `8080` and `52000-52100/udp` for the container.
 - Then turn on `Pure NAT` pfsense (under system > advanced > firewall and nat).
   - Make sure to check the two boxes so it works.
-- Make sure `NEKO_NAT1TO1` is blank and `NEKO_IPFETCH` address is working correctly (if unset default value is chosen).
+- Make sure `GF_NAT1TO1` is blank and `GF_IPFETCH` address is working correctly (if unset default value is chosen).
 - Test externally to confirm it works.
 - Internally you have to access it using `<your-public-ip>:port`
 
-If your router does not support NAT Loopback (NAT Hairpinning), you can use turn servers to overcome this issue. See [more details here](https://neko.m1k1o.net/#/getting-started/?id=networking) on how to setup local coturn instance.
+If your router does not support NAT Loopback (NAT Hairpinning), you can use turn servers to overcome this issue. See [more details here](https://glass-fence.arxndev.net/#/getting-started/?id=networking) on how to setup local coturn instance.
 
-### Neko works locally, but not externally
+### Glass Fence works locally, but not externally
 
 Make sure, that you are exposing your ports correctly.
 
-If you put local ip as `NEKO_NAT1TO1`, external clients try to connect to that ip. But it is unreachable for them, because it is your local IP. You must use your public IP address with port forwarding.
+If you put local ip as `GF_NAT1TO1`, external clients try to connect to that ip. But it is unreachable for them, because it is your local IP. You must use your public IP address with port forwarding.
 
 ## Debug mode
 
-To see verbose information from Glass Fence server, you can enable debug mode using `NEKO_DEBUG`.
+To see verbose information from Glass Fence server, you can enable debug mode using `GF_DEBUG`.
 
 ```yaml title="docker-compose.yaml"
 version: "3.4"
 services:
-  neko:
-    image: "m1k1o/neko:firefox"
+  glass-fence:
+    image: "arxndev/glass-fence:firefox"
     restart: "unless-stopped"
     shm_size: "2gb"
     ports:
     - "8080:8080"
     - "52000-52100:52000-52100/udp"
     environment:
-      NEKO_SCREEN: 1920x1080@30
-      NEKO_PASSWORD: neko
-      NEKO_PASSWORD_ADMIN: admin
-      NEKO_EPR: 52000-52100
+      GF_SCREEN: 1920x1080@30
+      GF_PASSWORD: glass-fence
+      GF_PASSWORD_ADMIN: admin
+      GF_EPR: 52000-52100
       # highlight-start
-      NEKO_DEBUG: 1
+      GF_DEBUG: 1
       # highlight-end
 ```
 
@@ -195,7 +195,7 @@ Ensure, that you have enabled debug mode in javascript console too, in order to 
 WRN session created with and error error="invalid 1:1 NAT IP mapping"
 ```
 
-Check your `NEKO_NAT1TO1` or ensure, that `NEKO_IPFETCH` returns correct IP.
+Check your `GF_NAT1TO1` or ensure, that `GF_IPFETCH` returns correct IP.
 
 ---
 
@@ -216,7 +216,7 @@ Check if your UDP ports are exposed correctly and reachable.
 ### Common client errors
 
 ```
-Firefox can’t establish a connection to the server at ws://<your-IP>/ws?password=neko.
+Firefox can’t establish a connection to the server at ws://<your-IP>/ws?password=glass-fence.
 ```
 
 Check if your TCP port is exposed correctly and your reverse proxy is correctly proxying websocket connections. And if your browser has not disabled websocket connections.
@@ -246,5 +246,5 @@ Could not connect to RTMP stream "'rtmp://<ingest-url>/live/<stream-key-removed>
 Some ingest servers require `live=1` parameter in the URL (e.g. nginx-rtmp-module). Some do not and do not accept aphostrophes (e.g. owncast). You can try to change the pipeline to:
 
 ```yaml
-NEKO_BROADCAST_PIPELINE: "flvmux name=mux ! rtmpsink location={url} pulsesrc device={device} ! audio/x-raw,channels=2 ! audioconvert ! voaacenc ! mux. ximagesrc display-name={display} show-pointer=false use-damage=false ! video/x-raw,framerate=28/1 ! videoconvert ! queue ! x264enc bframes=0 key-int-max=0 byte-stream=true tune=zerolatency speed-preset=veryfast ! mux."
+GF_BROADCAST_PIPELINE: "flvmux name=mux ! rtmpsink location={url} pulsesrc device={device} ! audio/x-raw,channels=2 ! audioconvert ! voaacenc ! mux. ximagesrc display-name={display} show-pointer=false use-damage=false ! video/x-raw,framerate=28/1 ! videoconvert ! queue ! x264enc bframes=0 key-int-max=0 byte-stream=true tune=zerolatency speed-preset=veryfast ! mux."
 ```

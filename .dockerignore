@@ -1,0 +1,9 @@
+.git
+**/node_modules
+**/dist
+**/*.test.go
+ai-engine/__pycache__
+ai-engine/gf_threats.db
+.env
+*.log
+backups/

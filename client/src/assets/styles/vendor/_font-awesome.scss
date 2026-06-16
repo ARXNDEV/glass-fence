@@ -7,7 +7,7 @@ $fa-font-size-base:    16px;
 $fa-font-display:      auto;
 $fa-css-prefix:        fa;
 $fa-border-color:      #eee;
-$fa-inverse:           #fff;
+$fa-inverse:           var(--gf-bg);
 $fa-li-width:          2em;
 $fa-fw-width:          math.div(20em, 16);
 $fa-primary-opacity:   1;

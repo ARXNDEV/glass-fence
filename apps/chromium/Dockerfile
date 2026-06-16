@@ -4,7 +4,7 @@ FROM $BASE_IMAGE
 COPY ./widevinecdm.sh /widevine.sh
 
 #
-# install neko chromium
+# install glass-fence chromium
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends chromium chromium-common chromium-sandbox openbox; \
@@ -27,7 +27,7 @@ RUN set -eux; \
 
 #
 # copy configuation files
-COPY supervisord.conf /etc/neko/supervisord/chromium.conf
-COPY --chown=neko preferences.json /home/neko/.config/chromium/Default/Preferences
+COPY supervisord.conf /etc/glass-fence/supervisord/chromium.conf
+COPY --chown=glass-fence preferences.json /home/glassfence/.config/chromium/Default/Preferences
 COPY policies.json /etc/chromium/policies/managed/policies.json
-COPY openbox.xml /etc/neko/openbox.xml
+COPY openbox.xml /etc/glass-fence/openbox.xml

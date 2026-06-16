@@ -46,7 +46,7 @@
     ],
     "type": "boolean",
     "defaultValue": "true",
-    "description": "automatically start broadcasting when neko starts and broadcast_url is set"
+    "description": "automatically start broadcasting when glass-fence starts and broadcast_url is set"
   },
   {
     "key": [
@@ -266,7 +266,7 @@
       "socket"
     ],
     "type": "string",
-    "defaultValue": "/tmp/xf86-input-neko.sock",
+    "defaultValue": "/tmp/xf86-input-glass-fence.sock",
     "description": "socket path for custom xf86 input driver connection"
   },
   {
@@ -342,7 +342,7 @@
       "user_password"
     ],
     "type": "string",
-    "defaultValue": "neko",
+    "defaultValue": "glass-fence",
     "description": "member multiuser provider: password for regular users"
   },
   {
@@ -381,7 +381,7 @@
     ],
     "type": "string",
     "defaultValue": "./bin/plugins",
-    "description": "path to neko plugins to load"
+    "description": "path to glass-fence plugins to load"
   },
   {
     "key": [
@@ -399,7 +399,7 @@
     ],
     "type": "boolean",
     "defaultValue": "false",
-    "description": "if true, neko will exit if there is an error when loading a plugin"
+    "description": "if true, glass-fence will exit if there is an error when loading a plugin"
   },
   {
     "key": [
@@ -408,7 +408,7 @@
     ],
     "type": "string",
     "defaultValue": "127.0.0.1:8080",
-    "description": "address/port/socket to serve neko"
+    "description": "address/port/socket to serve glass-fence"
   },
   {
     "key": [
@@ -416,7 +416,7 @@
       "cert"
     ],
     "type": "string",
-    "description": "path to the SSL cert used to secure the neko server"
+    "description": "path to the SSL cert used to secure the glass-fence server"
   },
   {
     "key": [
@@ -432,7 +432,7 @@
       "key"
     ],
     "type": "string",
-    "description": "path to the SSL key used to secure the neko server"
+    "description": "path to the SSL key used to secure the glass-fence server"
   },
   {
     "key": [
@@ -476,7 +476,7 @@
       "static"
     ],
     "type": "string",
-    "description": "path to neko client files to serve"
+    "description": "path to glass-fence client files to serve"
   },
   {
     "key": [
@@ -541,7 +541,7 @@
       "name"
     ],
     "type": "string",
-    "defaultValue": "NEKO_SESSION",
+    "defaultValue": "GF_SESSION",
     "description": "name of the cookie that holds token"
   },
   {

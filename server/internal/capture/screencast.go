@@ -57,13 +57,13 @@ func screencastNew(enabled bool, pipelineStr string) *ScreencastManagerCtx {
 		// metrics
 		imagesCounter: promauto.NewCounter(prometheus.CounterOpts{
 			Name:      "screencast_images_total",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Total number of created images.",
 		}),
 		pipelinesCounter: promauto.NewCounter(prometheus.CounterOpts{
 			Name:      "pipelines_total",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Total number of created pipelines.",
 			ConstLabels: map[string]string{
@@ -75,7 +75,7 @@ func screencastNew(enabled bool, pipelineStr string) *ScreencastManagerCtx {
 		}),
 		pipelinesActive: promauto.NewGauge(prometheus.GaugeOpts{
 			Name:      "pipelines_active",
-			Namespace: "neko",
+			Namespace: "glass-fence",
 			Subsystem: "capture",
 			Help:      "Total number of active pipelines.",
 			ConstLabels: map[string]string{

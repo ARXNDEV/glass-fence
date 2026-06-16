@@ -1,6 +1,8 @@
 package webrtc
 
 import (
+	"github.com/ARXNDEV/glass-fence/server/internal/metrics"
+
 	"errors"
 	"fmt"
 	"io"

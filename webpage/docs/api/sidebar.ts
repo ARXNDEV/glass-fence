@@ -4,7 +4,7 @@ const sidebar: SidebarsConfig = {
   apisidebar: [
     {
       type: "doc",
-      id: "api/neko-api",
+      id: "api/glass-fence-api",
     },
     {
       type: "category",

@@ -12,7 +12,7 @@ RUN set -eux; apt-get update; \
 	curl -sSL -o /tmp/tor.tar.xz "https://www.torproject.org/$DOWNLOAD_URI"; \
     tar -xvJf /tmp/tor.tar.xz -C /opt; \
     mv /opt/tor-browser* /opt/tor-browser_en-US; \
-    chown -R neko:neko /opt/tor-browser_en-US/; \
+    chown -R glass-fence:glass-fence /opt/tor-browser_en-US/; \
     rm -f /tmp/tor.tar.xz; \
     #
     # clean up
@@ -22,5 +22,5 @@ RUN set -eux; apt-get update; \
 
 #
 # copy configuation file
-COPY supervisord.conf /etc/neko/supervisord/tor-browser.conf
-COPY openbox.xml /etc/neko/openbox.xml
+COPY supervisord.conf /etc/glass-fence/supervisord/tor-browser.conf
+COPY openbox.xml /etc/glass-fence/openbox.xml

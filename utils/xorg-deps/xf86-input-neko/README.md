@@ -1,11 +1,11 @@
-# xf86-input-neko
-[X.org](https://x.org/) [neko](http://m1k1o/neko) input driver
+# xf86-input-glass-fence
+[X.org](https://x.org/) [glass-fence](http://arxndev/glass-fence) input driver
 
 ### how to use
-xf86-input-neko assumes you have only one virtual touchscreen device available, see
-`80-neko.conf`. If there are multiple in your system, please specify one config
+xf86-input-glass-fence assumes you have only one virtual touchscreen device available, see
+`80-glass-fence.conf`. If there are multiple in your system, please specify one config
 section for each.
-xf86-input-neko aims to make [neko](http://m1k1o/neko) easy to use and doesn't
+xf86-input-glass-fence aims to make [glass-fence](http://arxndev/glass-fence) easy to use and doesn't
 offer special configuration options.
 
 * `./configure --prefix=/usr`

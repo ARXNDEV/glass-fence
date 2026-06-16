@@ -25,9 +25,9 @@ import {
   FileTransferListPayload,
 } from './messages'
 
-interface NekoEvents extends BaseEvents {}
+interface GlassFenceEvents extends BaseEvents {}
 
-export class NekoClient extends BaseClient implements EventEmitter<NekoEvents> {
+export class GlassFenceClient extends BaseClient implements EventEmitter<GlassFenceEvents> {
   private $vue!: Vue
   private $accessor!: typeof accessor
   private url!: string

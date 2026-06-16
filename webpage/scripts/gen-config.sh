@@ -4,7 +4,7 @@ cd "$(dirname "$0")/.."
 HELP_FILE="$(realpath -m docs/configuration/help.txt)"
 
 pushd ../server
-go run cmd/neko/main.go serve --help > $HELP_FILE
+go run cmd/glass-fence/main.go serve --help > $HELP_FILE
 popd
 
 # remove all lines with " V2: "

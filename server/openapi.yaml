@@ -1,15 +1,15 @@
 openapi: 3.0.0
 
 info:
-  title: Neko API Reference
+  title: Glass Fence API Reference
   version: "3.0.0"
   description: |
-    Neko uses WebRTC and WebSocket besides REST API to provide real-time video streaming, interactive collaboration, and remote desktop functionality.
+    Glass Fence uses WebRTC and WebSocket besides REST API to provide real-time video streaming, interactive collaboration, and remote desktop functionality.
 
     ### Core Technologies
 
     - **Video Streaming over WebRTC**
-      - Neko leverages **WebRTC** for real-time, low-latency, high-quality video and audio streaming.
+      - Glass Fence leverages **WebRTC** for real-time, low-latency, high-quality video and audio streaming.
       - Keyboard and mouse events are transmitted over the same WebRTC connection for seamless interaction.
 
     - **Real-Time Signaling and Communication over WebSocket**
@@ -1176,7 +1176,7 @@ components:
     CookieAuth:
       type: apiKey
       in: cookie
-      name: NEKO_SESSION
+      name: GF_SESSION
       description: Authentication using a session cookie.
     BearerAuth:
       type: http

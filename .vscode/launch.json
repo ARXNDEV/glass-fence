@@ -10,8 +10,8 @@
             "debugAdapter": "dlv-dap",
             "request": "launch",
             "mode": "debug",
-            "program": "${workspaceFolder}/server/cmd/neko",
-            "output": "${workspaceFolder}/server/bin/debug/neko",
+            "program": "${workspaceFolder}/server/cmd/glass-fence",
+            "output": "${workspaceFolder}/server/bin/debug/glass-fence",
             "cwd": "${workspaceFolder}/server/",
             "args": ["serve", "-d", "-c", "dev/runtime/config.yml"],
             "env": {

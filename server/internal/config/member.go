@@ -156,13 +156,13 @@ func (s *Member) SetV2() {
 		} else {
 			s.Multiuser.AdminPassword = "admin"
 		}
-		log.Warn().Msg("you are using v2 configuration 'NEKO_PASSWORD' and 'NEKO_PASSWORD_ADMIN' which are deprecated, please use 'NEKO_MEMBER_MULTIUSER_USER_PASSWORD' and 'NEKO_MEMBER_MULTIUSER_ADMIN_PASSWORD' with 'NEKO_MEMBER_PROVIDER=multiuser' instead")
+		log.Warn().Msg("you are using v2 configuration 'GF_PASSWORD' and 'GF_PASSWORD_ADMIN' which are deprecated, please use 'GF_MEMBER_MULTIUSER_USER_PASSWORD' and 'GF_MEMBER_MULTIUSER_ADMIN_PASSWORD' with 'GF_MEMBER_PROVIDER=multiuser' instead")
 		enableLegacy = true
 	}
 
 	// set legacy flag if any V2 configuration was used
 	if !viper.IsSet("legacy") && enableLegacy {
-		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://neko.m1k1o.net/docs/v3/migration-from-v2 for more details")
+		log.Warn().Msg("legacy configuration is enabled because at least one V2 configuration was used, please migrate to V3 configuration, visit https://glass-fence.arxndev.net/docs/v3/migration-from-v2 for more details")
 		viper.Set("legacy", true)
 	}
 }

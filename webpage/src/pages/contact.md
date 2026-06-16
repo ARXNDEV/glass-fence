@@ -1,10 +1,10 @@
 # Contact
 
 :::info Keep in mind
-Neko is an open-source project. Nobody is being paid to work on it - everything is happening in our free time.
+Glass Fence is an open-source project. Nobody is being paid to work on it - everything is happening in our free time.
 :::
 
-We are here to assist you with any issues you may face while setting up or using Neko. Here are some ways to get support:
+We are here to assist you with any issues you may face while setting up or using Glass Fence. Here are some ways to get support:
 
 - For installation or usage questions, [join our Discord](https://discord.gg/HXQJmqNJMz) and post in the [#community-help](https://discord.com/channels/665851821906067466/696222582114091088) channel.
 - To report bugs or request features, [open a new issue on GitHub](https://github.com/ARXNDEV/glass-fence/issues).
@@ -12,8 +12,8 @@ We are here to assist you with any issues you may face while setting up or using
 
 **Enterprise Support**
 
-For enterprises or organizations requiring **dedicated, paid support**, custom solutions, or priority assistance, please contact us at <a href="mailto:neko@m1k1o.net">neko@m1k1o.net</a>.
+For enterprises or organizations requiring **dedicated, paid support**, custom solutions, or priority assistance, please contact us at <a href="mailto:glass-fence@arxndev.net">glass-fence@arxndev.net</a>.
 
 **Security**
 
-If you discover a security vulnerability in Neko, please report it to us directly at <a href="mailto:security@m1k1o.net">security@m1k1o.net</a>. We take security seriously and will work with you to address the issue promptly. Please do not disclose the vulnerability publicly until we have had a chance to address it. We appreciate your help in keeping Neko secure.
+If you discover a security vulnerability in Glass Fence, please report it to us directly at <a href="mailto:security@arxndev.net">security@arxndev.net</a>. We take security seriously and will work with you to address the issue promptly. Please do not disclose the vulnerability publicly until we have had a chance to address it. We appreciate your help in keeping Glass Fence secure.

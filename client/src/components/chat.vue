@@ -278,7 +278,7 @@
       .accent {
         width: 100%;
         height: 1px;
-        background: rgba($color: #fff, $alpha: 0.05);
+        background: rgba($color: var(--gf-bg), $alpha: 0.05);
         margin: 5px 0 10px 0;
       }
 
@@ -286,7 +286,7 @@
         flex: 1;
         width: 100%;
         height: 100%;
-        background-color: rgba($color: #fff, $alpha: 0.05);
+        background-color: rgba($color: var(--gf-bg), $alpha: 0.05);
         border-radius: 5px;
         position: relative;
         display: flex;
@@ -408,8 +408,8 @@
     }
 
     timestamp(time: Date) {
-      const str = formatRelative(time, new Date())
-      return `${str.charAt(0).toUpperCase()}${str.slice(1)}`
+      const str = new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      return str
     }
 
     onEmoji() {
