@@ -17,12 +17,12 @@ func (Plugins) Init(cmd *cobra.Command) error {
 		return err
 	}
 
-	cmd.PersistentFlags().String("plugins.dir", "./bin/plugins", "path to neko plugins to load")
+	cmd.PersistentFlags().String("plugins.dir", "/etc/glass-fence/plugins", "plugin directory")
 	if err := viper.BindPFlag("plugins.dir", cmd.PersistentFlags().Lookup("plugins.dir")); err != nil {
 		return err
 	}
 
-	cmd.PersistentFlags().Bool("plugins.required", false, "if true, neko will exit if there is an error when loading a plugin")
+	cmd.PersistentFlags().Bool("plugins.required", false, "if true, glass-fence will exit if there is an error when loading a plugin")
 	if err := viper.BindPFlag("plugins.required", cmd.PersistentFlags().Lookup("plugins.required")); err != nil {
 		return err
 	}

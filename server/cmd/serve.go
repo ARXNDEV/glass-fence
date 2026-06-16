@@ -26,8 +26,8 @@ func init() {
 
 	command := &cobra.Command{
 		Use:    "serve",
-		Short:  "serve neko streaming server",
-		Long:   `serve neko streaming server`,
+		Short:  "serve Glass Fence server",
+		Long:   `serve Glass Fence server`,
 		PreRun: service.PreRun,
 		Run:    service.Run,
 	}
@@ -114,7 +114,7 @@ func (c *serve) Init(cmd *cobra.Command) error {
 }
 
 func (c *serve) PreRun(cmd *cobra.Command, args []string) {
-	c.logger = log.With().Str("service", "neko").Logger()
+	c.logger = log.With().Str("service", "glass-fence").Logger()
 
 	c.configs.Desktop.Set()
 	c.configs.Capture.Set()
@@ -231,9 +231,9 @@ func (c *serve) Shutdown() {
 }
 
 func (c *serve) Run(cmd *cobra.Command, args []string) {
-	c.logger.Info().Msg("starting neko server")
+	c.logger.Info().Msg("starting Glass Fence server")
 	c.Start(cmd)
-	c.logger.Info().Msg("neko ready")
+	c.logger.Info().Msg("Glass Fence ready")
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)

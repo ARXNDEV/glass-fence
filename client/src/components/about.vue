@@ -33,7 +33,7 @@
     .window {
       max-width: 70vw;
       background: $background-secondary;
-      border-radius: 5px;
+      border-radius: 2px;
       max-height: 70vh;
       overflow-y: auto;
       overflow-x: hidden;
@@ -133,7 +133,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator'
 
-  @Component({ name: 'neko-about' })
+  @Component({ name: 'gf-about' })
   export default class extends Vue {
     loading = false
 

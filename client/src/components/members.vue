@@ -4,7 +4,7 @@
       <ul class="members-list">
         <li v-if="member">
           <div :class="[{ host: member.id === host }, 'self', 'member']">
-            <neko-avatar class="avatar" :seed="member.displayname" :size="50" />
+            <gf-avatar class="avatar" :seed="member.displayname" :size="50" />
           </div>
         </li>
         <template v-for="(member, index) in members">
@@ -17,13 +17,13 @@
               :class="[{ host: member.id === host, admin: member.admin }, 'member']"
               @contextmenu.stop.prevent="onContext($event, { member })"
             >
-              <neko-avatar class="avatar" :seed="member.displayname" :size="50" />
+              <gf-avatar class="avatar" :seed="member.displayname" :size="50" />
             </div>
           </li>
         </template>
       </ul>
     </div>
-    <neko-context ref="context" />
+    <gf-context ref="context" />
   </div>
 </template>
 
@@ -163,7 +163,7 @@
   import Avatar from './avatar.vue'
 
   @Component({
-    name: 'neko-members',
+    name: 'gf-members',
     components: {
       'neko-context': Content,
       'neko-avatar': Avatar,

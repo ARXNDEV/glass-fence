@@ -1,7 +1,7 @@
 <template>
-  <div id="neko">
+  <div id="glass-fence">
     <template v-if="!$client.supported">
-      <neko-unsupported />
+      <gf-unsupported />
     </template>
     <template v-else>
       <div class="layout-grid">
@@ -9,7 +9,7 @@
         
         <div class="grid-content">
           <div class="grid-video">
-            <neko-video
+            <gf-video
               ref="video"
               :hideControls="hideControls"
               :extraControls="isEmbedMode"
@@ -25,11 +25,11 @@
         <BottomBar class="grid-bottom" />
       </div>
 
-      <neko-connect v-if="!connected" />
-      <neko-about v-if="about" />
+      <gf-connect v-if="!connected" />
+      <gf-about v-if="about" />
       
       <notifications
-        group="neko"
+        group="glass-fence"
         position="top left"
         style="top: 60px; pointer-events: none"
         :ignoreDuplicates="true"
@@ -41,7 +41,7 @@
 <style lang="scss">
   @import '~/assets/styles/_variables.scss';
 
-  #neko {
+  #glass-fence {
     position: absolute;
     top: 0;
     left: 0;
@@ -119,7 +119,7 @@
   import BottomBar from '~/components/BottomBar.vue'
 
   @Component({
-    name: 'neko',
+    name: 'glass-fence',
     components: {
       'neko-connect': Connect,
       'neko-video': Video,

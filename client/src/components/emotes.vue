@@ -92,7 +92,7 @@
   import { VueContext } from 'vue-context'
 
   @Component({
-    name: 'neko-emotes',
+    name: 'gf-emotes',
     components: {
       'vue-context': VueContext,
     },

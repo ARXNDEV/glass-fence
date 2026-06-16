@@ -39,7 +39,7 @@
   import { Component, Ref, Vue } from 'vue-property-decorator'
 
   @Component({
-    name: 'neko-clipboard',
+    name: 'gf-clipboard',
   })
   export default class extends Vue {
     @Ref('textarea') readonly _textarea!: HTMLTextAreaElement

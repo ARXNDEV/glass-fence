@@ -70,6 +70,6 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator'
 
-  @Component({ name: 'neko-unsupported' })
+  @Component({ name: 'gf-unsupported' })
   export default class extends Vue {}
 </script>

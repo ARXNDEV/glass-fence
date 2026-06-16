@@ -7,16 +7,16 @@
 
     <div class="status-indicators">
       <div class="pill session-pill">
-        <span>SESSION: ACTIVE</span>
-        <div class="dot active"></div>
+        <span>SESSION: {{ isConnected ? 'ACTIVE' : 'OFFLINE' }}</span>
+        <div class="dot" :class="{ active: isConnected }"></div>
       </div>
       
-      <div class="pill threat-pill safe">
-        <span>THREAT: CLEAR</span>
+      <div class="pill threat-pill" :class="threatClass">
+        <span>THREAT: {{ threatLevel }}</span>
       </div>
 
       <div class="pill sessions-count">
-        <span>SESSIONS: 1</span>
+        <span>SESSIONS: {{ sessionCount }}</span>
       </div>
     </div>
 
@@ -136,8 +136,29 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component({ name: 'TopNav' })
+@Component({ name: 'gf-topnav' })
 export default class extends Vue {
+  get sessionCount() {
+    return Object.keys(this.$accessor.user.members || {}).length
+  }
+
+  get threatLevel(): string {
+    // Default CLEAR; will upgrade once AI engine is integrated
+    return this.$accessor.connected ? 'CLEAR' : 'OFFLINE'
+  }
+
+  get threatClass() {
+    return {
+      safe: this.threatLevel === 'CLEAR',
+      warning: this.threatLevel === 'CAUTION',
+      critical: this.threatLevel === 'CRITICAL',
+      offline: this.threatLevel === 'OFFLINE',
+    }
+  }
+
+  get isConnected() {
+    return this.$accessor.connected
+  }
   get hosting() {
     return this.$accessor.remote.hosting
   }

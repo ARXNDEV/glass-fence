@@ -98,13 +98,13 @@
 
 <script lang="ts">
   import { Component, Ref, Vue } from 'vue-property-decorator'
-  import { ScreenResolution } from '~/neko/types'
+  import { ScreenResolution } from '~/glassfence/types'
 
   // @ts-ignore
   import { VueContext } from 'vue-context'
 
   @Component({
-    name: 'neko-resolution',
+    name: 'gf-resolution',
     components: {
       'vue-context': VueContext,
     },

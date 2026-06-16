@@ -4,10 +4,10 @@
       <span>GLASS FENCE v1.0.0</span>
     </div>
     <div class="item">
-      <span>WebRTC: <span class="highlight">CONNECTED</span></span>
+      <span>WebRTC: <span class="highlight">{{ webrtcStatus }}</span></span>
     </div>
     <div class="item">
-      <span>ISOLATION: <span class="highlight">ACTIVE</span></span>
+      <span>ISOLATION: <span class="highlight">{{ isolationStatus }}</span></span>
     </div>
     <div class="item right">
       <span>ARXNDEV © 2025</span>
@@ -49,6 +49,14 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component({ name: 'BottomBar' })
-export default class extends Vue {}
+@Component({ name: 'gf-bottombar' })
+export default class extends Vue {
+  get webrtcStatus() {
+    return this.$accessor.connected ? 'CONNECTED' : 'DISCONNECTED'
+  }
+
+  get isolationStatus() {
+    return this.$accessor.connected ? 'ACTIVE' : 'INACTIVE'
+  }
+}
 </script>

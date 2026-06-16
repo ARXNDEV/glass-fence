@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { useAccessor, mutationTree, getterTree, actionTree } from 'typed-vuex'
-import { EVENT } from '~/neko/events'
-import { AdminLockResource } from '~/neko/messages'
+import { EVENT } from '~/glassfence/events'
+import { AdminLockResource } from '~/glassfence/messages'
 import { get, set } from '~/utils/localstorage'
 
 import * as video from './video'

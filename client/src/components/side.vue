@@ -17,15 +17,15 @@
       </ul>
     </div>
     <div class="page-container">
-      <neko-chat v-if="tab === 'chat'" />
-      <neko-files v-if="tab === 'files'" />
-      <neko-settings v-if="tab === 'settings'" />
+      <gf-chat v-if="tab === 'chat'" />
+      <gf-files v-if="tab === 'files'" />
+      <gf-settings v-if="tab === 'settings'" />
     </div>
   </aside>
 </template>
 
 <style lang="scss">
-  .neko-menu {
+  .gf-menu {
     width: $side-width;
     background-color: $background-primary;
     flex-shrink: 0;
@@ -86,7 +86,7 @@
   import Files from '~/components/files.vue'
 
   @Component({
-    name: 'neko',
+    name: 'glass-fence-side',
     components: {
       'neko-settings': Settings,
       'neko-chat': Chat,

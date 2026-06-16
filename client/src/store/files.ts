@@ -1,6 +1,6 @@
 import { actionTree, getterTree, mutationTree } from 'typed-vuex'
-import { FileListItem, FileTransfer } from '~/neko/types'
-import { EVENT } from '~/neko/events'
+import { FileListItem, FileTransfer } from '~/glassfence/types'
+import { EVENT } from '~/glassfence/events'
 import { accessor } from '~/store'
 
 export const state = () => ({

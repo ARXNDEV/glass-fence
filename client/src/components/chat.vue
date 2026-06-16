@@ -11,14 +11,14 @@
           }"
         >
           <div class="author" @contextmenu.stop.prevent="onContext($event, { member: member(message.id) })">
-            <neko-avatar class="avatar" :seed="member(message.id).displayname" :size="40" />
+            <gf-avatar class="avatar" :seed="member(message.id).displayname" :size="40" />
           </div>
           <div class="content">
             <div class="content-head">
               <span>{{ member(message.id).displayname }}</span>
               <span class="timestamp">{{ timestamp(message.created) }}</span>
             </div>
-            <neko-markdown class="content-body" :source="message.content" />
+            <gf-markdown class="content-body" :source="message.content" />
           </div>
         </li>
         <li :key="index" class="event" v-if="message.type === 'event'">
@@ -38,12 +38,12 @@
         </li>
       </template>
     </ul>
-    <neko-context ref="context" />
+    <gf-context ref="context" />
     <div v-if="!muted" class="chat-send">
       <div class="accent" />
       <div class="text-container">
         <textarea ref="input" :placeholder="$t('send_a_message')" @keydown="onKeyDown" v-model="content" />
-        <neko-emoji v-if="emoji" @picked="onEmojiPicked" @done="emoji = false" />
+        <gf-emoji v-if="emoji" @picked="onEmojiPicked" @done="emoji = false" />
         <i class="emoji-menu fas fa-laugh" @click.stop.prevent="onEmoji"></i>
       </div>
     </div>
@@ -345,7 +345,7 @@
   import { Component, Ref, Watch, Vue } from 'vue-property-decorator'
   import { formatRelative } from 'date-fns'
 
-  import { Member } from '~/neko/types'
+  import { Member } from '~/glassfence/types'
 
   import Markdown from './markdown'
   import Content from './context.vue'
@@ -355,7 +355,7 @@
   const length = 512 // max length of message
 
   @Component({
-    name: 'neko-chat',
+    name: 'gf-chat',
     components: {
       'neko-markdown': Markdown,
       'neko-context': Content,

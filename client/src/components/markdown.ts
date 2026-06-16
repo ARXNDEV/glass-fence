@@ -251,7 +251,7 @@ const parser = md.parserFor(rules)
 const htmlOutput = md.outputFor<HtmlOutputRule, 'html'>(rules, 'html')
 
 @Component({
-  name: 'neko-markdown',
+  name: 'gf-markdown',
 })
 export default class extends Vue {
   @Prop({ required: true })

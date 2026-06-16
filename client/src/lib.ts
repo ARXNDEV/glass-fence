@@ -3,7 +3,7 @@ import { PluginObject } from 'vue'
 
 // Plugins
 import Logger from './plugins/log'
-import Client from './plugins/neko'
+import Client from './plugins/glassfence'
 import Axios from './plugins/axios'
 import Swal from './plugins/swal'
 import Anime from './plugins/anime'

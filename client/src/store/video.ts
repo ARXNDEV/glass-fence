@@ -1,7 +1,7 @@
 import { getterTree, mutationTree, actionTree } from 'typed-vuex'
 import { get, set } from '~/utils/localstorage'
-import { EVENT } from '~/neko/events'
-import { ScreenConfigurations, ScreenResolution } from '~/neko/types'
+import { EVENT } from '~/glassfence/events'
+import { ScreenConfigurations, ScreenResolution } from '~/glassfence/types'
 import { accessor } from '~/store'
 
 export const namespaced = true

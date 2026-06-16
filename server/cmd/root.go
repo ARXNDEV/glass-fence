@@ -32,9 +32,9 @@ func Execute() error {
 }
 
 var root = &cobra.Command{
-	Use:     "neko",
-	Short:   "neko streaming server",
-	Long:    `neko streaming server`,
+	Use:     "glass-fence",
+	Short:   "Glass Fence RBI server",
+	Long:    `Glass Fence — AI-Powered Remote Browser Isolation server`,
 	Version: neko.Version.String(),
 }
 
@@ -55,11 +55,11 @@ func init() {
 			viper.SetConfigFile(config)
 		} else {
 			if runtime.GOOS == "linux" {
-				viper.AddConfigPath("/etc/neko/")
+				viper.AddConfigPath("/etc/glass-fence/")
 			}
 
 			viper.AddConfigPath(".")
-			viper.SetConfigName("neko")
+			viper.SetConfigName("glass-fence")
 		}
 
 		viper.SetEnvPrefix("NEKO")
@@ -97,9 +97,9 @@ func init() {
 				_ = os.Mkdir(rootConfig.LogDir, os.ModePerm)
 			}
 
-			latest := filepath.Join(rootConfig.LogDir, "neko-latest.log")
+			latest := filepath.Join(rootConfig.LogDir, "glass-fence-latest.log")
 			if _, err := os.Stat(latest); err == nil {
-				err = os.Rename(latest, filepath.Join(rootConfig.LogDir, "neko."+time.Now().Format("2006-01-02T15-04-05Z07-00")+".log"))
+				err = os.Rename(latest, filepath.Join(rootConfig.LogDir, "glass-fence."+time.Now().Format("2006-01-02T15-04-05Z07-00")+".log"))
 				if err != nil {
 					log.Fatal().Err(err).Msg("failed to rotate log file")
 				}

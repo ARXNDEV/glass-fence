@@ -1,9 +1,9 @@
 {
-  "name": "neko-client",
+  "name": "glass-fence-client",
   "version": "2.5.0",
-  "description": "Client for neko streaming server",
+  "description": "Glass Fence — AI-Powered Remote Browser Isolation client",
   "license": "Apache License 2.0",
-  "author": "Nurdism <https://github.com/nurdism>",
+  "author": "ARXNDEV <https://github.com/ARXNDEV>",
   "homepage": "https://github.com/ARXNDEV/glass-fence/client#readme",
   "repository": {
     "type": "git",

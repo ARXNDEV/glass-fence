@@ -1,6 +1,6 @@
 import { getterTree, mutationTree, actionTree } from 'typed-vuex'
-import { Member } from '~/neko/types'
-import { EVENT } from '~/neko/events'
+import { Member } from '~/glassfence/types'
+import { EVENT } from '~/glassfence/events'
 
 import md from 'simple-markdown'
 import { accessor } from '~/store'

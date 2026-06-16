@@ -1,6 +1,6 @@
 import { getterTree, mutationTree, actionTree } from 'typed-vuex'
 import { makeid } from '~/utils'
-import { EVENT } from '~/neko/events'
+import { EVENT } from '~/glassfence/events'
 import { accessor } from '~/store'
 
 export const namespaced = true

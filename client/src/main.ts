@@ -5,7 +5,7 @@ import Vue from 'vue'
 import Notifications from 'vue-notification'
 import ToolTip from 'v-tooltip'
 import Logger from './plugins/log'
-import Client from './plugins/neko'
+import Client from './plugins/glassfence'
 import Axios from './plugins/axios'
 import Swal from './plugins/swal'
 import Anime from './plugins/anime'
@@ -32,4 +32,4 @@ new Vue({
     this.$client.init(this)
     this.$accessor.initialise()
   },
-}).$mount('#neko')
+}).$mount('#glass-fence')

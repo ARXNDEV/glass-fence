@@ -9,7 +9,7 @@
         <video ref="video" playsinline />
         <div class="emotes">
           <template v-for="(emote, index) in emotes">
-            <neko-emote :id="index" :key="index" />
+            <gf-emote :id="index" :key="index" />
           </template>
         </div>
         <textarea
@@ -76,8 +76,8 @@
           <i class="fas fa-keyboard" />
         </li>
       </ul>
-      <neko-resolution ref="resolution" v-if="admin" />
-      <neko-clipboard ref="clipboard" v-if="hosting && (!clipboard_read_available || !clipboard_write_available)" />
+      <gf-resolution ref="resolution" v-if="admin" />
+      <gf-clipboard ref="clipboard" v-if="hosting && (!clipboard_read_available || !clipboard_write_available)" />
     </div>
   </div>
 </template>
@@ -259,7 +259,7 @@
   const WHEEL_LINE_HEIGHT = 19
 
   @Component({
-    name: 'neko-video',
+    name: 'gf-video',
     components: {
       'neko-emote': Emote,
       'neko-resolution': Resolution,

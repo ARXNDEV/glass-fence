@@ -14,12 +14,33 @@ def replace_in_file(filepath, old_str, new_str):
 
 def main():
     replacements = [
-        ("github.com/ARXNDEV/glass-fence", "github.com/ARXNDEV/glass-fence"),
-        ("arxndevv/glass-fence", "arxndevv/glass-fence"),
-        ("Glass Fence", "Glass Fence"),
+        ("name: 'neko-chat'", "name: 'gf-chat'"),
+        ("name: 'neko-video'", "name: 'gf-video'"),
+        ("name: 'neko-files'", "name: 'gf-files'"),
+        ("name: 'neko-menu'", "name: 'gf-menu'"),
+        ("name: 'neko-avatar'", "name: 'gf-avatar'"),
+        ("name: 'neko-emote'", "name: 'gf-emote'"),
+        ("name: 'neko-emotes'", "name: 'gf-emotes'"),
+        ("name: 'neko-context'", "name: 'gf-context'"),
+        ("name: 'neko-unsupported'", "name: 'gf-unsupported'"),
+        ("name: 'neko-connect'", "name: 'gf-connect'"),
+        ("name: 'neko-resolution'", "name: 'gf-resolution'"),
+        ("name: 'neko-settings'", "name: 'gf-settings'"),
+        ("name: 'neko-about'", "name: 'gf-about'"),
+        ("name: 'neko-clipboard'", "name: 'gf-clipboard'"),
+        ("name: 'neko-emoji'", "name: 'gf-emoji'"),
+        ("name: 'neko-markdown'", "name: 'gf-markdown'"),
+        ("<neko-", "<gf-"),
+        ("</neko-", "</gf-"),
+        ("id=\"neko\"", "id=\"glass-fence\""),
+        ("#neko", "#glass-fence"),
+        ("group=\"neko\"", "group=\"glass-fence\""),
+        (".neko-menu", ".gf-menu"),
+        ("'~/neko/", "'~/glassfence/"),
+        ("\"~/neko/", "\"~/glassfence/")
     ]
     
-    for root, dirs, files in os.walk('.'):
+    for root, dirs, files in os.walk('./client'):
         if '.git' in dirs:
             dirs.remove('.git')
         if 'node_modules' in dirs:

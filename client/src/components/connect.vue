@@ -14,9 +14,9 @@
           {{ $t('connect.connect') }}
         </button>
       </form>
-      <div class="loader" v-if="connecting">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
+      <div class="gf-loader" v-if="connecting">
+        <div class="gf-pulse-line"></div>
+        <span class="gf-loader-text">ESTABLISHING SECURE SESSION...</span>
       </div>
     </div>
   </div>
@@ -119,44 +119,32 @@
         }
       }
 
-      .loader {
-        width: 90px;
-        height: 90px;
-        position: relative;
-        margin: 0 auto;
+      .gf-loader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
 
-        .bounce1,
-        .bounce2 {
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          background-color: $style-primary;
-          opacity: 0.6;
-          position: absolute;
-          top: 0;
-          left: 0;
-
-          -webkit-animation: bounce 2s infinite ease-in-out;
-          animation: bounce 2s infinite ease-in-out;
+        .gf-pulse-line {
+          width: 120px;
+          height: 1px;
+          background: var(--text-primary);
+          animation: pulse-line 1.5s ease-in-out infinite;
         }
 
-        .bounce2 {
-          -webkit-animation-delay: -1s;
-          animation-delay: -1s;
+        .gf-loader-text {
+          font-family: var(--text-mono);
+          font-size: 10px;
+          letter-spacing: 2px;
+          color: var(--text-secondary);
+          animation: pulse-white 1.5s ease-in-out infinite;
         }
       }
     }
 
-    @keyframes bounce {
-      0%,
-      100% {
-        transform: scale(0);
-        -webkit-transform: scale(0);
-      }
-      50% {
-        transform: scale(1);
-        -webkit-transform: scale(1);
-      }
+    @keyframes pulse-line {
+      0%, 100% { transform: scaleX(0.3); opacity: 0.3; }
+      50% { transform: scaleX(1); opacity: 1; }
     }
   }
 </style>
@@ -164,7 +152,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator'
 
-  @Component({ name: 'neko-connect' })
+  @Component({ name: 'gf-connect' })
   export default class extends Vue {
     private autoPassword: string | null = new URL(location.href).searchParams.get('pwd')
 

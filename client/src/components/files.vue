@@ -269,10 +269,10 @@
 
   import Markdown from './markdown'
   import Content from './context.vue'
-  import { FileTransfer, FileListItem } from '~/neko/types'
+  import { FileTransfer, FileListItem } from '~/glassfence/types'
 
   @Component({
-    name: 'neko-files',
+    name: 'gf-files',
     components: {
       'neko-markdown': Markdown,
       'neko-context': Content,

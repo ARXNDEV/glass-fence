@@ -292,7 +292,7 @@
   import { get } from '../utils/localstorage'
 
   @Component({
-    name: 'neko-emoji',
+    name: 'gf-emoji',
     directives: {
       onClickaway,
     },

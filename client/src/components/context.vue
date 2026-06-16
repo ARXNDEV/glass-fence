@@ -3,7 +3,7 @@
     <template slot-scope="child" v-if="child.data">
       <li class="header">
         <div class="user">
-          <neko-avatar class="avatar" :seed="child.data.member.displayname" :size="25" />
+          <gf-avatar class="avatar" :seed="child.data.member.displayname" :size="25" />
           <strong>{{ child.data.member.displayname }}</strong>
         </div>
       </li>
@@ -133,14 +133,14 @@
 
 <script lang="ts">
   import { Component, Ref, Vue } from 'vue-property-decorator'
-  import { Member } from '~/neko/types'
+  import { Member } from '~/glassfence/types'
 
   // @ts-ignore
   import { VueContext } from 'vue-context'
   import Avatar from './avatar.vue'
 
   @Component({
-    name: 'neko-context',
+    name: 'gf-context',
     components: {
       'vue-context': VueContext,
       'neko-avatar': Avatar,

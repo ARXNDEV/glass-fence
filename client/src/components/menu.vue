@@ -64,7 +64,7 @@
   import { messages } from '~/locale'
   import { set } from '~/utils/localstorage'
 
-  @Component({ name: 'neko-menu' })
+  @Component({ name: 'gf-menu' })
   export default class extends Vue {
     get admin() {
       return this.$accessor.user.admin
